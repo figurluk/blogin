@@ -340,9 +340,7 @@ form .row:first-child .floating-label-form-group {
 }
 .btn-default:hover,
 .btn-default:focus {
-  background-color: #0085a1;
   border: 1px solid #0085a1;
-  color: white;
 }
 .pager {
   margin: 20px 0 0;
@@ -392,4 +390,9 @@ img::-moz-selection {
 }
 body {
   webkit-tap-highlight-color: #0085a1;
+}
+
+.login-block {
+  width: 50%;
+  margin-top: 12%;
 }

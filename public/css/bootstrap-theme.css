@@ -200,6 +200,7 @@ fieldset[disabled] .btn-success.active {
 .btn-info:focus {
   background-color: #2aabd2;
   background-position: 0 -15px;
+  border-color: dimgrey;
 }
 .btn-info:active,
 .btn-info.active {

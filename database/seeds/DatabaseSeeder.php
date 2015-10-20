@@ -2,6 +2,7 @@
 
 use Illuminate\Database\Seeder;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 
 class DatabaseSeeder extends Seeder
 {
@@ -14,8 +15,26 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        // $this->call(UserTableSeeder::class);
+         $this->call('UserTableSeeder');
 
-        Model::reguard();
     }
+}
+
+
+class UserTableSeeder extends Seeder
+{
+
+    public function run()
+    {
+        DB::table('users')->delete();
+
+        App\User::create(array(
+            'name' => 'Lukas',
+            'surname' => 'Figura',
+            'email' => 'figurluk@gmail.com',
+            'password' => Hash::make('qwerty')
+        ));
+
+    }
+
 }
