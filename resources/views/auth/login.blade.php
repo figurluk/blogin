@@ -5,7 +5,7 @@
         <div class="row">
             <div class="center-block login-block">
                 <div class="text-center m-b-md">
-                    <h2>Prihlásiť sa</h2>
+                    <h2>Prihlásenie</h2>
 
                     @include('errors.show_error')
                 </div>
@@ -52,7 +52,7 @@
                                     Prihlásiť sa
                                 </button>
                                 <a class="btn btn-default btn-block"
-                                   href="{{action('Auth\AuthController@getRegister')}}">Register</a>
+                                   href="{{action('Auth\AuthController@getRegister')}}">Registracia</a>
                             </form>
                         </div>
                     </div>

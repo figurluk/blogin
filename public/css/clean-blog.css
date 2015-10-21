@@ -394,5 +394,9 @@ body {
 
 .login-block {
   width: 50%;
-  margin-top: 12%;
+  margin-top: 8%;
+}
+
+.link-register-login {
+    color: white;
 }

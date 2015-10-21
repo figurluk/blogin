@@ -5312,7 +5312,11 @@ a.list-group-item-danger.active:focus {
           box-shadow: 0 1px 1px rgba(0, 0, 0, .05);
 }
 .panel-body {
-  padding: 15px;
+  padding: 30px;
+  margin-top: 4%;
+  /*background-color: white;*/
+  /*opacity: 0.7;*/
+  background-color: rgba(255, 255, 255, 0.55);
 }
 .panel-heading {
   padding: 10px 15px;
