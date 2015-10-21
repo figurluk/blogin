@@ -18,23 +18,27 @@
                                 <div class="form-group">
                                     <label class="control-label" for="username">Email</label>
                                     <input name="email" type="email" class="form-control" id="email"
-                                           placeholder="priklad@email.sk" required value="{{ old('email') }}">
+                                           placeholder="priklad@email.sk" tabindex="1"
+                                           pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                                           required value="{{ old('email') }}">
                                     <span class="help-block small">Prihlasovacie meno je Váš email zadaný pri registrácii</span>
                                 </div>
                                 <div class="form-group">
                                     <label class="control-label" for="password">Password</label>
-                                    <input name="password" type="password" class="form-control" id="password" required>
+                                    <input name="password" type="password" class="form-control" id="password"
+                                           tabindex="2" required>
                                 </div>
                                 <div class="text-center">
-                                <div class="checkbox">
-                                    <label>
-                                        <input name="remember" type="checkbox" value="remember-me" class="i-checks">
-                                        Pamätaj si ma
-                                    </label>
+                                    <div class="checkbox">
+                                        <label>
+                                            <input name="remember" type="checkbox" value="remember-me" class="i-checks">
+                                            Pamätaj si ma
+                                        </label>
+                                    </div>
                                 </div>
-                                </div>
-                                <button class="btn btn-info btn-block" type="submit">Prihlásiť sa</button>
-                                <a class="btn btn-default btn-block" href="{{action('Auth\AuthController@getRegister')}}">Register</a>
+                                <button class="btn btn-info btn-block" type="submit" tabindex="3">Prihlásiť sa</button>
+                                <a class="btn btn-default btn-block"
+                                   href="{{action('Auth\AuthController@getRegister')}}">Register</a>
                             </form>
                         </div>
                     </div>
