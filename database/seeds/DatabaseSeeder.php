@@ -27,13 +27,21 @@ class UserTableSeeder extends Seeder
     public function run()
     {
         DB::table('users')->delete();
+        DB::table('articles')->delete();
 
-        App\User::create(array(
+        $user = App\User::create(array(
             'name' => 'Lukas',
             'surname' => 'Figura',
             'email' => 'figurluk@gmail.com',
             'password' => Hash::make('qwerty')
         ));
+
+        $article = App\Articles::create(array(
+            'title' => 'Skusobny clanok',
+            'content' => 'kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd'
+        ));
+
+        $user->articles()->save($article);
 
     }
 
