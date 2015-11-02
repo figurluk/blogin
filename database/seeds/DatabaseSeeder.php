@@ -15,7 +15,7 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-         $this->call('UserTableSeeder');
+        $this->call('UserTableSeeder');
 
     }
 }
@@ -36,12 +36,24 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('qwerty')
         ));
 
-        $article = App\Articles::create(array(
-            'title' => 'Skusobny clanok',
-            'content' => 'kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd'
-        ));
+        for ($i = 0; $i < 8; $i++) {
 
-        $user->articles()->save($article);
+            $article = App\Articles::create(array(
+                'title' => 'Skusobny clanok'. $i,
+                'content' => 'kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
+                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
+                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
+                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
+                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
+                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
+                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
+                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
+                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd'
+            ));
+
+            $user->articles()->save($article);
+
+        }
 
     }
 

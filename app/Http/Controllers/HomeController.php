@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Articles;
 use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -15,7 +16,8 @@ class HomeController extends Controller
      */
     public function index()
     {
-        return view('home.index');
+        $articles = Articles::orderBy('created_at')->take(8)->get();
+        return view('home.index',compact(['articles']));
     }
 
 
