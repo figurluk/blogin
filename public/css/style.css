@@ -54,7 +54,7 @@
     margin-right: 1%;
     margin-top: 20px;
     margin-bottom: 20px;
-    box-shadow: 5px 5px 5px #888888;
+    box-shadow: 2px 2px 5px #888888;
     border-radius: 2%;
 }
 
@@ -68,7 +68,8 @@
 }
 
 .presented-articles:hover {
-    box-shadow: 5px 5px 5px #555555;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px #444444;
 }
 
 .presented-articles:active {
