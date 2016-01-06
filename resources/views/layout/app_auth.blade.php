@@ -4,7 +4,7 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Blog">
+    <meta name="description" content="Blogin project">
     <meta name="author" content="Lukas Figura">
 
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/favicon.png')}}"/>
@@ -13,8 +13,7 @@
 
     <link href="{{asset("css/bootstrap.css")}}" rel="stylesheet">
     <link href="{{asset("css/bootstrap-theme.css")}}" rel="stylesheet">
-    <link href="{{asset("css/clean-blog.css")}}" rel="stylesheet">
-    <link href="{{asset("css/style.css")}}" rel="stylesheet">
+    <link href="{{asset("css/auth.css")}}" rel="stylesheet">
 
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"
           type="text/css">
@@ -47,7 +46,6 @@
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{{asset('js/jquery.js')}}"></script>
 <script src="{{asset('js/bootstrap.js')}}"></script>
-<script src="{{asset('js/clean-blog.js')}}"></script>
 @section('scripts')
 @show
 </body>

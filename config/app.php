@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'locale' => 'en',
+    'locale' => 'sk',
 
     /*
     |--------------------------------------------------------------------------
@@ -146,6 +146,7 @@ return [
         App\Providers\AuthServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\CleanStringServiceProvider::class,
 
     ],
 
@@ -197,6 +198,7 @@ return [
         'View' => Illuminate\Support\Facades\View::class,
         'Image' => Intervention\Image\Facades\Image::class,
         'Flash' => Laracasts\Flash\Flash::class,
+        'CleanString' => App\Facade\CleanString::class,
 
     ],
 

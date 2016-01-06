@@ -1,0 +1,51 @@
+.custom-form {
+    border-radius: 0;
+    border-bottom-color: #cccccc;
+    border-bottom-width: 2px;
+    border-right-color: #cccccc;
+    border-right-width: 2px;
+    height: 40px;
+}
+
+.ok-glyph {
+    float: right;
+    top: -30px;
+    right: 10px;
+    color: #3c763d;
+}
+
+.remove-glyph {
+    float: right;
+    top: -30px;
+    right: 10px;
+    color: #a94442;
+}
+
+.back-link {
+    color: #eeeeee;
+}
+
+.back-link:hover {
+    color: white;
+}
+
+.back-link-div {
+    margin-top: 15px;
+}
+
+.dark-back-link-div {
+    margin-top: 15px;
+}
+
+.correction {
+    height: 100px;
+}
+
+.login-block {
+    width: 50%;
+    margin-top: 6%;
+}
+
+.link-register-login {
+    color: white;
+}

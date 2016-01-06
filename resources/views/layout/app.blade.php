@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
+    <meta name="description" content="Blogin project">
+    <meta name="author" content="Lukas Figura">
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/favicon.png')}}"/>
+
+    <title>Blogin</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{asset('css/custom.css')}}" rel="stylesheet">
+
+    <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
+
+    <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300,300italic,400italic,500italic,700italic&subset=latin,greek,greek-ext,cyrillic-ext,latin-ext,cyrillic'
+          rel='stylesheet' type='text/css'>
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-fixed-top">
+    <div class="container-fluid">
+        <!-- Brand and toggle get grouped for better mobile display -->
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse"
+                    data-target="#bs-example-navbar-collapse-1" aria-expanded="false">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="{{action('HomeController@index')}}">Blog</a>
+        </div>
+
+        <!-- Collect the nav links, forms, and other content for toggling -->
+        <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+            <ul class="nav navbar-nav">
+                <li class="active"><a href="#">Kategoria 1</a></li>
+                <li><a href="#">Kategoria 2</a></li>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">Kategoria 3 <span class="caret"></span></a>
+                    <ul class="dropdown-menu">
+                        <li><a href="#">Podkategoria 1</a></li>
+                        <li><a href="#">Podkategoria 2</a></li>
+                        <li><a href="#">Podkategoria 3</a></li>
+                    </ul>
+                </li>
+            </ul>
+
+            @if(Auth::check())
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a>{{\Illuminate\Support\Facades\Auth::user()->name}} {{\Illuminate\Support\Facades\Auth::user()->surname}}</a>
+                    </li>
+                    <li>
+                        <a href="">Profile</a>
+                    </li>
+                    <li>
+                        <a href="{{action('Auth\AuthController@getLogout')}}"><span
+                                    class="glyphicon glyphicon-log-out"></span></a>
+                    </li>
+                </ul>
+            @else
+                <ul class="nav navbar-nav navbar-right">
+                    <li>
+                        <a href="{{action('Auth\AuthController@getLogin')}}">Prihlasit sa</a>
+                    </li>
+                    <li>
+                        <a href="{{action('Auth\AuthController@getRegister')}}">Registrovat sa</a>
+                    </li>
+                </ul>
+            @endif
+        </div>
+
+        <!-- /.navbar-collapse -->
+    </div>
+    <!-- /.container -->
+</nav>
+
+@include('flash::message')
+@yield('content')
+
+{{--{{dd($periods)}}--}}
+<div class="footer">
+    <div class="categories">
+        <div class="container-fluid">
+            <div class="col-md-12">
+                <ul>
+                    <?php setlocale(LC_ALL, 'sk_SK'); ?>
+                    @foreach(array_slice($periods,0,5) as $period)
+                        <li class="">
+                            <a href="">{{ucfirst(strftime("%B", mktime(0, 0, 0, $period->month, 10)))}} {{$period->year}}</a>
+                        </li>
+                    @endforeach
+                    @if(count($periods)>5)
+                        <li><a href="">Starsie</a></li>
+                    @endif
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<!-- Bootstrap core JavaScript
+================================================== -->
+<!-- Placed at the end of the document so the pages load faster -->
+<script src="{{asset('js/jquery.js')}}"></script>
+<script src="{{asset('js/bootstrap.js')}}"></script>
+@section('scripts')
+@show
+</body>
+</html>

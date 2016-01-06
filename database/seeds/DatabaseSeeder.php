@@ -39,7 +39,8 @@ class UserTableSeeder extends Seeder
         for ($i = 0; $i < 8; $i++) {
 
             $article = App\Articles::create(array(
-                'title' => 'Skusobny clanok'. $i,
+                'title' => 'Skusobny clanok' . $i,
+                'topped' => 1,
                 'content' => 'kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
                 kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
                 kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd

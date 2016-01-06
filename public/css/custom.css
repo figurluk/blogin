@@ -1,0 +1,185 @@
+body {
+ 	background: #ddd;
+    font-family: 'Ubuntu', sans-serif;
+}
+.main-articles-list {
+	margin-top: 50px;
+}
+.main-article {
+	overflow:hidden;
+	height: 400px;
+	position: relative;
+	padding: 0px;
+}
+
+.main-article img {
+	width: 100%;
+	margin: 0px;
+}
+
+.main-article2 {
+	height: 200px;
+	position: relative;
+	overflow: hidden;
+}
+
+.main-article2 img {
+	width: 100%;
+	height: auto;
+}
+
+.desc {
+	position: absolute;
+	background: red; /* For browsers that do not support gradients */
+	background: -webkit-linear-gradient(top,rgba(255,0,0,0),rgba(0,0,0,1)); /*Safari 5.1-6*/
+	background: -o-linear-gradient(bottom,rgba(255,0,0,0),rgba(0,0,0,1)); /*Opera 11.1-12*/
+	background: -moz-linear-gradient(bottom,rgba(255,0,0,0),rgba(0,0,0,1)); /*Fx 3.6-15*/
+	background: linear-gradient(to bottom, rgba(255,0,0,0), rgba(0,0,0,1)); /*Standard*/	
+	width: 100%;
+	bottom: 0;
+}
+
+.desc1 {
+	height: 200px;
+}
+
+.desc2 {
+	height: 100px;
+}
+
+.desc p {
+	color: #fff;
+	text-transform: uppercase;
+	padding-left: 20px;
+}
+
+.desc1 p {
+	font-size: 26px;
+	padding-top: 140px;
+}
+
+.desc2 p {
+	font-size: 16px; 
+	padding-top: 60px;
+}
+
+.main-article-icon {
+	font-size: 14px;
+	font-weight: normal;
+	margin-right: 20px;
+	margin-top: 20px;
+}
+
+.main-article-icon .comment-icon, .main-article-icon2 .comment-icon {
+	margin-left: 20px;
+}
+
+.main-article-icon2 {
+	font-weight: normal;
+	font-size: 12px;
+	margin-right: 20px;
+	margin-top: 10px;
+}
+
+.main-article-list .row, .col-md-12 {
+	margin: 0px;
+	padding: 0px;
+}
+
+.col-md-4 {
+	padding: 0px;
+}
+
+.sub-article {
+	height: 250px;
+	overflow:hidden;
+}
+
+.sub-article img {
+	width: 100%;
+	height: auto;
+}
+
+.navbar {
+	margin: 0px !important;
+	background: #de0000 !important;
+	border: none;
+	text-transform: uppercase;
+	font-weight: 300;
+	border-radius: 0px;
+}
+
+.navbar-default a {
+	color: #fff !important; 
+}
+
+.navbar-default .active a {
+	background: #b30000 !important; 
+}
+
+.dropdown-menu {
+	background: #eee !important;
+}
+
+.navbar-brand {
+	font-weight: 500;
+}
+
+.navbar-toggle {
+	border-radius: 0px;
+	background: #b30000;
+	border: 1px solid #5b0101 !important;
+}
+
+.navbar-toggle:hover {
+	background: #b30000 !important;
+	}
+
+.icon-bar {
+	background-color: #fff !important; 
+}
+
+.main-content {
+	margin-top: 50px;
+}
+
+.article {
+	margin-bottom: 50px;
+	text-align: center;
+}
+
+.article .btn {
+	margin-top: 10px;
+	border-radius: 0px;
+	background-color: #de0000;
+	text-transform: uppercase;
+	font-weight: 300;
+}
+
+.categories {
+	background-color: #de0000;
+	padding-top: 30px;
+	padding-bottom: 20px;
+}
+
+.categories ul li {
+	display: inline;
+	list-style: none;
+	margin-right: 20px;
+}
+
+.categories li a {
+	color: #fff;
+	font-weight: 300;
+}
+
+@media (max-width: 768px) {
+	.main-article {
+		overflow:hidden;
+		height: 200px;
+		position: relative;
+		padding: 0px;
+	}
+}
+
+

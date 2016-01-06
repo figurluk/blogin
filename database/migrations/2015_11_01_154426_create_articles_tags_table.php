@@ -13,10 +13,10 @@ class CreateArticlesTagsTable extends Migration
     public function up()
     {
         Schema::create('articles_tags', function (Blueprint $table) {
-            $table->unsignedInteger('articles_id')->index();
+            $table->unsignedInteger('articles_id')->index()->nullable();
             $table->foreign('articles_id')->references('id')->on('articles')->onUpdate('cascade');
 
-            $table->unsignedInteger('tags_id')->index();
+            $table->unsignedInteger('tags_id')->index()->nullable();
             $table->foreign('tags_id')->references('id')->on('tags')->onUpdate('cascade');
         });
     }
