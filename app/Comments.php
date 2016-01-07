@@ -12,7 +12,7 @@ class Comments extends Model
     protected $guarded = [];
     protected $dates = ['deleted_at'];
 
-    public function article()
+    public function articles()
     {
         return $this->belongsTo('App\Articles');
     }
@@ -22,7 +22,7 @@ class Comments extends Model
         return $this->belongsTo('App\User');
     }
 
-    public function comment()
+    public function comments()
     {
         return $this->belongsTo('App\Comments');
     }

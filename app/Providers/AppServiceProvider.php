@@ -41,9 +41,9 @@ class AppServiceProvider extends ServiceProvider
             $period->monthName = $months[$period->month];
         }
 
-        $newArticles = Articles::where(DB::raw('DATE(created_at)'), '=', Carbon::today())->get();
-        $newUsers = User::where(DB::raw('DATE(created_at)'), '=', Carbon::today())->get();
-        $newComments = Comments::where(DB::raw('DATE(created_at)'), '=', Carbon::today())->get();
+        $newArticles = Articles::where(DB::raw('DATE(created_at)'), '=', Carbon::today())->paginate(10);
+        $newUsers = User::where(DB::raw('DATE(created_at)'), '=', Carbon::today())->paginate(10);
+        $newComments = Comments::where(DB::raw('DATE(created_at)'), '=', Carbon::today())->paginate(10);
 
         view()->share('periods', $periods);
         view()->share('newArticles', $newArticles);

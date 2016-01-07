@@ -29,7 +29,7 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::where('id','!=',Auth::user()->id)->where('admin',0)->get();
+        $users = User::where('id','!=',Auth::user()->id)->where('admin',0)->paginate(10);
         return view('admin.users.index',compact(['users']));
     }
 

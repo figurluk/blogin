@@ -31,7 +31,7 @@ class ArticlesController extends Controller
      */
     public function index()
     {
-        $articles = Articles::all();
+        $articles = Articles::paginate(10);
         return view('admin.articles.index', compact(['articles']));
     }
 

@@ -40,6 +40,7 @@
                 </tbody>
             </table>
         </div>
+        {!! $newArticles->links() !!}
 
     </div>
 

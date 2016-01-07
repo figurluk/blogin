@@ -48,6 +48,7 @@
                 </tbody>
             </table>
         </div>
+        {!! $admins->links() !!}
 
     </div>
 
