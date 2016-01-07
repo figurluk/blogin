@@ -12,6 +12,12 @@ class Comments extends Model
     protected $guarded = [];
     protected $dates = ['deleted_at'];
 
+    public function getCreatedAtAttribute($value)
+    {
+        $value = date('j.n.Y H:i:s', strtotime($value));
+        return $value;
+    }
+
     public function articles()
     {
         return $this->belongsTo('App\Articles');

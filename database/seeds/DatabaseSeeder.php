@@ -36,6 +36,13 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('qwerty')
         ));
 
+        $tag = App\Tags::create(array(
+            'name' => 'Elektrik',
+        ));
+        $tag1 = App\Tags::create(array(
+            'name' => 'Chemic',
+        ));
+
         App\User::create(array(
             'name' => 'Lukas',
             'surname' => 'Figura',
@@ -44,7 +51,7 @@ class UserTableSeeder extends Seeder
             'password' => Hash::make('qwerty')
         ));
 
-        for ($i = 0; $i < 8; $i++) {
+        for ($i = 0; $i < 18; $i++) {
 
             $article = App\Articles::create(array(
                 'title' => 'Skusobny clanok' . $i,
@@ -60,6 +67,15 @@ class UserTableSeeder extends Seeder
                 kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd'
             ));
 
+            if ($i % 2 == 0)
+                $article->tags()->attach($tag->id);
+            if ($i % 3 == 0)
+                $article->tags()->attach($tag1->id);
+            if ($i % 4 == 0) {
+                $article->tags()->attach([$tag1->id]);
+                $article->tags()->attach([$tag->id]);
+            }
+            $article->tags()->attach($tag1->id);
             $user->articles()->save($article);
 
         }

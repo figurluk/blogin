@@ -11,6 +11,7 @@
                     <p><a href="{{action('Blog\ArticlesController@show',$mainArt->code)}}">{{$mainArt->title}}</a>
                             <span class="main-article-icon pull-right articleInfo">
                   <i class="fa fa-calendar-plus-o"></i> {{$mainArt->updated_at}}
+                                <i class="fa fa-user comment-icon"></i> {{$mainArt->user->name}} {{$mainArt->user->surname}}
                                 <i class="fa fa-commenting comment-icon"></i> {{count($mainArt->comments)}}
                 </span>
                     </p>
@@ -22,9 +23,11 @@
                     <div class="col-md-12 main-article2 articleDiv" article="{{$firstSub->code}}">
                         <img src="{{action('Blog\ArticlesController@getImage',$firstSub->code)}}" alt="article image">
                         <div class="desc2 desc" id="{{$firstSub->code}}">
-                            <p><a href="{{action('Blog\ArticlesController@show',$firstSub->code)}}">{{$firstSub->title}}</a>
+                            <p>
+                                <a href="{{action('Blog\ArticlesController@show',$firstSub->code)}}">{{$firstSub->title}}</a>
                                     <span class="main-article-icon2 pull-right articleInfo">
                       <i class="fa fa-calendar-plus-o"></i> {{$firstSub->updated_at}}
+                                        <i class="fa fa-user comment-icon"></i> {{$firstSub->user->name}} {{$firstSub->user->surname}}
                                         <i class="fa fa-commenting comment-icon"></i> {{count($firstSub->comments)}}
                     </span>
                             </p>
@@ -40,6 +43,7 @@
                                 <a href="{{action('Blog\ArticlesController@show',$secondSub->code)}}">{{$secondSub->title}}</a>
                                     <span class="main-article-icon2 pull-right articleInfo">
                                   <i class="fa fa-calendar-plus-o"></i> {{$secondSub->updated_at}}
+                                        <i class="fa fa-user comment-icon"></i> {{$secondSub->user->name}} {{$secondSub->user->surname}}
                                         <i class="fa fa-commenting comment-icon"></i> {{count($secondSub->comments)}}
                                 </span>
                             </p>
@@ -60,6 +64,7 @@
                             <a href="{{action('Blog\ArticlesController@show',$firstSubSub->code)}}">{{$firstSubSub->title}}</a>
                                 <span class="main-article-icon2 pull-right articleInfo">
                                   <i class="fa fa-calendar-plus-o"></i> {{$firstSubSub->updated_at}}
+                                    <i class="fa fa-user comment-icon"></i> {{$firstSubSub->user->name}} {{$firstSubSub->user->surname}}
                                     <i class="fa fa-commenting comment-icon"></i> {{count($firstSubSub->comments)}}
                                 </span>
                         </p>
@@ -75,6 +80,7 @@
                             <a href="{{action('Blog\ArticlesController@show',$secondSubSub->code)}}">{{$secondSubSub->title}}</a>
                                 <span class="main-article-icon2 pull-right articleInfo">
                                   <i class="fa fa-calendar-plus-o"></i> {{$secondSubSub->updated_at}}
+                                    <i class="fa fa-user comment-icon"></i> {{$secondSubSub->user->name}} {{$secondSubSub->user->surname}}
                                     <i class="fa fa-commenting comment-icon"></i> {{count($secondSubSub->comments)}}
                                 </span>
                         </p>
@@ -90,6 +96,7 @@
                             <a href="{{action('Blog\ArticlesController@show',$thirdSubSub->code)}}">{{$thirdSubSub->title}}</a>
                                 <span class="main-article-icon2 pull-right articleInfo">
                                   <i class="fa fa-calendar-plus-o"></i> {{$thirdSubSub->updated_at}}
+                                    <i class="fa fa-user comment-icon"></i> {{$thirdSubSub->user->name}} {{$thirdSubSub->user->surname}}
                                     <i class="fa fa-commenting comment-icon"></i> {{count($thirdSubSub->comments)}}
                                 </span>
                         </p>
@@ -109,9 +116,9 @@
                         @elseif($i%4==0)
                     </div>
                 </div>
-                    <div class="row">
-                        <div class="col-md-12">
-                            @endif
+                <div class="row">
+                    <div class="col-md-12">
+                        @endif
 
                         <div class="article col-md-3">
                             <h1>{{$article->title}}</h1>
@@ -123,11 +130,24 @@
                         <?php $i++; ?>
                         @endforeach
 
-            @if(count($articles)!=0)
+                        @if(count($articles)!=0)
                     </div>
                 </div>
             @endif
+
+            <div id="nextArticles"></div>
     </div>
+
+
+
+    @if(count($articles)+6<count(\App\Articles::all()))
+        <div class="row read-more">
+            <div class="container-fluid">
+                <a href="{{action('Blog\HomeController@more',count($articles)+14)}}"
+                   class="btn btn-default btn-read-more">Ďalšie články</a>
+            </div>
+        </div>
+    @endif
 
 @stop
 
@@ -137,6 +157,31 @@
         $(document).ready(function () {
             $('.articleInfo').hide();
             $('.articleDiv').css('cursor', 'pointer');
+
+            var allArticles = '{{count(\App\Articles::all())}}';
+            var countArticles = '{{count($articles)+6}}';
+            var requestPenging = false;
+
+            $('.read-more').hide();
+            $(window).scroll(function () {
+                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+
+                    if (countArticles < allArticles && !requestPenging) {
+                        requestPenging = true;
+                        $.ajax({
+                            url: '{{url('home/next/')}}' + '/' + countArticles,
+                            type: 'get',
+                            error: function () {
+                            },
+                            success: function (data) {
+                                countArticles = parseInt(countArticles) + parseInt(4);
+                                $('#nextArticles').replaceWith(data);
+                                requestPenging = false;
+                            }
+                        });
+                    }
+                }
+            });
         });
 
         $(document).on('mouseenter', '.articleDiv', function (event) {

@@ -101,7 +101,7 @@
 
 @section('scripts')
 
-    <script>
+    <script type="text/javascript">
         $(document).ready(function () {
 
             $("#email").keyup(function (e) {

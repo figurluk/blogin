@@ -17,8 +17,10 @@
                 <div class="col-lg-8">
                     <div class="form-group">
                         <label for="cont">Obsah komentaru</label>
-                        <textarea class="form-control" id="cont" name="cont">{{old('cont')}}
+                        <textarea class="form-control" id="cont" name="cont" tabindex="1" required>{{old('cont')}}
                         </textarea>
+                        <span class="register-error-empty"
+                              style="display:none">Toto pole musí byť vyplnené!</span>
                     </div>
                 </div>
 
@@ -34,11 +36,74 @@
             </div>
 
 
-            {!! Form::button('Ulozit',['class'=>'btn btn-success','type'=>'submit','name'=>'save']) !!}
-            {!! Form::button('Ulozit a ukoncit',['class'=>'btn btn-primary','type'=>'submit','name'=>'saveExit']) !!}
+            {!! Form::button('Ulozit',['class'=>'btn btn-success registerSubmit','type'=>'submit','name'=>'save']) !!}
+            {!! Form::button('Ulozit a ukoncit',['class'=>'btn btn-primary registerSubmit','type'=>'submit','name'=>'saveExit']) !!}
             <a class="btn btn-danger" href="{{action('Admin\CommentsController@index')}}">Zrusit</a>
             {!! Form::close() !!}
 
         </div>
     </div>
+@endsection
+
+@section('scripts')
+
+    <script type="text/javascript">
+        $(document).ready(function () {
+
+            $("#cont").keyup(function (e) {
+                validateTextarea("cont");
+            });
+
+            $("#cont").change(function (e) {
+                validateTextarea("cont");
+            });
+
+            $(".registerSubmit").click(function (e) {
+                if (!validatePage()) {
+                    e.preventDefault();
+                    e.stopPropagation();
+                }
+            });
+
+            function validateTextarea(inputId) {
+                var val = $('#' + inputId).val();
+                validInput = (val.length != 0);
+                if (validInput) {
+                    validityShow($('#' + inputId), "");
+                } else {
+                    validityShow($('#' + inputId), "empty");
+                }
+                return validInput;
+            }
+
+            function validatePage(parent) {
+                var validContent = validateTextarea("cont");
+
+                return (validContent);
+            }
+
+            function validityShow(input, status) {
+                var parent = input.parent().closest('div');
+
+                if (status == "empty") {
+                    parent.addClass("has-error");
+                    parent.removeClass("has-success");
+                    parent.find('.register-error-empty').css('display', '');
+                    parent.find('.register-error-invalid').css('display', 'none');
+                } else if (status == "invalid") {
+                    parent.addClass("has-error");
+                    parent.removeClass("has-success");
+                    parent.find('.register-error-empty').css('display', 'none');
+                    parent.find('.register-error-invalid').css('display', '');
+                } else {
+                    parent.addClass("has-success");
+                    parent.removeClass("has-error");
+                    parent.find('.register-error-empty').css('display', 'none');
+                    parent.find('.register-error-invalid').css('display', 'none');
+                }
+            }
+
+        });
+    </script>
+
 @endsection

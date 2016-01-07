@@ -25,6 +25,8 @@ Route::get('auth/register', 'Blog\Auth\AuthController@getRegister');
 Route::post('auth/register', 'Blog\Auth\AuthController@postRegister');
 
 Route::get('home','Blog\HomeController@index');
+Route::get('home/more/{count}','Blog\HomeController@more');
+Route::get('home/next/{start}','Blog\HomeController@next');
 
 Route::get('articles/{code}','Blog\ArticlesController@show');
 Route::get('articles/{code}/image','Blog\ArticlesController@getImage');

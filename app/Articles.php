@@ -49,9 +49,14 @@ class Articles extends Model
     {
         parent::boot();
 
+        static::deleting(function ($article) {
+            $article->tags()->detach();
+        });
+
         static::saving(function ($article) {
             $text = strtolower(htmlentities($article->title));
             $text = str_replace(" ", "-", $text);
+
             $article->code = CleanString::removeAccents($text);
         });
     }
