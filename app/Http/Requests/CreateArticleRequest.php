@@ -26,7 +26,8 @@ class CreateArticleRequest extends Request
         return [
             'title'=>'required|string',
             'cont'=>'required|string',
-            'image'=> 'image'
+            'image'=> 'image',
+            'tags'=>'required'
         ];
     }
 
@@ -38,6 +39,7 @@ class CreateArticleRequest extends Request
     public function messages()
     {
         return [
+            'tags.required'=>'Pridelenie tagu clanku je povinne.',
             'title.required'=>'Nazov clanku je povinny.',
             'title.string'=>'Nazov clanku musi byt postupnost znakov.',
             'cont.required'=>'Obsah clanku je povinny.',

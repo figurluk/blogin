@@ -36,6 +36,15 @@ class Articles extends Model
         return $this->hasMany('App\Comments');
     }
 
+    /**
+     * Vracia id kategorii spojenych s produktom
+     * @return array
+     */
+    public function tags_id()
+    {
+        return $this->tags->lists('id')->all();
+    }
+
     protected static function boot()
     {
         parent::boot();

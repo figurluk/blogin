@@ -36,6 +36,9 @@
 </head>
 
 <body>
+<div id="flashesDiv">
+    @include('blog.flash.flash')
+</div>
 
 <div id="wrapper">
 
@@ -96,6 +99,9 @@
                         </ul>
                         <!-- /.nav-second-level -->
                     </li>
+                    <li class="{{($controller=='Admin\TagsController') ? 'active':''}}">
+                        <a href="{{action('Admin\TagsController@index')}}"><i class="fa fa-tags fa-fw"></i> Tagy</a>
+                    </li>
                     <li class="{{($controller=='Admin\ArticlesController') ? 'active':''}}">
                         <a href="{{action('Admin\ArticlesController@index')}}"><i class="fa fa-newspaper-o fa-fw"></i> Clanky</a>
                     </li>
@@ -129,6 +135,16 @@
 
 <!-- Custom Theme JavaScript -->
 <script src="{{asset('js/sb-admin-2.js')}}"></script>
+
+@yield('scripts')
+
+<script>
+
+    setTimeout(function () {
+        $('.flashMessage').fadeOut('fast');
+    }, 3000);
+
+</script>
 
 </body>
 

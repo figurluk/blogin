@@ -57,8 +57,22 @@ class AuthController extends Controller
         return Validator::make($data, [
             'name' => 'required|max:255|string',
             'surname' => 'required|max:255|string',
-            'email' => 'required|email|max:255|unique:users',
+            'email' => 'required|email|max:255|unique:users,deleted_at,NULL',
             'password' => 'required|confirmed|min:6',
+        ],[
+            'name.required'=>'Meno musi byt vyplnene.',
+            'name.max'=>'Meno moze mat najviac 255 znakov.',
+            'name.string'=>'Meno musi byt postupnost znakov.',
+            'surname.string'=>'Priezvisko musi byt postupnost znakov.',
+            'surname.required'=>'Priezvisko musi byt vyplnene.',
+            'surname.max'=>'Priezvisko moze mat najviac 255 znakov.',
+            'email.required'=>'Email musi byt vyplneny.',
+            'email.email'=>'Email musi byt platna emailova adresa.',
+            'email.unique'=>'Zadany email uz je registrovany.',
+            'email.max'=>'Email moze mat najviac 255 znakov.',
+            'password.min'=>'Heslo musi mat minimalne 6 znakov.',
+            'password.required'=>'Heslo musi byt vyplnene.',
+            'password.confirmed'=>'Hesla sa musia zhodovat',
         ]);
     }
 

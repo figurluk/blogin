@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Articles;
 use App\Http\Requests\CreateArticleRequest;
-use Illuminate\Http\Request;
+use App\Tags;
 
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
@@ -42,7 +42,8 @@ class ArticlesController extends Controller
 
     public function create()
     {
-        return view('admin.articles.create');
+        $tags = Tags::pluck('name','id');
+        return view('admin.articles.create',compact(['tags']));
     }
 
     public function store(CreateArticleRequest $request)
@@ -52,6 +53,8 @@ class ArticlesController extends Controller
         $article->title = $request->title;
         $article->content = $request->cont;
         $article->topped = $request->topped;
+        $article->save();
+        $article->tags()->sync((array)$request->input('tags'));
 
         if (Input::file('image') != null) {
             $image = Input::file('image');
@@ -67,7 +70,7 @@ class ArticlesController extends Controller
         }
         $article->user()->associate(Auth::user());
         $article->save();
-
+        flash()->info('Uspesne ste vytvorili clanok: ' . $article->title);
         if (isset($request->save))
             return redirect()->action('Admin\ArticlesController@edit', $article->id);
         else
@@ -78,7 +81,8 @@ class ArticlesController extends Controller
     public function edit($id)
     {
         $article = Articles::find($id);
-        return view('admin.articles.edit', compact(['article']));
+        $tags = Tags::pluck('name','id');
+        return view('admin.articles.edit', compact(['article','tags']));
     }
 
     public function update($id, CreateArticleRequest $request)
@@ -88,6 +92,7 @@ class ArticlesController extends Controller
         $article->title = $request->title;
         $article->content = $request->cont;
         $article->topped = $request->topped;
+        $article->tags()->sync((array)$request->input('tags'));
 
         if (Input::file('image') != null) {
             $image = Input::file('image');
@@ -105,7 +110,7 @@ class ArticlesController extends Controller
         }
 
         $article->save();
-
+        flash()->info('Uspesne ste upravili clanok: ' . $article->title);
         if (isset($request->update))
             return redirect()->action('Admin\ArticlesController@edit', $article->id);
         else

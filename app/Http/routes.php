@@ -60,6 +60,13 @@ Route::get('admin/articles/{id}/edit', 'Admin\ArticlesController@edit');
 Route::post('admin/articles/{id}/update', 'Admin\ArticlesController@update');
 Route::get('admin/articles/{id}/remove', 'Admin\ArticlesController@remove');
 
+Route::get('admin/tags', 'Admin\TagsController@index');
+Route::get('admin/tags/create', 'Admin\TagsController@create');
+Route::post('admin/tags/store', 'Admin\TagsController@store');
+Route::get('admin/tags/{id}/edit', 'Admin\TagsController@edit');
+Route::post('admin/tags/{id}/update', 'Admin\TagsController@update');
+Route::get('admin/tags/{id}/remove', 'Admin\TagsController@remove');
+
 Route::get('admin/comments', 'Admin\CommentsController@index');
 Route::get('admin/comments/today', 'Admin\CommentsController@today');
 Route::get('admin/comments/create', 'Admin\CommentsController@create');

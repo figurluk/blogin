@@ -26,17 +26,25 @@
                     </div>
                 </div>
 
-                <div class="form-group col-lg-2">
+                <div class="col-lg-2">
                     <div class="checkbox">
                         <label>
                             {!! Form::hidden('topped', 0) !!}
-                            {!! Form::checkbox('topped', 1, $article->topped) !!} Topovanie clanku
+                            {!! Form::checkbox('topped', 1, $article->topped) !!} <b>Topovanie clanku</b>
                         </label>
                     </div>
 
-                    <img class="articleImage" src="{{action('Blog\ArticlesController@getImage',$article->code)}}"
-                         alt="{{$article->image}}">
+                    <div class="form-group">
+                        {!! Form::label('tags', 'Tagy:', ['class'=>'col-sm-5 control-label']) !!}
+                        <div class="col-sm-7">
+                            {!! Form::select('tags[]', $tags, $article->tags_id(), ['class'=>'form-control', 'multiple']) !!}
+                        </div>
+                    </div>
 
+                    <div>
+                        <img class="articleImage" src="{{action('Blog\ArticlesController@getImage',$article->code)}}"
+                             alt="{{$article->image}}">
+                    </div>
                     @if($article->image=='default.png')
                         <span class="label label-warning">Momentalne je clanku prideleny predvoleny obrazok.</span>
                     @endif

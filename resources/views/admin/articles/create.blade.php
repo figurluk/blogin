@@ -30,16 +30,24 @@
                     <div class="checkbox">
                         <label>
                             {!! Form::hidden('topped', 0) !!}
-                            {!! Form::checkbox('topped', 1, old('topped')) !!} Topovanie clanku
+                            {!! Form::checkbox('topped', 1, old('topped')) !!} <b>Topovanie clanku</b>
                         </label>
                     </div>
 
-                    <img class="articleImage" src="{{action('Blog\ArticlesController@getImage','default')}}"
-                         alt="default.png">
+                    <div class="form-group">
+                        {!! Form::label('tags', 'Tagy:', ['class'=>'col-sm-5 control-label']) !!}
+                        <div class="col-sm-7">
+                            {!! Form::select('tags[]', $tags, null, ['class'=>'form-control', 'multiple']) !!}
+                        </div>
+                    </div>
 
-                    <label class="label label-danger">
+                    <div>
+                        <img class="articleImage" src="{{action('Blog\ArticlesController@getImage','default')}}"
+                             alt="default.png">
+                    </div>
+                    <div class="label label-danger">
                         Predvoleny obrazok vidite vyssie.
-                    </label>
+                    </div>
                     <div class="form-group">
                         <label for="image">Obrazok clanku</label>
                         {!! Form::file('image') !!}
