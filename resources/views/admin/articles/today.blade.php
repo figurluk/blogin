@@ -11,7 +11,7 @@
 
         <h3>Dnes pridane clanky</h3>
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-striped table-condensed">
                 <thead>
                 <tr>
                     <th>Nazov</th>
@@ -24,7 +24,9 @@
                     <tr>
                         <td>{{$newArticle->title}}</td>
                         <td>{{$newArticle->user->name}} {{$newArticle->user->surname}}</td>
-                        <td></td>
+                        <td>
+                            <a class="btn btn-warning" href="{{action('Admin\ArticlesController@edit',$article->id)}}"><span class="glyphicon glyphicon-pencil"></span> Upravit</a>
+                            <a class="btn btn-danger" href="{{action('Admin\ArticlesController@remove',$article->id)}}"><span class="glyphicon glyphicon-remove"></span> Zmazat</a></td>
                     </tr>
                 @endforeach
                 </tbody>

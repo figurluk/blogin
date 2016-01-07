@@ -16,6 +16,8 @@
 
     <!-- MetisMenu CSS -->
     <link href="{{asset('css/metisMenu.min.css')}}" rel="stylesheet">
+    <!-- SweetAlert CSS -->
+    <link href="{{asset('css/sweetalert.css')}}" rel="stylesheet">
 
 
     <!-- Custom CSS -->
@@ -41,7 +43,7 @@
                 $controller = str_replace('App\\Http\\Controllers\\','', substr(Route::currentRouteAction(), 0, (strpos(Route::currentRouteAction(), '@'))));
                 /* --}}
 
-    <!-- Navigation -->
+            <!-- Navigation -->
     <nav class="navbar navbar-default navbar-static-top" role="navigation" style="margin-bottom: 0">
         <div class="navbar-header">
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
@@ -50,11 +52,15 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{action('Admin\AdminController@index')}}"><i class="fa fa-home fa-fw"></i> Blog administrator</a>
+            <a class="navbar-brand" href="{{action('Admin\AdminController@index')}}"><i class="fa fa-home fa-fw"></i> Blog
+                administrator</a>
         </div>
         <!-- /.navbar-header -->
 
         <ul class="nav navbar-top-links navbar-right">
+            <li>
+                <a href="{{action('Blog\HomeController@index')}}">Blog</a>
+            </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
@@ -117,6 +123,9 @@
 
 <!-- Metis Menu Plugin JavaScript -->
 <script src="{{asset('js/metisMenu.min.js')}}"></script>
+
+<!-- SweetAlert Plugin JavaScript -->
+<script src="{{asset('js/sweetalert.min.js')}}"></script>
 
 <!-- Custom Theme JavaScript -->
 <script src="{{asset('js/sb-admin-2.js')}}"></script>

@@ -33,4 +33,20 @@ class UsersController extends Controller
     public function today(){
         return view('admin.users.today');
     }
+
+    public function create(){
+
+    }
+
+    public function store(Request $request){
+
+    }
+
+    public function edit($id){
+
+    }
+
+    public function remove($id){
+
+    }
 }

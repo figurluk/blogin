@@ -10,7 +10,7 @@
         </div>
 
         <div class="table-responsive">
-            <table class="table table-bordered">
+            <table class="table table-striped table-condensed">
                 <thead>
                 <tr>
                     <th>Meno</th>
@@ -25,7 +25,9 @@
                         <td>{{$admin->name}}</td>
                         <td>{{$admin->surname}}</td>
                         <td>{{$admin->email}}</td>
-                        <td></td>
+                        <td>
+                            <a class="btn btn-warning" href="{{action('Admin\AdminsController@edit',$article->id)}}"><span class="glyphicon glyphicon-pencil"></span> Upravit</a>
+                            <a class="btn btn-danger" href="{{action('Admin\AdminsController@remove',$article->id)}}"><span class="glyphicon glyphicon-remove"></span> Zmazat</a></td>
                     </tr>
                 @endforeach
                 </tbody>

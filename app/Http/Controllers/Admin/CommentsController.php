@@ -33,4 +33,20 @@ class CommentsController extends Controller
     public function today(){
         return view('admin.comments.today');
     }
+
+    public function create(){
+
+    }
+
+    public function store(Request $request){
+
+    }
+
+    public function edit($id){
+
+    }
+
+    public function remove($id){
+
+    }
 }

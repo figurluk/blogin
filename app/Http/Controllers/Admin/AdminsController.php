@@ -30,4 +30,20 @@ class AdminsController extends Controller
         return view('admin.admins.index',compact(['admins']));
     }
 
+    public function create(){
+
+    }
+
+    public function store(Request $request){
+
+    }
+
+    public function edit($id){
+
+    }
+
+    public function remove($id){
+
+    }
+
 }
