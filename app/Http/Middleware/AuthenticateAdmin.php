@@ -5,7 +5,7 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
-class RedirectIfAuthenticated
+class AuthenticateAdmin
 {
     /**
      * The Guard implementation.
@@ -34,11 +34,18 @@ class RedirectIfAuthenticated
      */
     public function handle($request, Closure $next)
     {
-        if ($this->auth->check() && $this->auth->user()->admin) {
-            return redirect('/admin');
-        } elseif ($this->auth->check()) {
-            return redirect('/home');
+        if ($this->auth->guest()) {
+            if ($request->ajax()) {
+                return response('Unauthorized.', 401);
+            } else {
+                return redirect()->guest('admin/auth/login');
+            }
         }
+        elseif (!$this->auth->guest() && $this->auth->user()->admin!=1){
+            flash()->warning('Nieste opravneny pre vstup do administracnej casti.');
+            return redirect()->action('Blog\HomeController@index');
+        }
+
         return $next($request);
     }
 }

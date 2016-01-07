@@ -30,8 +30,16 @@ class UserTableSeeder extends Seeder
         DB::table('articles')->delete();
 
         $user = App\User::create(array(
+            'name' => 'Milos',
+            'surname' => 'Pridavok',
+            'email' => 'pridavok@gmail.com',
+            'password' => Hash::make('qwerty')
+        ));
+
+        App\User::create(array(
             'name' => 'Lukas',
             'surname' => 'Figura',
+            'admin' => 1,
             'email' => 'figurluk@gmail.com',
             'password' => Hash::make('qwerty')
         ));

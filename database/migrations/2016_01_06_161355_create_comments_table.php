@@ -42,6 +42,7 @@ class CreateCommentsTable extends Migration
             $table->softDeletes();
         });
         Schema::table('users', function (Blueprint $table) {
+            $table->boolean('admin')->default(false);
             $table->softDeletes();
         });
         Schema::table('tags', function (Blueprint $table) {

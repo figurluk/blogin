@@ -39,10 +39,6 @@ return [
             'driver' => 'token',
             'provider' => 'users',
         ],
-        'webadmin' => [
-            'driver' => 'session',
-            'provider' => 'admins',
-        ],
     ],
     /*
     |--------------------------------------------------------------------------
@@ -91,12 +87,6 @@ return [
     'passwords' => [
         'users' => [
             'provider' => 'users',
-            'email' => 'emails.password',
-            'table' => 'password_resets',
-            'expire' => 60,
-        ],
-        'admins' => [
-            'provider' => 'admins',
             'email' => 'emails.password',
             'table' => 'password_resets',
             'expire' => 60,
