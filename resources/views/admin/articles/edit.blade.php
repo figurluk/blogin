@@ -49,7 +49,6 @@
                             {!! Form::select('tags[]', $tags, $article->tags_id(), ['class'=>'form-control', 'multiple']) !!}
                         </div>
                     </div>
-
                     <div>
                         <img class="articleImage" src="{{action('Blog\ArticlesController@getImage',$article->code)}}"
                              alt="{{$article->image}}">

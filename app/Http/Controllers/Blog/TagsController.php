@@ -70,7 +70,7 @@ class TagsController extends Controller
         return view('blog.tag.index', compact(['periods', 'tag', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
     }
 
-    public function filterShow($month,$year,$code)
+    public function filterShow($code,$month,$year)
     {
         $periods = $this->getPeriods($code);
         $tag = Tags::where('code', $code)->first();
@@ -187,7 +187,7 @@ class TagsController extends Controller
         return view('blog.home.index', compact(['periods', 'tag', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
     }
 
-    public function filterMore($month,$year,$code,$count)
+    public function filterMore($code,$month,$year,$count)
     {
         $periods = $this->getPeriods($code);
         $tag = Tags::where('code', $code)->first();
@@ -253,7 +253,7 @@ class TagsController extends Controller
     }
 
 
-    public function filterNext($month,$year,$code,$start)
+    public function filterNext($code,$month,$year,$start)
     {
         $tag = Tags::where('code', $code)->first();
         $articles = $tag->articles()->select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))

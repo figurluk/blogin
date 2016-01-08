@@ -52,7 +52,7 @@ class CommentsController extends Controller
             return redirect()->back()->withInput()->withErrors(['article' => 'Musite mat vybrany clanok, ktoremu chcete pridat komentar']);
         }
         $comment = new Comments();
-        $comment->content = $request->cont;
+        $comment->content = trim($request->cont, " \t");
         $comment->user()->associate(Auth::user());
         $comment->articles()->associate(Articles::find($request->article));
         $comment->save();
@@ -82,7 +82,7 @@ class CommentsController extends Controller
         }
 
         $comment = Comments::find($id);
-        $comment->content = $request->cont;
+        $comment->content = trim($request->cont, " \t");
         $comment->user()->associate(Auth::user());
         $comment->articles()->associate(Articles::find($request->article));
         $comment->save();

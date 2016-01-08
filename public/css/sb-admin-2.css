@@ -354,6 +354,7 @@ table.dataTable thead .sorting:after {
 }
 
 .articleImage {
+    margin-top: 5%;
     height: 200px;
 }
 

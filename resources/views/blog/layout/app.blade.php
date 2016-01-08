@@ -14,7 +14,7 @@
 
     <!-- Bootstrap core CSS -->
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
-    <link href="{{asset('css/custom.css')}}" rel="stylesheet">
+    <link href="{{asset('css/custom'.\App\Settings::first()->design.'.css')}}" rel="stylesheet">
 
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
 
@@ -29,6 +29,9 @@
 </head>
 
 <body>
+<div id="flashesDiv">
+    @include('blog.flash.flash')
+</div>
 
 <nav class="navbar navbar-default navbar-fixed-top">
     <div class="container-fluid">
@@ -60,7 +63,7 @@
                         <a>{{\Illuminate\Support\Facades\Auth::user()->name}} {{\Illuminate\Support\Facades\Auth::user()->surname}}</a>
                     </li>
                     <li>
-                        <a href="">Profile</a>
+                        <a href="{{action('Blog\UserController@edit')}}">Profile</a>
                     </li>
                     <li>
                         <a href="{{action('Blog\Auth\AuthController@getLogout')}}"><span
@@ -90,14 +93,21 @@
         <!-- Bootstrap core JavaScript
             ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="{{asset('js/jquery.min.js')}}"></script>
-<script src="{{asset('js/bootstrap.min.js')}}"></script>
-<script>
+<script src="{{asset('js/jquery.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('js/bootstrap.min.js')}}" type="text/javascript"></script>
+<script type="text/javascript">
     $.ajaxSetup({
         headers: {
             'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
         }
     });
+</script>
+<script type="text/javascript">
+
+    setTimeout(function () {
+        $('.flashMessage').fadeOut('fast');
+    }, 3000);
+
 </script>
 @section('scripts')
 @show

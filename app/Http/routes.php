@@ -23,6 +23,10 @@ Route::post('auth/register', 'Blog\Auth\AuthController@postRegister');
 
 Route::get('/','Blog\HomeController@index');
 Route::get('home','Blog\HomeController@index');
+
+Route::get('home/user/','Blog\UserController@edit');
+Route::post('home/user/update','Blog\UserController@update');
+
 Route::get('home/more/{count}','Blog\HomeController@more');
 Route::get('home/next/{start}','Blog\HomeController@next');
 
@@ -33,17 +37,21 @@ Route::get('home/tags/{code}/{month}/{year}','Blog\TagsController@filterShow');
 Route::get('home/tags/{code}/{month}/{year}/more/{count}','Blog\TagsController@filterMore');
 Route::get('home/tags/{code}/{month}/{year}/next/{start}','Blog\TagsController@filterNext');
 
+Route::get('home/articles/{code}','Blog\ArticlesController@show');
+Route::post('home/articles/{code}/comment','Blog\ArticlesController@comment');
+Route::get('home/articles/{code}/image','Blog\ArticlesController@getImage');
+
 Route::get('home/{month}/{year}','Blog\HomeController@filterIndex');
 Route::get('home/{month}/{year}/more/{count}','Blog\HomeController@filterMore');
 Route::get('home/{month}/{year}/next/{start}','Blog\HomeController@filterNext');
 
 
-Route::get('articles/{code}','Blog\ArticlesController@show');
-Route::post('articles/{code}/comment','Blog\ArticlesController@comment');
-Route::get('articles/{code}/image','Blog\ArticlesController@getImage');
+
 
 
 //ADMIN ROUTES
+Route::get('admin/user/profile', 'Admin\UsersController@profile');
+Route::post('admin/user/profile/update', 'Admin\UsersController@updateProfile');
 
 Route::get('admin', 'Admin\AdminController@index');
 Route::get('admin/admins', 'Admin\AdminsController@index');
@@ -84,6 +92,8 @@ Route::get('admin/comments/{id}/edit', 'Admin\CommentsController@edit');
 Route::post('admin/comments/{id}/update', 'Admin\CommentsController@update');
 Route::get('admin/comments/{id}/remove', 'Admin\CommentsController@remove');
 
+Route::get('admin/settings', 'Admin\SettingsController@index');
+Route::post('admin/settings/update', 'Admin\SettingsController@update');
 // Authentication routes...
 Route::get('admin/auth/login', 'Admin\Auth\AuthController@getLogin');
 Route::post('admin/auth/login', 'Admin\Auth\AuthController@postLogin');

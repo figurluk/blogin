@@ -66,10 +66,10 @@
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
-                    <i class="fa fa-user fa-fw"></i> <i class="fa fa-caret-down"></i>
+                    <i class="fa fa-user fa-fw"></i> {{Auth::user()->name}} {{Auth::user()->surname}} <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="#"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="{{action('Admin\UsersController@profile')}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="{{action('Admin\Auth\AuthController@getLogout')}}"><i class="fa fa-sign-out fa-fw"></i>
@@ -108,6 +108,10 @@
                     <li class="{{($controller=='Admin\CommentsController') ? 'active':''}}">
                         <a href="{{action('Admin\CommentsController@index')}}"><i class="fa fa-comments-o fa-fw"></i>
                             Komentare</a>
+                    </li>
+                    <li class="{{($controller=='Admin\SettingsController') ? 'active':''}}">
+                        <a href="{{action('Admin\SettingsController@index')}}"><i class="fa fa-wrench fa-fw"></i>
+                            Nastavenia</a>
                     </li>
                 </ul>
             </div>

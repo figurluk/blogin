@@ -18,6 +18,7 @@
                 <tr>
                     <th>Autor</th>
                     <th>K clanku</th>
+                    <th>Obsah komentaru</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -26,6 +27,7 @@
                     <tr>
                         <td>{{$comment->user->name}} {{$comment->user->surname}}</td>
                         <td>{{$comment->articles->title}}</td>
+                        <td>{{(strlen($comment->content)>20) ? substr($comment->content,0,20) : $comment->content}}...</td>
                         <td>
                             <a class="btn btn-warning" href="{{action('Admin\CommentsController@edit',$comment->id)}}"><span class="glyphicon glyphicon-pencil"></span> Upravit</a>
                             <a class="btn btn-danger deleteComment" article="{{$comment->articles->title}}" href="{{action('Admin\CommentsController@remove',$comment->id)}}"><span class="glyphicon glyphicon-remove"></span> Zmazat</a></td>

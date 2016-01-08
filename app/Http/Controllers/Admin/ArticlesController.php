@@ -42,8 +42,8 @@ class ArticlesController extends Controller
 
     public function create()
     {
-        $tags = Tags::pluck('name','id');
-        return view('admin.articles.create',compact(['tags']));
+        $tags = Tags::pluck('name', 'id');
+        return view('admin.articles.create', compact(['tags']));
     }
 
     public function store(CreateArticleRequest $request)
@@ -51,7 +51,7 @@ class ArticlesController extends Controller
         $disk = Storage::disk('local');
         $article = new Articles();
         $article->title = $request->title;
-        $article->content = $request->cont;
+        $article->content = trim($request->cont, " \t");;
         $article->topped = $request->topped;
         $article->save();
         $article->tags()->sync((array)$request->input('tags'));
@@ -81,8 +81,8 @@ class ArticlesController extends Controller
     public function edit($id)
     {
         $article = Articles::find($id);
-        $tags = Tags::pluck('name','id');
-        return view('admin.articles.edit', compact(['article','tags']));
+        $tags = Tags::pluck('name', 'id');
+        return view('admin.articles.edit', compact(['article', 'tags']));
     }
 
     public function update($id, CreateArticleRequest $request)
@@ -90,7 +90,7 @@ class ArticlesController extends Controller
         $disk = Storage::disk('local');
         $article = Articles::find($id);
         $article->title = $request->title;
-        $article->content = $request->cont;
+        $article->content = trim($request->cont, " \t");;
         $article->topped = $request->topped;
         $article->tags()->sync((array)$request->input('tags'));
 
@@ -102,10 +102,10 @@ class ArticlesController extends Controller
             $filename = substr($image->getClientOriginalName(), strrpos($image->getClientOriginalName(), '.'));
             $filename = $article->id . $filename;
 
-            Image::make(Input::file('image'))->save($destinationPath . $filename);
             if ($article->image != 'default.png')
                 $disk->delete($destinationPath . $article->image);
 
+            Image::make(Input::file('image'))->save($destinationPath . $filename);
             $article->image = $filename;
         }
 

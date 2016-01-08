@@ -9,6 +9,7 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
 
 class ArticlesController extends Controller
 {
@@ -22,25 +23,42 @@ class ArticlesController extends Controller
     public function show($code)
     {
         $article = Articles::where('code', $code)->first();
-        return view('blog.article.show', compact(['article','code']));
+        return view('blog.article.show', compact(['article', 'code']));
     }
 
     public function comment($code, Request $request)
     {
         $comment = Comments::create([
-           'content'=>$request->cont,
+            'content' => trim($request->cont, " \t"),
         ]);
         $article = Articles::where('code', $code)->first();
         $article->comments()->save($comment);
         Auth::user()->comments()->save($comment);
-        return view('admin.comments.index', compact(['article']));
+
+        if ($request->comment != 0) {
+            $comm = Comments::find($request->comment);
+            $comm->comments()->save($comment);
+        }
+        if ($request->ajax()) {
+            $view = View::make('blog.article.show', compact(['article', 'code']));
+            $sections = $view->renderSections();
+            return response(array("content" => $sections['content']));
+        } else {
+            $this->validate($request, [
+                'cont' => 'required'
+            ], [
+                'cont.required' => 'Obsah komentaru nemoze byt prazdny!'
+            ]);
+            flash()->info('Uspesne ste komentovali clanok.');
+            return view('blog.article.show', compact(['article', 'code']));
+        }
     }
 
 
     public function getImage($code)
     {
         $disk = Storage::disk('local');
-        if ($code = "default")
+        if ($code == "default")
             return $disk->get('/articles_img/default.png');
         else
             return $disk->get('/articles_img/' . Articles::where('code', $code)->first()->image);

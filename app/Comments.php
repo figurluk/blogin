@@ -30,6 +30,10 @@ class Comments extends Model
 
     public function comments()
     {
+        return $this->hasMany('App\Comments');
+    }
+
+    public function belongComments(){
         return $this->belongsTo('App\Comments');
     }
 }

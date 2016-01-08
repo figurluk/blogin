@@ -28,6 +28,9 @@ class UserTableSeeder extends Seeder
     {
         DB::table('users')->delete();
         DB::table('articles')->delete();
+        DB::table('tags')->delete();
+        DB::table('comments')->delete();
+        DB::table('settings')->delete();
 
         $user = App\User::create(array(
             'name' => 'Milos',
@@ -35,6 +38,10 @@ class UserTableSeeder extends Seeder
             'email' => 'pridavok@gmail.com',
             'password' => Hash::make('qwerty')
         ));
+
+        \App\Settings::create([
+            'design'=>1
+        ]);
 
         $tag = App\Tags::create(array(
             'name' => 'Elektrik',
