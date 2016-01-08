@@ -54,7 +54,7 @@
                             <div class="comment-content">
                                 <p>{{$comment->content}}</p>
                             </div>
-                            <a href="#" class="comment-reply reactionLink" targetID="{{$comment->id}}"
+                            <a href="#" class="comment-reply reactionLink" data-targetID="{{$comment->id}}"
                                style="display: none">Reagovať</a>
                             <div class="form-group subComment reactionInput{{$comment->id}}">
                                 <hr>
@@ -102,9 +102,9 @@
                     </div>
 
                     <div class="form-group contentOfComment">
-                        <label for="message">Správa</label>
                         <input class="commentId" type="hidden" name="comment" value="0">
-                        <textarea name="cont" class="form-control commentMessage" rows="4"
+                        <label for="cont">Správa</label>
+                        <textarea id="cont" name="cont" class="form-control commentMessage" rows="4"
                                   placeholder="Správa" required></textarea>
                         <span class="register-error-empty"
                               style="display:none">Toto pole musí byť vyplnené!</span>
@@ -146,7 +146,7 @@
             $(document).on('click', '.reactionLink', function (event) {
                 event.stopPropagation();
                 event.preventDefault();
-                $('.reactionInput' + $(event.target).attr('targetID')).fadeIn();
+                $('.reactionInput' + $(event.target).attr('data-targetID')).fadeIn();
             });
 
             $(document).on('click', '.submitForm', function (event) {

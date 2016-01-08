@@ -4,7 +4,7 @@
 
     <div class="containerUser container">
         <h3>Vase udaje</h3>
-        <form role="form" method="POST" action="{{ url('home/user/update') }}">
+        <form method="POST" action="{{ url('home/user/update') }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             <div class="form-group">
@@ -65,7 +65,7 @@
 
             <div class="form-group">
                 <label class="control-label" for="newpassword">Nove Heslo</label>
-                <input name="newpassword" type="newpassword" class="form-control custom-form"
+                <input name="newpassword" type="password" class="form-control custom-form"
                        id="newpassword"
                        tabindex="5">
                 <span class="glyphicon glyphicon-remove remove-glyph" style="display:none"></span>

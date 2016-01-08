@@ -6,7 +6,7 @@
         @include('blog.flash.flash')
         <div class="row">
             @if($mainArt!=null)
-                <div class="col-md-7 main-article articleDiv" article="{{$mainArt->code}}">
+                <div class="col-md-7 main-article articleDiv" data-article="{{$mainArt->code}}">
                     <img src="{{action('Blog\ArticlesController@getImage',$mainArt->code)}}" alt="article image">
                     <div class="desc1 desc" id="{{$mainArt->code}}">
                         <p><a href="{{action('Blog\ArticlesController@show',$mainArt->code)}}">{{$mainArt->title}}</a>
@@ -23,7 +23,7 @@
             <div class="col-md-5">
                 <div class="row">
                     @if($firstSub!=null)
-                        <div class="col-md-12 main-article2 articleDiv" article="{{$firstSub->code}}">
+                        <div class="col-md-12 main-article2 articleDiv" data-article="{{$firstSub->code}}">
                             <img src="{{action('Blog\ArticlesController@getImage',$firstSub->code)}}"
                                  alt="article image">
                             <div class="desc2 desc" id="{{$firstSub->code}}">
@@ -42,7 +42,7 @@
 
                 <div class="row">
                     @if($secondSub!=null)
-                        <div class="col-md-12 main-article2 articleDiv" article="{{$secondSub->code}}">
+                        <div class="col-md-12 main-article2 articleDiv" data-article="{{$secondSub->code}}">
                             <img src="{{action('Blog\ArticlesController@getImage',$secondSub->code)}}"
                                  alt="article image">
                             <div class="desc2 desc" id="{{$secondSub->code}}">
@@ -66,7 +66,7 @@
         <div class="row sub-articles-list">
             @if($firstSubSub!=null)
                 <div class="col-md-4">
-                    <div class="sub-article articleDiv" article="{{$firstSubSub->code}}">
+                    <div class="sub-article articleDiv" data-article="{{$firstSubSub->code}}">
                         <img src="{{action('Blog\ArticlesController@getImage',$firstSubSub->code)}}"
                              alt="article image">
                         <div class="desc2 desc" id="{{$firstSubSub->code}}">
@@ -85,7 +85,7 @@
 
             @if($secondSubSub!=null)
                 <div class="col-md-4">
-                    <div class="sub-article articleDiv" article="{{$secondSubSub->code}}">
+                    <div class="sub-article articleDiv" data-article="{{$secondSubSub->code}}">
                         <img src="{{action('Blog\ArticlesController@getImage',$secondSubSub->code)}}"
                              alt="article image">
                         <div class="desc2 desc" id="{{$secondSubSub->code}}">
@@ -104,7 +104,7 @@
 
             @if($thirdSubSub!=null)
                 <div class="col-md-4">
-                    <div class="sub-article articleDiv" article="{{$thirdSubSub->code}}">
+                    <div class="sub-article articleDiv" data-article="{{$thirdSubSub->code}}">
                         <img src="{{action('Blog\ArticlesController@getImage',$thirdSubSub->code)}}"
                              alt="article image">
                         <div class="desc2 desc" id="{{$thirdSubSub->code}}">
@@ -166,7 +166,7 @@
         </div>
     @endif
 
-@stop
+@endsection
 
 
 @section('footer')
@@ -245,4 +245,4 @@
         });
 
     </script>
-@stop
+@endsection

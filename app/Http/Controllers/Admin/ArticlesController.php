@@ -102,9 +102,9 @@ class ArticlesController extends Controller
             $filename = substr($image->getClientOriginalName(), strrpos($image->getClientOriginalName(), '.'));
             $filename = $article->id . $filename;
 
-            if ($article->image != 'default.png')
+            if ($article->image != 'default.png') {
                 $disk->delete($destinationPath . $article->image);
-
+            }
             Image::make(Input::file('image'))->save($destinationPath . $filename);
             $article->image = $filename;
         }
