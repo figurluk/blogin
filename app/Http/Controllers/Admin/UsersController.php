@@ -53,7 +53,7 @@ class UsersController extends Controller
         $user->save();
 
         Mail::send('admin.emails.create_user', ['user' => $user,'pass'=>$pass], function ($m) use ($user) {
-            $m->from('blogblogin@gmail.com', 'Blogin Administrátor');
+            $m->from('blogin@weebto.me', 'Blogin Administrátor');
             $m->to($user->email, $user->name)->subject('Boli ste zaregistrovaný do Blogin.');
         });
 
@@ -139,7 +139,7 @@ class UsersController extends Controller
             $pass = $this->generateRandomString(6);
             $user->password = bcrypt($pass);
             Mail::send('admin.emails.pass_user', ['user' => $user,'pass'=>$pass], function ($m) use ($user) {
-                $m->from('blogblogin@gmail.com', 'Blogin Administrátor');
+                $m->from('blogin@weebto.me', 'Blogin Administrátor');
                 $m->to($user->email, $user->name)->subject('Bolo vám vygenerované nové heslo administrátorom.');
             });
         }

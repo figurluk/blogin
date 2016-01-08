@@ -12,7 +12,7 @@
         <div class="row">
             @include('admin.errors.form')
 
-            {!! Form::open(['action'=>['Admin\AdminsController@update',$user->id], 'method'=>'POST']) !!}
+            {!! Form::open(['action'=>['Admin\UsersController@update',$user->id], 'method'=>'POST']) !!}
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
@@ -75,7 +75,7 @@
 
             {!! Form::button('Uložiť',['class'=>'btn btn-success registerSubmit','type'=>'submit','name'=>'update']) !!}
             {!! Form::button('Uložiť a ukončiť',['class'=>'btn btn-primary registerSubmit','type'=>'submit','name'=>'updateExit']) !!}
-            <a class="btn btn-danger" href="{{action('Admin\AdminsController@index')}}">Zrušiť</a>
+            <a class="btn btn-danger" href="{{action('Admin\UsersController@index')}}">Zrušiť</a>
             {!! Form::close() !!}
 
         </div>
