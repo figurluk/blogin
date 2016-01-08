@@ -38,7 +38,6 @@
                 <img class="col-lg-12" src="{{asset('img/design2.png')}}" alt="Design blogu"
                      id="design2" {{($settings->design!=2) ? 'style=display:none' : ''}}>
             </div>
-
             {!! Form::close() !!}
         </div>
     </div>
