@@ -32,11 +32,10 @@ body {
 
 .desc {
     position: absolute;
-    background: red; /* For browsers that do not support gradients */
-    background: -webkit-linear-gradient(top, rgba(255, 0, 0, 0), rgba(0, 0, 0, 1)); /*Safari 5.1-6*/
-    background: -o-linear-gradient(bottom, rgba(255, 0, 0, 0), rgba(0, 0, 0, 1)); /*Opera 11.1-12*/
-    background: -moz-linear-gradient(bottom, rgba(255, 0, 0, 0), rgba(0, 0, 0, 1)); /*Fx 3.6-15*/
-    background: linear-gradient(to bottom, rgba(255, 0, 0, 0), rgba(0, 0, 0, 1)); /*Standard*/
+    background: -moz-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 1) 100%); /* FF3.6-15 */
+    background: -webkit-linear-gradient(top, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 1) 100%); /* Chrome10-25,Safari5.1-6 */
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0) 0%, rgba(0, 0, 0, 1) 100%); /* W3C, IE10+, FF16+, Chrome26+, Opera12+, Safari7+ */
+    filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#00ffffff', endColorstr='#000000', GradientType=0); /* IE6-9 */
     width: 100%;
     bottom: 0;
     font-weight: 700;
@@ -48,9 +47,9 @@ body {
     padding-left: 20px;
 }
 
-.desc p a{
+.desc p a {
     text-decoration: none;
-    color: #de0000;
+    color: white;
 }
 
 .desc1 {
@@ -418,7 +417,8 @@ body {
 
 .copyrightSign {
     color: white;
-    margin-right: 2%;.
+    margin-right: 2%;
+.
 }
 
 .footer {
@@ -436,7 +436,6 @@ body {
     margin-top: 5%;
     margin-bottom: 5%;
 }
-
 
 .flashMessage {
     padding: 25px;
