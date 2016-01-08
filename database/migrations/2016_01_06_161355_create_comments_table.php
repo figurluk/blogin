@@ -46,6 +46,7 @@ class CreateCommentsTable extends Migration
             $table->softDeletes();
         });
         Schema::table('tags', function (Blueprint $table) {
+            $table->string('code')->default('');
             $table->softDeletes();
         });
     }

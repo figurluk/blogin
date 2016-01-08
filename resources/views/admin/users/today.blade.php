@@ -39,7 +39,7 @@
                                    href="{{action('Admin\UsersController@remove',$newUser->id)}}"><span
                                             class="glyphicon glyphicon-remove"></span> Zmazat</a>
                             @else
-                                <a class="btn btn-danger deleteUser" user="{{$newUser->name}} {{$admin->surname}}"
+                                <a class="btn btn-danger deleteUser" user="{{$newUser->name}} {{$newUser->surname}}"
                                    href="{{action('Admin\UsersController@remove',$newUser->id)}}" disabled><span
                                             class="glyphicon glyphicon-remove"></span> Seba zmazat nemozte!</a>
                             @endif

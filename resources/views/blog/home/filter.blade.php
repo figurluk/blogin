@@ -160,7 +160,7 @@
     @if(count($articles)+6<count(\App\Articles::all()))
         <div class="row read-more">
             <div class="container-fluid">
-                <a href="{{action('Blog\HomeController@more',count($articles)+14)}}"
+                <a href="{{action('Blog\HomeController@filterMore',[$month,$year,count($articles)+14])}}"
                    class="btn btn-default btn-read-more">Ďalšie články</a>
             </div>
         </div>
@@ -199,50 +199,50 @@
 
                 @endsection
 
-@section('scripts')
-    <script>
+            @section('scripts')
+                <script>
 
-        $(document).ready(function () {
-            $('.articleInfo').hide();
-            $('.articleDiv').css('cursor', 'pointer');
+                    $(document).ready(function () {
+                        $('.articleInfo').hide();
+                        $('.articleDiv').css('cursor', 'pointer');
 
-            var allArticles = '{{count(\App\Articles::all())}}';
-            var countArticles = '{{count($articles)+6}}';
-            var requestPenging = false;
+                        var allArticles = '{{count(\App\Articles::all())}}';
+                        var countArticles = '{{count($articles)+6}}';
+                        var requestPenging = false;
 
-            $('.read-more').hide();
-            $(window).scroll(function () {
-                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                        $('.read-more').hide();
+                        $(window).scroll(function () {
+                            if ($(window).scrollTop() + $(window).height() == $(document).height()) {
 
-                    if (countArticles < allArticles && !requestPenging) {
-                        requestPenging = true;
-                        $.ajax({
-                            url: '{{url('home/next/')}}' + '/' + countArticles,
-                            type: 'get',
-                            error: function () {
-                            },
-                            success: function (data) {
-                                countArticles = parseInt(countArticles) + parseInt(4);
-                                $('#nextArticles').replaceWith(data);
-                                requestPenging = false;
+                                if (countArticles < allArticles && !requestPenging) {
+                                    requestPenging = true;
+                                    $.ajax({
+                                        url: '{{url('home/')}}' +'{{$month}}/{{$year}}' +'/next/' + countArticles,
+                                        type: 'get',
+                                        error: function () {
+                                        },
+                                        success: function (data) {
+                                            countArticles = parseInt(countArticles) + parseInt(4);
+                                            $('#nextArticles').replaceWith(data);
+                                            requestPenging = false;
+                                        }
+                                    });
+                                }
                             }
                         });
-                    }
-                }
-            });
-        });
+                    });
 
-        $(document).on('mouseenter', '.articleDiv', function (event) {
-            $(event.target).closest('.articleDiv').find('.articleInfo').fadeIn();
-        });
+                    $(document).on('mouseenter', '.articleDiv', function (event) {
+                        $(event.target).closest('.articleDiv').find('.articleInfo').fadeIn();
+                    });
 
-        $(document).on('mouseleave', '.articleDiv', function (event) {
-            $(event.target).closest('.articleDiv').find('.articleInfo').fadeOut();
-        });
+                    $(document).on('mouseleave', '.articleDiv', function (event) {
+                        $(event.target).closest('.articleDiv').find('.articleInfo').fadeOut();
+                    });
 
-        $(document).on('click', '.articleDiv', function (event) {
-            window.location.href = $(event.target).closest('.articleDiv').find('a').attr('href');
-        });
+                    $(document).on('click', '.articleDiv', function (event) {
+                        window.location.href = $(event.target).closest('.articleDiv').find('a').attr('href');
+                    });
 
-    </script>
+                </script>
 @stop

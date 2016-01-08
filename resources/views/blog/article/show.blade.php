@@ -35,52 +35,55 @@
         </div>
     </div>
 
-    <div class="row comment">
-        <div class="container">
-            <h2>Komentár</h2>
-            @foreach($article->comments()->orderBy('created_at','desc')->get() as $comment)
-                <div class="comment-params">
-                    <div class="comment-name">
-                        {{$comment->user->name}} {{$comment->user->surname}}
-                    </div>
-                    <div class="comment-date">
-                        {{$comment->created_at}}
-                    </div>
-
-                    <div class="comment-content">
-                        <p>{{$comment->content}}</p>
-                    </div>
-                </div>
-            @endforeach
-
-            @if(Auth::check())
-                <form>
-                    <div class="row">
-                        <div class="form-group col-md-6">
-                            <label for="name">Meno a priezvisko</label>
-                            <input type="text" class="form-control" id="name" placeholder="Meno a priezvisko" value="{{Auth::user()->name}} {{Auth::user()->surname}}" disabled>
-                        </div>
-
-                        <div class="form-group col-md-6">
-                            <label for="email">Email</label>
-                            <input type="email" class="form-control" id="email" placeholder="Email" value="{{Auth::user()->email}}" disabled>
-                        </div>
-                    </div>
-
-                    <div class="form-group">
-                        <label for="message">Správa</label>
-                        <textarea class="form-control" rows="3" id="message" placeholder="Správa"></textarea>
-                    </div>
-
-
-                    <button type="submit" class="btn btn-danger">Vložiť</button>
-                </form>
-
-            @endif
-        </div>
-    </div>
+    @include('blog.comment.index')
 @stop
 
+@section('footer')
+
+    <div class="footer">
+        <div class="categories">
+            <div class="container-fluid">
+                <div class="col-md-12">
+                    <span class="pull-right copyrightSign"><i class="fa fa-copyright"></i> Lukas Figura 2016
+                    </span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+@endsection
+
 @section('scripts')
+
+    <script>
+
+        $(document).ready(function () {
+            $(document).on('click','.reactionLink',function(event) {
+                event.stopPropagation();
+                event.preventDefault();
+                $('.reactionInput').fadeIn();
+            });
+
+            $(document).on('click','.submitForm',function(event) {
+                event.stopPropagation();
+                event.preventDefault();
+                var commentCont = $(event.target).closest('form').find('.contentOfComment');
+                $.ajax({
+                    url: '{{action('Blog\ArticlesController@comment',$code)}}',
+                    type: 'POST',
+                    data: {
+                        cont: commentCont.find('.commentMessage').val(),
+                        comment: commentCont.find('.commentId').val()
+                    },
+                    error: function () {
+                    },
+                    success: function (data) {
+                        $('#comments').replaceWith(data);
+                    }
+                });
+            });
+        });
+
+    </script>
 
 @stop

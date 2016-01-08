@@ -19,10 +19,9 @@
                     </div>
                 </div>
             @endif
-
             <div class="col-md-5">
-                <div class="row">
-                    @if($firstSub!=null)
+                @if($firstSub!=null)
+                    <div class="row">
                         <div class="col-md-12 main-article2 articleDiv" article="{{$firstSub->code}}">
                             <img src="{{action('Blog\ArticlesController@getImage',$firstSub->code)}}"
                                  alt="article image">
@@ -37,11 +36,11 @@
                                 </p>
                             </div>
                         </div>
-                    @endif
-                </div>
+                    </div>
+                @endif
 
-                <div class="row">
-                    @if($secondSub!=null)
+                @if($secondSub!=null)
+                    <div class="row">
                         <div class="col-md-12 main-article2 articleDiv" article="{{$secondSub->code}}">
                             <img src="{{action('Blog\ArticlesController@getImage',$secondSub->code)}}"
                                  alt="article image">
@@ -56,8 +55,8 @@
                                 </p>
                             </div>
                         </div>
-                    @endif
-                </div>
+                    </div>
+                @endif
             </div>
         </div>
     </div>
@@ -160,14 +159,13 @@
     @if(count($articles)+6<count(\App\Articles::all()))
         <div class="row read-more">
             <div class="container-fluid">
-                <a href="{{action('Blog\HomeController@more',count($articles)+14)}}"
+                <a href="{{action('Blog\TagsController@filterMore',[$month,$year,$tag->code,count($articles)+14])}}"
                    class="btn btn-default btn-read-more">Ďalšie články</a>
             </div>
         </div>
     @endif
 
 @stop
-
 
 @section('footer')
 
@@ -185,7 +183,7 @@
                                 <ul>
                                     @foreach(array_slice($periods,0,5) as $period)
                                         <li class="">
-                                            <a href="{{action('Blog\HomeController@filterIndex',[$period['month'],$period['year']])}}">{{$period['monthName']}} {{$period['year']}}</a>
+                                            <a href="{{action('Blog\TagsController@filterShow',[$tag->code,$period['month'],$period['year']])}}">{{$period['monthName']}} {{$period['year']}}</a>
                                         </li>
                                     @endforeach
                                     @if(count($periods)>5)
@@ -199,50 +197,50 @@
 
                 @endsection
 
-@section('scripts')
-    <script>
+            @section('scripts')
+                <script>
 
-        $(document).ready(function () {
-            $('.articleInfo').hide();
-            $('.articleDiv').css('cursor', 'pointer');
+                    $(document).ready(function () {
+                        $('.articleInfo').hide();
+                        $('.articleDiv').css('cursor', 'pointer');
+                        $('.read-more').hide();
 
-            var allArticles = '{{count(\App\Articles::all())}}';
-            var countArticles = '{{count($articles)+6}}';
-            var requestPenging = false;
+                        var allArticles = '{{count(\App\Articles::all())}}';
+                        var countArticles = '{{count($articles)+6}}';
+                        var requestPenging = false;
 
-            $('.read-more').hide();
-            $(window).scroll(function () {
-                if ($(window).scrollTop() + $(window).height() == $(document).height()) {
+                        $(window).scroll(function () {
+                            if ($(window).scrollTop() + $(window).height() == $(document).height()) {
 
-                    if (countArticles < allArticles && !requestPenging) {
-                        requestPenging = true;
-                        $.ajax({
-                            url: '{{url('home/next/')}}' + '/' + countArticles,
-                            type: 'get',
-                            error: function () {
-                            },
-                            success: function (data) {
-                                countArticles = parseInt(countArticles) + parseInt(4);
-                                $('#nextArticles').replaceWith(data);
-                                requestPenging = false;
+                                if (countArticles < allArticles && !requestPenging) {
+                                    requestPenging = true;
+                                    $.ajax({
+                                        url: '{{url('home/tags/')}}' + '/{{$tag->code}}/{{$month}}/{{$year}}/next/' + countArticles,
+                                        type: 'get',
+                                        error: function () {
+                                        },
+                                        success: function (data) {
+                                            countArticles = parseInt(countArticles) + parseInt(4);
+                                            $('#nextArticles').replaceWith(data);
+                                            requestPenging = false;
+                                        }
+                                    });
+                                }
                             }
                         });
-                    }
-                }
-            });
-        });
+                    });
 
-        $(document).on('mouseenter', '.articleDiv', function (event) {
-            $(event.target).closest('.articleDiv').find('.articleInfo').fadeIn();
-        });
+                    $(document).on('mouseenter', '.articleDiv', function (event) {
+                        $(event.target).closest('.articleDiv').find('.articleInfo').fadeIn();
+                    });
 
-        $(document).on('mouseleave', '.articleDiv', function (event) {
-            $(event.target).closest('.articleDiv').find('.articleInfo').fadeOut();
-        });
+                    $(document).on('mouseleave', '.articleDiv', function (event) {
+                        $(event.target).closest('.articleDiv').find('.articleInfo').fadeOut();
+                    });
 
-        $(document).on('click', '.articleDiv', function (event) {
-            window.location.href = $(event.target).closest('.articleDiv').find('a').attr('href');
-        });
+                    $(document).on('click', '.articleDiv', function (event) {
+                        window.location.href = $(event.target).closest('.articleDiv').find('a').attr('href');
+                    });
 
-    </script>
+                </script>
 @stop

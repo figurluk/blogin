@@ -99,7 +99,7 @@ class CommentsController extends Controller
     public function remove($id)
     {
         $comment = Comments::find($id);
-        flash()->info('Uspesne ste zmazali komentar k clanku: ' . $comment->article->title);
+        flash()->info('Uspesne ste zmazali komentar k clanku: ' . $comment->articles->title);
         $comment->delete();
         return redirect()->action('Admin\CommentsController@index');
     }

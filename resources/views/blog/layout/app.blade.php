@@ -7,6 +7,7 @@
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
     <meta name="description" content="Blogin project">
     <meta name="author" content="Lukas Figura">
+    <meta name="csrf-token" content="<?= csrf_token() ?>">
     <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/favicon.png')}}"/>
 
     <title>Blogin</title>
@@ -14,7 +15,6 @@
     <!-- Bootstrap core CSS -->
     <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('css/custom.css')}}" rel="stylesheet">
-    <link href="{{asset('css/scrolling-nav.css')}}" rel="stylesheet">
 
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
 
@@ -41,14 +41,16 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{action('Blog\HomeController@index')}}">Blog</a>
+            <a class="navbar-brand" href="{{action('Blog\HomeController@index')}}">Blogin</a>
         </div>
 
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
             <ul class="nav navbar-nav">
                 @foreach($menuTags as $menuTag)
-                    <li><a href="">#{{\App\Tags::find($menuTag->id)->name}}</a></li>
+                    <li>
+                        <a href="{{action('Blog\TagsController@show',\App\Tags::find($menuTag->id)->code)}}">#{{\App\Tags::find($menuTag->id)->name}}</a>
+                    </li>
                 @endforeach
             </ul>
 
@@ -84,31 +86,19 @@
 
 @yield('content')
 
-<div class="footer">
-    <div class="categories">
-        <div class="container-fluid">
-            <div class="col-md-12">
-                <ul>
-                    @foreach(array_slice($periods,0,5) as $period)
-                        <li class="">
-                            <a href="">{{$period->monthName}} {{$period->year}}</a>
-                        </li>
-                    @endforeach
-                    @if(count($periods)>5)
-                        <li><a href="">Starsie</a></li>
-                    @endif
-                </ul>
-            </div>
-        </div>
-    </div>
-</div>
-<!-- Bootstrap core JavaScript
-================================================== -->
+@yield('footer')
+        <!-- Bootstrap core JavaScript
+            ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
 <script src="{{asset('js/jquery.min.js')}}"></script>
 <script src="{{asset('js/bootstrap.min.js')}}"></script>
-<script src="{{asset('js/jquery.easing.min.js')}}"></script>
-<script src="{{asset('js/scrolling-nav.js')}}"></script>
+<script>
+    $.ajaxSetup({
+        headers: {
+            'X-CSRF-Token': $('meta[name="csrf-token"]').attr('content')
+        }
+    });
+</script>
 @section('scripts')
 @show
 </body>

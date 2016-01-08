@@ -68,18 +68,9 @@ class UserTableSeeder extends Seeder
             ));
 
             if ($i % 2 == 0)
-                $article->tags()->attach($tag->id);
-            if ($i % 3 == 0)
-                $article->tags()->attach($tag1->id);
-            if ($i % 4 == 0) {
-                $article->tags()->attach([$tag1->id]);
-                $article->tags()->attach([$tag->id]);
-            }
-            $article->tags()->attach($tag1->id);
+                $article->tags()->save($tag);
+
             $user->articles()->save($article);
-
         }
-
     }
-
 }
