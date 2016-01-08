@@ -107,7 +107,7 @@
                 validInput = (val.length != 0);
                 if (validInput) {
 
-                    var patt = new RegExp("^[a-záäčďéíĺľňóôöőŕřšťúüűýžA-ZÁÄČĎÉÍĹĽŇÓÔÖŐŘŔŠŤÚÜŰÝŽ .]+$");
+                    var patt = new RegExp("^[0-9a-záäčďéíĺľňóôöőŕřšťúüűýžA-ZÁÄČĎÉÍĹĽŇÓÔÖŐŘŔŠŤÚÜŰÝŽ .]+$");
                     var res = val.search(patt);
 
                     validInput = (res != -1);

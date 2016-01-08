@@ -54,9 +54,13 @@ class Articles extends Model
         });
 
         static::saving(function ($article) {
-            $text = strtolower(htmlentities($article->title));
-            $text = str_replace(" ", "-", $text);
-
+            $text = str_replace(array('[\', \']'), '', $article->title);
+            $text = preg_replace('/\[.*\]/U', '', $text);
+            $text = preg_replace('/&(amp;)?#?[a-z0-9]+;/i', '-', $text);
+            $text = htmlentities($text, ENT_COMPAT, 'utf-8');
+            $text = preg_replace('/&([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);/i', '\\1', $text );
+            $text = preg_replace(array('/[^a-z0-9]/i', '/[-]+/') , '-', $text);
+            $text = trim($text, '-');
             $article->code = CleanString::removeAccents($text);
         });
     }

@@ -36,4 +36,14 @@ class Comments extends Model
     public function belongComments(){
         return $this->belongsTo('App\Comments');
     }
+
+    protected static function boot()
+    {
+        parent::boot();
+
+        static::deleting(function ($comment) {
+            $comment->comments()->delete();
+        });
+
+    }
 }

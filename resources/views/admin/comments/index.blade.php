@@ -19,6 +19,8 @@
                     <th>Autor</th>
                     <th>K článku</th>
                     <th>Obsah komentáru</th>
+                    <th>Má podkomentáre</th>
+                    <th>Je podkomentárom</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -28,6 +30,8 @@
                         <td>{{$comment->user->name}} {{$comment->user->surname}}</td>
                         <td>{{$comment->articles->title}}</td>
                         <td>{{(strlen($comment->content)>20) ? substr($comment->content,0,20) : $comment->content}}...</td>
+                        <td>{{(count($comment->comments())!=0) ? 'Áno' : 'Nie'}}</td>
+                        <td>{{(count($comment->belongComments())!=0) ? 'Áno' : 'Nie'}}</td>
                         <td>
                             <a class="btn btn-warning" href="{{action('Admin\CommentsController@edit',$comment->id)}}"><span class="glyphicon glyphicon-pencil"></span> Upraviť</a>
                             <a class="btn btn-danger deleteComment" article="{{$comment->articles->title}}" href="{{action('Admin\CommentsController@remove',$comment->id)}}"><span class="glyphicon glyphicon-remove"></span> Zmazať</a></td>
@@ -58,7 +62,7 @@
 
             swal({
                         title: "Určite vymazať?",
-                        text: "Skutočne chcete vymazať komentár k článku: " + $(target).attr('article') + " ? ",
+                        text: "Skutočne chcete vymazať komentár k článku: " + $(target).attr('article') + "? Ak komentár obsahuje podkomentáre, tie sa taktiež zmažu!",
                         type: "warning",
                         showCancelButton: true,
                         cancelButtonText: "Zrusiť",

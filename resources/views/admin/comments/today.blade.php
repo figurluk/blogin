@@ -20,6 +20,8 @@
                     <th>Autor</th>
                     <th>K článku</th>
                     <th>Obsah komentáru</th>
+                    <th>Má podkomentáre</th>
+                    <th>Je podkomentárom</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -28,10 +30,12 @@
                     <tr>
                         <td>{{$newComment->user->name}} {{$newComment->user->surname}}</td>
                         <td>{{$newComment->article->title}}</td>
-                        <td>{{(strlen($comment->content)>20) ? substr($comment->content,0,20) : $comment->content}}...</td>
+                        <td>{{(strlen($newComment->content)>20) ? substr($newComment->content,0,20) : $newComment->content}}...</td>
+                        <td>{{(count($newComment->comments())!=0) ? 'Áno' : 'Nie'}}</td>
+                        <td>{{(count($newComment->belongComments())!=0) ? 'Áno' : 'Nie'}}</td>
                         <td>
                             <a class="btn btn-warning" href="{{action('Admin\CommentsController@edit',$newComment->id)}}"><span class="glyphicon glyphicon-pencil"></span> Upraviť</a>
-                            <a class="btn btn-danger deleteComment" article="{{$comment->article->title}}" href="{{action('Admin\CommentsController@remove',$newComment->id)}}"><span class="glyphicon glyphicon-remove"></span> Zmazať</a>
+                            <a class="btn btn-danger deleteComment" article="{{$newComment->article->title}}" href="{{action('Admin\CommentsController@remove',$newComment->id)}}"><span class="glyphicon glyphicon-remove"></span> Zmazať</a>
                         </td>
                     </tr>
                 @endforeach
@@ -60,7 +64,7 @@
 
             swal({
                         title: "Určite vymazať?",
-                        text: "Skutočne chcete vymazať komentár k článku: " + $(target).attr('article') + " ? ",
+                        text: "Skutočne chcete vymazať komentár k článku: " + $(target).attr('article') + "? Ak komentár obsahuje podkomentáre, tie sa taktiež zmažu!",
                         type: "warning",
                         showCancelButton: true,
                         cancelButtonText: "Zrušiť",

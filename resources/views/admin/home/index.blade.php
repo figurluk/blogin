@@ -19,7 +19,7 @@
                                 <i class="fa fa-users fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{{count($newUsers)}}</div>
+                                <div class="huge">{{$countNewUsers}}</div>
                                 <div>Užívatelia!</div>
                             </div>
                         </div>
@@ -41,7 +41,7 @@
                                 <i class="fa fa-newspaper-o fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{{count($newArticles)}}</div>
+                                <div class="huge">{{$countNewArticles}}</div>
                                 <div>Články!</div>
                             </div>
                         </div>
@@ -63,7 +63,7 @@
                                 <i class="fa fa-comments fa-5x"></i>
                             </div>
                             <div class="col-xs-9 text-right">
-                                <div class="huge">{{count($newComments)}}</div>
+                                <div class="huge">{{$countNewComments}}</div>
                                 <div>Komentáre!</div>
                             </div>
                         </div>
