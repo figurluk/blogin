@@ -46,6 +46,11 @@ body {
 	padding-left: 20px;
 }
 
+.desc p a{
+    text-decoration: none;
+    color: #05a3a9;
+}
+
 .desc1 {
 	height: 200px;
 }
@@ -165,6 +170,14 @@ body {
 }
 
 .btn-danger:hover {
+	background-color: #04868b;
+	border: 1px solid #04868b;
+}
+.btn-danger:active {
+	background-color: #02666b;
+	border: 1px solid #02666b;
+}
+.btn-danger:focus {
 	background-color: #04868b;
 	border: 1px solid #04868b;
 }

@@ -10,10 +10,10 @@
                         <div class="desc-article desc">
                             <div class="container">
                                 <p>{{$article->title}}
-                    <span class="article-icon pull-right">
+                                    <span class="article-icon pull-right">
                       <i class="fa fa-calendar-plus-o"></i> {{$article->updated_at}}
-                        <i class="fa fa-user comment-icon"></i> {{($article->user!=null) ? $article->user->name.' '.$article->user->surname:'Neznámy'}}
-                        <i class="fa fa-commenting comment-icon"></i> {{count($article->comments)}}
+                                        <i class="fa fa-user comment-icon"></i> {{($article->user!=null) ? $article->user->name.' '.$article->user->surname:'Neznámy'}}
+                                        <i class="fa fa-commenting comment-icon"></i> {{count($article->comments)}}
                     </span>
                                 </p>
                             </div>
@@ -39,52 +39,58 @@
         @include('admin.errors.form')
 
         <div id="comments" class="row comment">
-            <div class="container">
-                <h2>Komentár</h2>
-                @foreach($article->comments()->where('comments_id',null)->orderBy('created_at')->get() as $comment)
-                    <div class="comment-params">
-                        <div class="comment-1lvl">
-                            <div class="comment-name">
-                                {{($comment->user!=null) ? $comment->user->name.' '.$comment->user->surname:'Neznámy'}}
-                            </div>
-                            <div class="comment-date">
-                                {{$comment->created_at}}
-                            </div>
 
-                            <div class="comment-content">
-                                <p>{{$comment->content}}</p>
-                            </div>
-                            <a href="#" class="comment-reply reactionLink" data-targetID="{{$comment->id}}"
-                               style="display: none">Reagovať</a>
-                            <div class="form-group subComment reactionInput{{$comment->id}}">
-                                <hr>
-                                {!! Form::open(['action'=>['Blog\ArticlesController@comment',$code],'method'=>'POST']) !!}
-                                <div class="contentOfComment">
-                                    <input class="commentId" type="hidden" name="comment" value="{{$comment->id}}">
-                                <textarea name="cont" class="form-control commentMessage" rows="2"
-                                          placeholder="Reakcia na {{($comment->user!=null) ? $comment->user->name.' '.$comment->user->surname:'Neznámy'}}"></textarea>
-                                    <button type="submit" class="btn btn-danger submitForm">Reagovať</button>
-                                </div>
-                                {!! Form::close() !!}
-                            </div>
-                        </div>
-                        @foreach($comment->comments()->whereNotNull('comments_id')->orderBy('created_at')->get() as $comment_lvl)
-                            <div class="comment-2lvl">
+            @if(count($article->comments)!=0)
+                <div class="container">
+                    <h2>Komentáre</h2>
+                    @foreach($article->comments()->where('comments_id',null)->orderBy('created_at')->get() as $comment)
+                        <div class="comment-params">
+                            <div class="comment-1lvl">
                                 <div class="comment-name">
-                                    {{($comment_lvl->user!=null) ? $comment_lvl->user->name.' '.$comment_lvl->user->surname:'Neznámy'}}
+                                    {{($comment->user!=null) ? $comment->user->name.' '.$comment->user->surname:'Neznámy'}}
                                 </div>
                                 <div class="comment-date">
-                                    {{$comment_lvl->created_at}}
+                                    {{$comment->created_at}}
                                 </div>
 
                                 <div class="comment-content">
-                                    <p>{{$comment_lvl->content}}</p>
+                                    <p>{{$comment->content}}</p>
+                                </div>
+                                <a href="#" class="comment-reply reactionLink" data-targetID="{{$comment->id}}"
+                                   style="display: none">Reagovať</a>
+                                <div class="form-group subComment reactionInput{{$comment->id}}">
+                                    <hr>
+                                    {!! Form::open(['action'=>['Blog\ArticlesController@comment',$code],'method'=>'POST']) !!}
+                                    <div class="contentOfComment">
+                                        <input class="commentId" type="hidden" name="comment" value="{{$comment->id}}">
+                                <textarea name="cont" class="form-control commentMessage" rows="2"
+                                          placeholder="Reakcia na {{($comment->user!=null) ? $comment->user->name.' '.$comment->user->surname:'Neznámy'}}"></textarea>
+                                        <button type="submit" class="btn btn-danger submitForm">Reagovať</button>
+                                    </div>
+                                    {!! Form::close() !!}
                                 </div>
                             </div>
-                        @endforeach
-                    </div>
-                @endforeach
+                            @foreach($comment->comments()->whereNotNull('comments_id')->orderBy('created_at')->get() as $comment_lvl)
+                                <div class="comment-2lvl">
+                                    <div class="comment-name">
+                                        {{($comment_lvl->user!=null) ? $comment_lvl->user->name.' '.$comment_lvl->user->surname:'Neznámy'}}
+                                    </div>
+                                    <div class="comment-date">
+                                        {{$comment_lvl->created_at}}
+                                    </div>
 
+                                    <div class="comment-content">
+                                        <p>{{$comment_lvl->content}}</p>
+                                    </div>
+                                </div>
+                            @endforeach
+                        </div>
+                    @endforeach
+                </div>
+            @endif
+
+            <div class="container">
+                <h3>Pridať komentár</h3>
                 @if(Auth::check())
                     {!! Form::open(['action'=>['Blog\ArticlesController@comment',$code],'method'=>'POST']) !!}
                     <div class="row">
@@ -113,7 +119,8 @@
 
                     <button type="submit" class="btn btn-danger submitForm">Vložiť</button>
                     {!! Form::close() !!}
-
+                @else
+                    <h4>Pre komentovanie článkov musíte byť prihlásený.</h4>
                 @endif
             </div>
         </div>
