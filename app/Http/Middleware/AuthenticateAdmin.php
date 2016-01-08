@@ -42,7 +42,7 @@ class AuthenticateAdmin
             }
         }
         elseif (!$this->auth->guest() && $this->auth->user()->admin!=1){
-            flash()->warning('Nieste opravneny pre vstup do administracnej casti.');
+            flash()->warning('Nieste oprávnený pre vstup do administračnej časti.');
             return redirect()->action('Blog\HomeController@index');
         }
 

@@ -4,7 +4,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Clanok</h1>
+                <h1 class="page-header">Článok</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="form-group">
-                        <label for="title">Nazov clanku</label>
+                        <label for="title">Názov článku</label>
                         <input type="text" class="form-control" id="title" name="title" value="{{$article->title}}"
                                tabindex="1"
                                pattern="^[0-9a-záäčďéíĺľňóôöőŕřšťúüűýžA-ZÁÄČĎÉÍĹĽŇÓÔÖŐŘŔŠŤÚÜŰÝŽ .]+$"
@@ -28,7 +28,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="cont">Obsah clanku</label>
+                        <label for="cont">Obsah článku</label>
                         {!! Form::textarea('cont',$article->content,['class'=>'form-control','tabindex'=>'2','required','id'=>'cont']) !!}
                         <span class="register-error-empty"
                               style="display:none">Toto pole musí byť vyplnené!</span>
@@ -39,7 +39,7 @@
                     <div class="checkbox">
                         <label>
                             {!! Form::hidden('topped', 0) !!}
-                            {!! Form::checkbox('topped', 1, $article->topped) !!} <b>Topovanie clanku</b>
+                            {!! Form::checkbox('topped', 1, $article->topped) !!} <b>Topovanie článku</b>
                         </label>
                     </div>
 
@@ -54,19 +54,19 @@
                              alt="{{$article->image}}">
                     </div>
                     @if($article->image=='default.png')
-                        <span class="label label-warning">Momentalne je clanku prideleny predvoleny obrazok.</span>
+                        <span class="label label-warning">Momentálne je článku pridelený predvolený obrázok.</span>
                     @endif
                     <div class="form-group">
-                        <label for="image">Obrazok clanku</label>
+                        <label for="image">Obrázok článku</label>
                         {!! Form::file('image') !!}
                     </div>
                 </div>
             </div>
 
 
-            {!! Form::button('Ulozit',['class'=>'btn btn-success','type'=>'submit','name'=>'update']) !!}
-            {!! Form::button('Ulozit a ukoncit',['class'=>'btn btn-primary','type'=>'submit','name'=>'updateExit']) !!}
-            <a class="btn btn-danger" href="{{action('Admin\ArticlesController@index')}}">Zrusit</a>
+            {!! Form::button('Uložiť',['class'=>'btn btn-success','type'=>'submit','name'=>'update']) !!}
+            {!! Form::button('Uložiť a ukončiť',['class'=>'btn btn-primary','type'=>'submit','name'=>'updateExit']) !!}
+            <a class="btn btn-danger" href="{{action('Admin\ArticlesController@index')}}">Zrušiť</a>
             {!! Form::close() !!}
 
         </div>

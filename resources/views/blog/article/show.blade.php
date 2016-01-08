@@ -9,10 +9,10 @@
                         <img src="{{action('Blog\ArticlesController@getImage',$article->code)}}" alt="">
                         <div class="desc-article desc">
                             <div class="container">
-                                <p>Nadpis článku bu bu bu
+                                <p>{{$article->title}}
                     <span class="article-icon pull-right">
                       <i class="fa fa-calendar-plus-o"></i> {{$article->updated_at}}
-                        <i class="fa fa-user comment-icon"></i> {{$article->user->name}} {{$article->user->surname}}
+                        <i class="fa fa-user comment-icon"></i> {{($article->user!=null) ? $article->user->name.' '.$article->user->surname:'Neznámy'}}
                         <i class="fa fa-commenting comment-icon"></i> {{count($article->comments)}}
                     </span>
                                 </p>
@@ -45,7 +45,7 @@
                     <div class="comment-params">
                         <div class="comment-1lvl">
                             <div class="comment-name">
-                                {{$comment->user->name}} {{$comment->user->surname}}
+                                {{($comment->user!=null) ? $comment->user->name.' '.$comment->user->surname:'Neznámy'}}
                             </div>
                             <div class="comment-date">
                                 {{$comment->created_at}}
@@ -62,7 +62,7 @@
                                 <div class="contentOfComment">
                                     <input class="commentId" type="hidden" name="comment" value="{{$comment->id}}">
                                 <textarea name="cont" class="form-control commentMessage" rows="2"
-                                          placeholder="Reakcia na {{$comment->user->name}} {{$comment->user->surname}}"></textarea>
+                                          placeholder="Reakcia na {{($comment->user!=null) ? $comment->user->name.' '.$comment->user->surname:'Neznámy'}}"></textarea>
                                     <button type="submit" class="btn btn-danger submitForm">Reagovať</button>
                                 </div>
                                 {!! Form::close() !!}
@@ -71,7 +71,7 @@
                         @foreach($comment->comments()->whereNotNull('comments_id')->orderBy('created_at')->get() as $comment_lvl)
                             <div class="comment-2lvl">
                                 <div class="comment-name">
-                                    {{$comment_lvl->user->name}} {{$comment_lvl->user->surname}}
+                                    {{($comment_lvl->user!=null) ? $comment_lvl->user->name.' '.$comment_lvl->user->surname:'Neznámy'}}
                                 </div>
                                 <div class="comment-date">
                                     {{$comment_lvl->created_at}}

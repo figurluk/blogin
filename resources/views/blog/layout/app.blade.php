@@ -63,7 +63,7 @@
                         <a>{{\Illuminate\Support\Facades\Auth::user()->name}} {{\Illuminate\Support\Facades\Auth::user()->surname}}</a>
                     </li>
                     <li>
-                        <a href="{{action('Blog\UserController@edit')}}">Profile</a>
+                        <a href="{{action('Blog\UserController@edit')}}">Profil</a>
                     </li>
                     <li>
                         <a href="{{action('Blog\Auth\AuthController@getLogout')}}"><span
@@ -73,10 +73,10 @@
             @else
                 <ul class="nav navbar-nav navbar-right">
                     <li>
-                        <a href="{{action('Blog\Auth\AuthController@getLogin')}}">Prihlasit sa</a>
+                        <a href="{{action('Blog\Auth\AuthController@getLogin')}}">Prihlásiť sa</a>
                     </li>
                     <li>
-                        <a href="{{action('Blog\Auth\AuthController@getRegister')}}">Registrovat sa</a>
+                        <a href="{{action('Blog\Auth\AuthController@getRegister')}}">Registrovať sa</a>
                     </li>
                 </ul>
             @endif

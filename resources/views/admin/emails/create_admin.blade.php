@@ -1,13 +1,13 @@
 <div>
-    Dobry den {{$user->name}} {{$user->surname}},
+    Dobrý deň {{$user->name}} {{$user->surname}},
 </div>
 <div>
-    boli ste zaregistrovany ako administrator pre <a href="{{action('Blog\HomeController@index')}}">Blogin</a></div>
+    boli ste zaregistrovaný ako administrátor pre <a href="{{action('Blog\HomeController@index')}}">Blogin</a></div>
 <div>
-    <b>Vase heslo je:</b> {{$pass}}
+    <b>Vaše heslo je:</b> {{$pass}}
 </div>
 <div>
-    Prihlasit sa mozte tu: <a href="{{action('Admin\Auth\AuthController@getLogin')}}">Prihlasenie</a>
+    Prihlásiť sa môžte tu: <a href="{{action('Admin\Auth\AuthController@getLogin')}}">Prihlásenie</a>
 </div>
 <div>
     S pozdravom <br>

@@ -4,7 +4,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Komentar</h1>
+                <h1 class="page-header">Komentár</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="form-group">
-                        <label for="cont">Obsah komentaru</label>
+                        <label for="cont">Obsah komentáru</label>
                         <textarea class="form-control" id="cont" name="cont" tabindex="1" required>{{$comment->content}}
                             </textarea>
                         <span class="register-error-empty"
@@ -36,9 +36,9 @@
             </div>
 
 
-            {!! Form::button('Ulozit',['class'=>'btn btn-success registerSubmit','type'=>'submit','name'=>'update']) !!}
-            {!! Form::button('Ulozit a ukoncit',['class'=>'btn btn-primary registerSubmit','type'=>'submit','name'=>'updateExit']) !!}
-            <a class="btn btn-danger" href="{{action('Admin\CommentsController@index')}}">Zrusit</a>
+            {!! Form::button('Uložiť',['class'=>'btn btn-success registerSubmit','type'=>'submit','name'=>'update']) !!}
+            {!! Form::button('Uložiť a ukončiť',['class'=>'btn btn-primary registerSubmit','type'=>'submit','name'=>'updateExit']) !!}
+            <a class="btn btn-danger" href="{{action('Admin\CommentsController@index')}}">Zrušiť</a>
             {!! Form::close() !!}
 
         </div>

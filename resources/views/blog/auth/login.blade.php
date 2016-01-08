@@ -32,7 +32,7 @@
                                 </div>
 
                                 <div class="form-group">
-                                    <label class="control-label" for="password">Password</label>
+                                    <label class="control-label" for="password">Heslo</label>
                                     <input name="password" type="password" class="form-control custom-form"
                                            id="password"
                                            tabindex="2" pattern=".{6,}" title="Pole musí obsahovať minimálne 6 znakov!"
@@ -57,7 +57,7 @@
                                     Prihlásiť sa
                                 </button>
                                 <a class="btn btn-default btn-block"
-                                   href="{{action('Blog\Auth\AuthController@getRegister')}}" tabindex="5">Registracia</a>
+                                   href="{{action('Blog\Auth\AuthController@getRegister')}}" tabindex="5">Registrácia</a>
                             </form>
                         </div>
                     </div>

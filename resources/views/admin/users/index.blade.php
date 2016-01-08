@@ -4,9 +4,9 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Uzivatelia
+                <h1 class="page-header">Užívatelia
                     <a class="btn btn-success pull-right"
-                       href="{{action('Admin\UsersController@create')}}">Vytvorit</a></h1>
+                       href="{{action('Admin\UsersController@create')}}">Vytvoriť</a></h1>
             </div>
         </div>
 
@@ -17,7 +17,7 @@
                     <th>Meno</th>
                     <th>Priezviko</th>
                     <th>Email</th>
-                    <th>Komentare</th>
+                    <th>Komentáre</th>
                     <th>Admin</th>
                     <th></th>
                 </tr>
@@ -32,15 +32,15 @@
                         <td>{{($user->admin==1) ? 'Ano' : 'Nie'}}</td>
                         <td>
                             <a class="btn btn-warning" href="{{action('Admin\UsersController@edit',$user->id)}}"><span
-                                        class="glyphicon glyphicon-pencil"></span> Upravit</a>
+                                        class="glyphicon glyphicon-pencil"></span> Upraviť</a>
                             @if($user->id != Auth::user()->id)
-                                <a class="btn btn-danger deleteUser" user="{{$user->name}} {{$user->surname}}"
+                                <a class="btn btn-danger deleteUser" data-user="{{$user->name}} {{$user->surname}}"
                                    href="{{action('Admin\UsersController@remove',$user->id)}}"><span
-                                            class="glyphicon glyphicon-remove"></span> Zmazat</a>
+                                            class="glyphicon glyphicon-remove"></span> Zmazať</a>
                             @else
-                                <a class="btn btn-danger deleteUser" user="{{$user->name}} {{$user->surname}}"
+                                <a class="btn btn-danger deleteUser" data-user="{{$user->name}} {{$user->surname}}"
                                    href="{{action('Admin\UsersController@remove',$user->id)}}" disabled><span
-                                            class="glyphicon glyphicon-remove"></span> Seba zmazat nemozte!</a>
+                                            class="glyphicon glyphicon-remove"></span> Seba zmazať nemôžte!</a>
                             @endif
                         </td>
                     </tr>
@@ -69,13 +69,13 @@
             }
 
             swal({
-                        title: "Urcite vymazat?",
-                        text: "Skutocne chcete vymazat uzivatela: " + $(target).attr('user') + " ? Ak ma uzivatela zverejnene komentare. Autor tychto komentarov bude neznamy.",
+                        title: "Určite vymazať?",
+                        text: "Skutočne chcete vymazať užívateľa: " + $(target).attr('data-user') + " ? Ak má užívateľ zverejnené komentáre. Autor týchto komentárov bude neznámy.",
                         type: "warning",
                         showCancelButton: true,
-                        cancelButtonText: "Zrusit",
+                        cancelButtonText: "Zrušiť",
                         confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Ano zmazat!",
+                        confirmButtonText: "Áno zmazať!",
                         closeOnConfirm: false
                     },
                     function () {

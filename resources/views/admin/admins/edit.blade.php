@@ -4,7 +4,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Administrator</h1>
+                <h1 class="page-header">Administrátor</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -84,9 +84,9 @@
             </div>
 
 
-            {!! Form::button('Ulozit',['class'=>'btn btn-success registerSubmit','type'=>'submit','name'=>'update']) !!}
-            {!! Form::button('Ulozit a ukoncit',['class'=>'btn btn-primary registerSubmit','type'=>'submit','name'=>'updateExit']) !!}
-            <a class="btn btn-danger" href="{{action('Admin\AdminsController@index')}}">Zrusit</a>
+            {!! Form::button('Uložiť',['class'=>'btn btn-success registerSubmit','type'=>'submit','name'=>'update']) !!}
+            {!! Form::button('Uložiť a ukončiť',['class'=>'btn btn-primary registerSubmit','type'=>'submit','name'=>'updateExit']) !!}
+            <a class="btn btn-danger" href="{{action('Admin\AdminsController@index')}}">Zrušiť</a>
             {!! Form::close() !!}
 
         </div>

@@ -4,9 +4,9 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Administratori
+                <h1 class="page-header">Administrátori
                     <a class="btn btn-success pull-right"
-                       href="{{action('Admin\AdminsController@create')}}">Vytvorit</a>
+                       href="{{action('Admin\AdminsController@create')}}">Vytvoriť</a>
                 </h1>
             </div>
             <!-- /.col-lg-12 -->
@@ -19,7 +19,7 @@
                     <th>Meno</th>
                     <th>Priezviko</th>
                     <th>Email</th>
-                    <th>Pocet clankov</th>
+                    <th>Počet článkov</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -32,15 +32,15 @@
                         <td>{{count($admin->articles)}}</td>
                         <td>
                             <a class="btn btn-warning" href="{{action('Admin\AdminsController@edit',$admin->id)}}"><span
-                                        class="glyphicon glyphicon-pencil"></span> Upravit</a>
+                                        class="glyphicon glyphicon-pencil"></span> Upraviť</a>
                             @if($admin->id != Auth::user()->id)
                                 <a class="btn btn-danger deleteAdmin" admin="{{$admin->name}} {{$admin->surname}}"
                                    href="{{action('Admin\AdminsController@remove',$admin->id)}}"><span
-                                            class="glyphicon glyphicon-remove"></span> Zmazat</a>
+                                            class="glyphicon glyphicon-remove"></span> Zmazať</a>
                             @else
                                 <a class="btn btn-danger deleteAdmin" admin="{{$admin->name}} {{$admin->surname}}"
                                     href="{{action('Admin\AdminsController@remove',$admin->id)}}" disabled><span
-                                        class="glyphicon glyphicon-remove"></span> Seba zmazat nemozte!</a>
+                                        class="glyphicon glyphicon-remove"></span> Seba zmazať nemôžte!</a>
                             @endif
                         </td>
                     </tr>
@@ -70,13 +70,13 @@
             }
 
             swal({
-                        title: "Urcite vymazat?",
-                        text: "Skutocne chcete vymazat admina: " + $(target).attr('admin') + " ? Ak ma admin zverejnene clanky. Autor tychto clankov bude neznamy.",
+                        title: "Určite vymazať?",
+                        text: "Skutočne chcete vymazať admina: " + $(target).attr('admin') + " ? Ak má admin zverejnené články, autor týchto článkov bude neznámy.",
                         type: "warning",
                         showCancelButton: true,
-                        cancelButtonText: "Zrusit",
+                        cancelButtonText: "Zrušiť",
                         confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Ano zmazat!",
+                        confirmButtonText: "Áno zmazať!",
                         closeOnConfirm: false
                     },
                     function () {

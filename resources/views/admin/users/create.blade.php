@@ -4,7 +4,7 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Uzivatel</h1>
+                <h1 class="page-header">Užívateľ</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
@@ -56,7 +56,7 @@
                     </div>
                 </div>
                 <div class="col-lg-6">
-                        <h2><span class="label label-danger">Heslo bude vygenerovane a pride emailom.</span></h2>
+                        <h2><span class="label label-danger">Heslo bude vygenerované a príde novému užívateľovi emailom.</span></h2>
                 </div>
             </div>
             <div class="row">
@@ -64,16 +64,16 @@
                 <div class="checkbox">
                     <label>
                         {!! Form::hidden('admin', 0) !!}
-                        {!! Form::checkbox('admin', 1, old('admin')) !!} <b>Administrator</b>
+                        {!! Form::checkbox('admin', 1, old('admin')) !!} <b>Administrátor</b>
                     </label>
                 </div>
                 </div>
             </div>
 
 
-            {!! Form::button('Ulozit',['class'=>'btn btn-success registerSubmit','type'=>'submit','name'=>'save']) !!}
-            {!! Form::button('Ulozit a ukoncit',['class'=>'btn btn-primary registerSubmit','type'=>'submit','name'=>'saveExit']) !!}
-            <a class="btn btn-danger" href="{{action('Admin\UsersController@index')}}">Zrusit</a>
+            {!! Form::button('Uložiť',['class'=>'btn btn-success registerSubmit','type'=>'submit','name'=>'save']) !!}
+            {!! Form::button('Uložiť a ukončiť',['class'=>'btn btn-primary registerSubmit','type'=>'submit','name'=>'saveExit']) !!}
+            <a class="btn btn-danger" href="{{action('Admin\UsersController@index')}}">Zrušiť</a>
             {!! Form::close() !!}
 
         </div>

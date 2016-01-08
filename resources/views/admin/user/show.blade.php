@@ -65,7 +65,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label" for="newpassword">Nove Heslo</label>
+                    <label class="control-label" for="newpassword">Nové Heslo</label>
                     <input name="newpassword" type="newpassword" class="form-control custom-form"
                            id="newpassword"
                            tabindex="5">
@@ -78,7 +78,7 @@
                 </div>
 
                 <div class="form-group">
-                    <label class="control-label" for="newpassword_confirmation">Nove heslo znova</label>
+                    <label class="control-label" for="newpassword_confirmation">Nové heslo znova</label>
                     <input name="newpassword_confirmation" type="password" class="form-control custom-form"
                            id="newpassword_confirmation" tabindex="6">
                 </div>

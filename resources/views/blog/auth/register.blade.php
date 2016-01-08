@@ -82,7 +82,7 @@
                                 </div>
 
                                 <button class="btn btn-info btn-block" type="submit" id="registerSubmit" tabindex="6">
-                                    Registrovat
+                                    Registrovať
                                     sa
                                 </button>
                             </form>
@@ -93,7 +93,7 @@
         </div>
         <div class="row">
             <div class="col-md-12 text-center back-link-div">
-                <a class="back-link" href="{{action('Blog\Auth\AuthController@getLogin')}}"> » späť na stránku prihlasenia</a>
+                <a class="back-link" href="{{action('Blog\Auth\AuthController@getLogin')}}"> » späť na stránku prihlásenia</a>
             </div>
         </div>
     </div>

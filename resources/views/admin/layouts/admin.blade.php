@@ -9,7 +9,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>Blog administrator</title>
+    <title>Blogin admin</title>
 
     <!-- Bootstrap Core CSS -->
     <link href="{{asset('css/bootstrap.min.css')}}" rel="stylesheet">
@@ -55,25 +55,25 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{action('Admin\AdminController@index')}}"><i class="fa fa-home fa-fw"></i> Blog
-                administrator</a>
+            <a class="navbar-brand" href="{{action('Admin\AdminController@index')}}"><i class="fa fa-home fa-fw"></i> Blogin
+                administrátor</a>
         </div>
         <!-- /.navbar-header -->
 
         <ul class="nav navbar-top-links navbar-right">
             <li>
-                <a href="{{action('Blog\HomeController@index')}}">Blog</a>
+                <a href="{{action('Blog\HomeController@index')}}">Blogin</a>
             </li>
             <li class="dropdown">
                 <a class="dropdown-toggle" data-toggle="dropdown" href="#">
                     <i class="fa fa-user fa-fw"></i> {{Auth::user()->name}} {{Auth::user()->surname}} <i class="fa fa-caret-down"></i>
                 </a>
                 <ul class="dropdown-menu dropdown-user">
-                    <li><a href="{{action('Admin\UsersController@profile')}}"><i class="fa fa-user fa-fw"></i> User Profile</a>
+                    <li><a href="{{action('Admin\UsersController@profile')}}"><i class="fa fa-user fa-fw"></i> Váš profil</a>
                     </li>
                     <li class="divider"></li>
                     <li><a href="{{action('Admin\Auth\AuthController@getLogout')}}"><i class="fa fa-sign-out fa-fw"></i>
-                            Logout</a>
+                            Odhlásiť sa</a>
                     </li>
                 </ul>
                 <!-- /.dropdown-user -->
@@ -86,15 +86,15 @@
             <div class="sidebar-nav navbar-collapse">
                 <ul class="nav" id="side-menu">
                     <li class="{{($controller=='Admin\UsersController' || $controller=='Admin\AdminsController') ? 'active':''}}">
-                        <a href="#"><i class="fa fa-users fa-fw"></i> Uzivatelia<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-users fa-fw"></i> Užívatelia<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li class="{{($controller=='Admin\UsersController') ? 'active':''}}">
-                                <a href="{{action('Admin\UsersController@index')}}"><i class="fa fa-users fa-fw"></i> Uzivatelia
+                                <a href="{{action('Admin\UsersController@index')}}"><i class="fa fa-users fa-fw"></i> Užívatelia
                                     blogu</a>
                             </li>
                             <li class="{{($controller=='Admin\AdminsController') ? 'active':''}}">
                                 <a href="{{action('Admin\AdminsController@index')}}"><i class="fa fa-users fa-fw"></i>
-                                    Administratori</a>
+                                    Administrátori</a>
                             </li>
                         </ul>
                         <!-- /.nav-second-level -->
@@ -103,11 +103,11 @@
                         <a href="{{action('Admin\TagsController@index')}}"><i class="fa fa-tags fa-fw"></i> Tagy</a>
                     </li>
                     <li class="{{($controller=='Admin\ArticlesController') ? 'active':''}}">
-                        <a href="{{action('Admin\ArticlesController@index')}}"><i class="fa fa-newspaper-o fa-fw"></i> Clanky</a>
+                        <a href="{{action('Admin\ArticlesController@index')}}"><i class="fa fa-newspaper-o fa-fw"></i> Články</a>
                     </li>
                     <li class="{{($controller=='Admin\CommentsController') ? 'active':''}}">
                         <a href="{{action('Admin\CommentsController@index')}}"><i class="fa fa-comments-o fa-fw"></i>
-                            Komentare</a>
+                            Komentáre</a>
                     </li>
                     <li class="{{($controller=='Admin\SettingsController') ? 'active':''}}">
                         <a href="{{action('Admin\SettingsController@index')}}"><i class="fa fa-wrench fa-fw"></i>

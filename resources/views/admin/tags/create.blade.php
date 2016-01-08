@@ -16,7 +16,7 @@
             <div class="row">
                 <div class="col-lg-8">
                     <div class="form-group">
-                        <label for="name">Nazov tagu</label>
+                        <label for="name">Názov tagu</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}" tabindex="1"
                                pattern="^[0-9a-záäčďéíĺľňóôöőŕřšťúüűýžA-ZÁÄČĎÉÍĹĽŇÓÔÖŐŘŔŠŤÚÜŰÝŽ.]+$"
                                title="Pole môže obsahovať iba písmená a cislice" required>
@@ -30,9 +30,9 @@
             </div>
 
 
-            {!! Form::button('Ulozit',['class'=>'btn btn-success registerSubmit','type'=>'submit','name'=>'save']) !!}
-            {!! Form::button('Ulozit a ukoncit',['class'=>'btn btn-primary registerSubmit','type'=>'submit','name'=>'saveExit']) !!}
-            <a class="btn btn-danger" href="{{action('Admin\TagsController@index')}}">Zrusit</a>
+            {!! Form::button('Uložiť',['class'=>'btn btn-success registerSubmit','type'=>'submit','name'=>'save']) !!}
+            {!! Form::button('Uložiť a ukončiť',['class'=>'btn btn-primary registerSubmit','type'=>'submit','name'=>'saveExit']) !!}
+            <a class="btn btn-danger" href="{{action('Admin\TagsController@index')}}">Zrušiť</a>
             {!! Form::close() !!}
 
         </div>

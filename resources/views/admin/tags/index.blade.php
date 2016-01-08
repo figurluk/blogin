@@ -8,7 +8,7 @@
                 <h1 class="page-header">
                     Tagy
                     <a class="btn btn-success pull-right"
-                       href="{{action('Admin\TagsController@create')}}">Vytvorit</a>
+                       href="{{action('Admin\TagsController@create')}}">Vytvoriť</a>
                 </h1>
 
             </div>
@@ -19,7 +19,7 @@
             <table class="table table-striped table-condensed">
                 <thead>
                 <tr>
-                    <th>Nazov</th>
+                    <th>Názov</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -30,10 +30,10 @@
                         <td>
                             <a class="btn btn-warning"
                                href="{{action('Admin\TagsController@edit',$tag->id)}}"><span
-                                        class="glyphicon glyphicon-pencil"></span> Upravit</a>
+                                        class="glyphicon glyphicon-pencil"></span> Upraviť</a>
                             <a class="btn btn-danger deleteTag" tag="{{$tag->name}}"
                                href="{{action('Admin\TagsController@remove',$tag->id)}}"><span
-                                        class="glyphicon glyphicon-remove"></span> Zmazat</a>
+                                        class="glyphicon glyphicon-remove"></span> Zmazať</a>
                         </td>
                     </tr>
                 @endforeach
@@ -61,13 +61,13 @@
             }
 
             swal({
-                        title: "Urcite vymazat?",
-                        text: "Skutocne chcete vymazat tag: " + $(target).attr('tag') + " ? ",
+                        title: "Určite vymazať?",
+                        text: "Skutočne chcete vymazať tag: " + $(target).attr('tag') + " ? ",
                         type: "warning",
                         showCancelButton: true,
-                        cancelButtonText: "Zrusit",
+                        cancelButtonText: "Zrušiť",
                         confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Ano zmazat!",
+                        confirmButtonText: "Áno zmazať!",
                         closeOnConfirm: false
                     },
                     function () {

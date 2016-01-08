@@ -4,20 +4,20 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Clanky</h1>
+                <h1 class="page-header">Články</h1>
             </div>
             <!-- /.col-lg-12 -->
         </div>
 
-        <h3>Dnes pridane clanky</h3>
+        <h3>Dnes pridané články</h3>
         <div class="table-responsive">
             <table class="table table-striped table-condensed">
                 <thead>
                 <tr>
-                    <th>Nazov</th>
+                    <th>Názov</th>
                     <th>Autor</th>
                     <th>Tagy</th>
-                    <th>Topovany</th>
+                    <th>Topovaný</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -31,10 +31,10 @@
                                 <span class="label label-success">{{$tag->name}}</span>
                             @endforeach
                         </td>
-                        <td>{{($newArticle->topped) ? 'Ano':'Nie'}}</td>
+                        <td>{{($newArticle->topped) ? 'Áno':'Nie'}}</td>
                         <td>
-                            <a class="btn btn-warning" href="{{action('Admin\ArticlesController@edit',$newArticle->id)}}"><span class="glyphicon glyphicon-pencil"></span> Upravit</a>
-                            <a class="btn btn-danger" article="{{$newArticle->title}}" href="{{action('Admin\ArticlesController@remove',$newArticle->id)}}"><span class="glyphicon glyphicon-remove"></span> Zmazat</a></td>
+                            <a class="btn btn-warning" href="{{action('Admin\ArticlesController@edit',$newArticle->id)}}"><span class="glyphicon glyphicon-pencil"></span> Upraviť</a>
+                            <a class="btn btn-danger" article="{{$newArticle->title}}" href="{{action('Admin\ArticlesController@remove',$newArticle->id)}}"><span class="glyphicon glyphicon-remove"></span> Zmazať</a></td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -62,13 +62,13 @@
             }
 
             swal({
-                        title: "Urcite vymazat?",
-                        text: "Skutocne chcete vymazat clanok: " + $(target).attr('article') + " ? ",
+                        title: "Určite vymazať?",
+                        text: "Skutočne chcete vymazať článok: " + $(target).attr('article') + " ? ",
                         type: "warning",
                         showCancelButton: true,
-                        cancelButtonText: "Zrusit",
+                        cancelButtonText: "Zrušiť",
                         confirmButtonColor: "#DD6B55",
-                        confirmButtonText: "Ano zmazat!",
+                        confirmButtonText: "Áno zmazať!",
                         closeOnConfirm: false
                     },
                     function () {

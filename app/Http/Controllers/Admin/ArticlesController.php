@@ -103,7 +103,7 @@ class ArticlesController extends Controller
             $filename = $article->id . $filename;
 
             if ($article->image != 'default.png') {
-                $disk->delete($destinationPath . $article->image);
+                $disk->delete("articles_img/" . $article->image);
             }
             Image::make(Input::file('image'))->save($destinationPath . $filename);
             $article->image = $filename;
