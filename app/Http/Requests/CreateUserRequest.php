@@ -26,7 +26,7 @@ class CreateUserRequest extends Request
         return [
             'name' => 'required|max:255|string',
             'surname' => 'required|max:255|string',
-            'email' => 'required|email|max:255|unique:users,deleted_at,NULL',
+            'email' => 'required|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
         ];
     }
 

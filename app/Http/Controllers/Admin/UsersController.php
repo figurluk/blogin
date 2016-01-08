@@ -77,7 +77,7 @@ class UsersController extends Controller
         $user = Auth::user();
         if ($user->email != $request->email) {
             $this->validate($request, [
-                'email' => 'required|email|max:255|unique:users,deleted_at,NULL',
+                'email' => 'required|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
             ], [
                 'email.required' => 'Email musí byt vyplnený.',
                 'email.email' => 'Email musí byť platná emailová adresa.',
@@ -127,7 +127,7 @@ class UsersController extends Controller
         $user = User::find($id);
         if ($user->email != $request->email) {
             $this->validate($request, [
-                'email' => 'required|email|max:255|unique:users,deleted_at,NULL',
+                'email' => 'required|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
             ], [
                 'email.required' => 'Email musí byt vyplnený.',
                 'email.email' => 'Email musí byť platná emailová adresa.',

@@ -63,7 +63,7 @@
                     <div class="col-lg-6">
                         <div class="form-group">
                             <label for="password">Nove heslo</label>
-                            <input type="text" class="form-control" id="password" name="password" tabindex="4"
+                            <input type="password" class="form-control" id="password" name="password" tabindex="4"
                                    pattern=".{6,}" title="Pole musí obsahovať minimálne 6 znakov!"
                                    required>
                             <span class="glyphicon glyphicon-remove remove-glyph" style="display:none"></span>
@@ -76,7 +76,7 @@
 
                         <div class="form-group">
                             <label for="password_confirmation">Nove heslo znova</label>
-                            <input type="text" class="form-control" id="password_confirmation"
+                            <input type="password" class="form-control" id="password_confirmation"
                                    name="password_confirmation">
                         </div>
                     </div>
