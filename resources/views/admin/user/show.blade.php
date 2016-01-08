@@ -66,7 +66,7 @@
 
                 <div class="form-group">
                     <label class="control-label" for="newpassword">Nové Heslo</label>
-                    <input name="newpassword" type="newpassword" class="form-control custom-form"
+                    <input name="newpassword" type="password" class="form-control custom-form"
                            id="newpassword"
                            tabindex="5">
                     <span class="glyphicon glyphicon-remove remove-glyph" style="display:none"></span>
