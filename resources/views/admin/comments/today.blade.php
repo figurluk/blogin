@@ -21,7 +21,6 @@
                     <th>K článku</th>
                     <th>Obsah komentáru</th>
                     <th>Má podkomentáre</th>
-                    <th>Je podkomentárom</th>
                     <th></th>
                 </tr>
                 </thead>
@@ -29,13 +28,12 @@
                 @foreach($newComments as $newComment)
                     <tr>
                         <td>{{$newComment->user->name}} {{$newComment->user->surname}}</td>
-                        <td>{{$newComment->article->title}}</td>
+                        <td>{{$newComment->articles->title}}</td>
                         <td>{{(strlen($newComment->content)>20) ? substr($newComment->content,0,20) : $newComment->content}}...</td>
-                        <td>{{(count($newComment->comments())!=0) ? 'Áno' : 'Nie'}}</td>
-                        <td>{{(count($newComment->belongComments())!=0) ? 'Áno' : 'Nie'}}</td>
+                        <td>{{(count($newComment->comments)!=0) ? 'Áno' : 'Nie'}}</td>
                         <td>
                             <a class="btn btn-warning" href="{{action('Admin\CommentsController@edit',$newComment->id)}}"><span class="glyphicon glyphicon-pencil"></span> Upraviť</a>
-                            <a class="btn btn-danger deleteComment" article="{{$newComment->article->title}}" href="{{action('Admin\CommentsController@remove',$newComment->id)}}"><span class="glyphicon glyphicon-remove"></span> Zmazať</a>
+                            <a class="btn btn-danger deleteComment" data-article="{{$newComment->articles->title}}" href="{{action('Admin\CommentsController@remove',$newComment->id)}}"><span class="glyphicon glyphicon-remove"></span> Zmazať</a>
                         </td>
                     </tr>
                 @endforeach
@@ -52,7 +50,7 @@
 
     <script type="text/javascript">
 
-        $(document).on('click', '.deleteTag', function (event) {
+        $(document).on('click', '.deleteComment', function (event) {
             event.preventDefault();
             event.stopPropagation();
 
@@ -64,7 +62,7 @@
 
             swal({
                         title: "Určite vymazať?",
-                        text: "Skutočne chcete vymazať komentár k článku: " + $(target).attr('article') + "? Ak komentár obsahuje podkomentáre, tie sa taktiež zmažu!",
+                        text: "Skutočne chcete vymazať komentár k článku: " + $(target).attr('data-article') + "? Ak komentár obsahuje podkomentáre, tie sa taktiež zmažu!",
                         type: "warning",
                         showCancelButton: true,
                         cancelButtonText: "Zrušiť",

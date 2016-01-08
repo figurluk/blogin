@@ -34,7 +34,7 @@
                         <td>{{($newArticle->topped) ? 'Áno':'Nie'}}</td>
                         <td>
                             <a class="btn btn-warning" href="{{action('Admin\ArticlesController@edit',$newArticle->id)}}"><span class="glyphicon glyphicon-pencil"></span> Upraviť</a>
-                            <a class="btn btn-danger" article="{{$newArticle->title}}" href="{{action('Admin\ArticlesController@remove',$newArticle->id)}}"><span class="glyphicon glyphicon-remove"></span> Zmazať</a></td>
+                            <a class="btn btn-danger deleteArticle" data-article="{{$newArticle->title}}" href="{{action('Admin\ArticlesController@remove',$newArticle->id)}}"><span class="glyphicon glyphicon-remove"></span> Zmazať</a></td>
                     </tr>
                 @endforeach
                 </tbody>
@@ -63,7 +63,7 @@
 
             swal({
                         title: "Určite vymazať?",
-                        text: "Skutočne chcete vymazať článok: " + $(target).attr('article') + " ? ",
+                        text: "Skutočne chcete vymazať článok: " + $(target).attr('data-article') + " ? ",
                         type: "warning",
                         showCancelButton: true,
                         cancelButtonText: "Zrušiť",
