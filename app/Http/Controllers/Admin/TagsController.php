@@ -42,7 +42,7 @@ class TagsController extends Controller
         $tag->name = $request->name;
         $tag->save();
 
-        flash()->info('Uspesne ste vytvorili tag: ' . $tag->name);
+        flash()->info('Úspešne ste vytvorili tag: ' . $tag->name);
         if (isset($request->save))
             return redirect()->action('Admin\TagsController@edit', $tag->id);
         else {
@@ -64,15 +64,15 @@ class TagsController extends Controller
             $this->validate($request, [
                 'name' => 'required|string|unique:tags,deleted_at,NULL',
             ], [
-                'name.required' => 'Nazov tagu je povinny.',
-                'name.string' => 'Nazov tagu musi byt postupnost znakov.',
-                'name.unique' => 'Nazov tagu musi byt unikatne.',
+                'name.required' => 'Názov tagu je povinný.',
+                'name.string' => 'Názov tagu musí byť postupnosť znakov.',
+                'name.unique' => 'Názov tagu musí byť unikátne.',
             ]);
         }
         $tag->name = $request->name;
         $tag->save();
 
-        flash()->info('Uspesne ste upravili tag: ' . $tag->name);
+        flash()->info('Úspešne ste upravili tag: ' . $tag->name);
         if (isset($request->update))
             return redirect()->action('Admin\TagsController@edit', $tag->id);
         else {
@@ -83,7 +83,7 @@ class TagsController extends Controller
     public function remove($id)
     {
         $tag = Tags::find($id);
-        flash()->info('Uspesne ste zmazali tag: ' . $tag->name);
+        flash()->info('Úspešne ste zmazali tag: ' . $tag->name);
         $tag->delete();
         return redirect()->action('Admin\TagsController@index');
     }

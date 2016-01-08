@@ -34,9 +34,9 @@ class CreateTagRequest extends Request
     public function messages()
     {
         return [
-            'name.required'=>'Nazov tagu je povinny.',
-            'name.string'=>'Nazov tagu musi byt postupnost znakov.',
-            'name.unique'=>'Nazov tagu musi byt unikatne.',
+            'name.required'=>'Názov tagu je povinný.',
+            'name.string'=>'Názov tagu musí byť postupnosť znakov.',
+            'name.unique'=>'Názov tagu musí byť unikátne.',
         ];
     }
 }

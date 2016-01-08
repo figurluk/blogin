@@ -36,8 +36,8 @@ class CreateCommentRequest extends Request
     public function messages()
     {
         return [
-            'cont.required'=>'Obsah komentaru je povinny.',
-            'cont.string'=>'Obsah komentaru musi byt postupnost znakov.',
+            'cont.required'=>'Obsah komentáru je povinný.',
+            'cont.string'=>'Obsah komentáru musí byť postupnosť znakov.',
         ];
     }
 }

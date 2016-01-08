@@ -49,11 +49,11 @@ class AdminsController extends Controller
         $user->save();
 
         Mail::send('admin.emails.create_admin', ['user' => $user,'pass'=>$pass], function ($m) use ($user) {
-            $m->from('figurluk@gmail.com', 'Blogin Administrator');
-            $m->to($user->email, $user->name)->subject('Boli ste zaregistrovany ako administrator.');
+            $m->from('blogblogin@gmail.com', 'Blogin Administrátor');
+            $m->to($user->email, $user->name)->subject('Boli ste zaregistrovaný ako administrátor.');
         });
 
-        flash()->info('Uspesne ste vytvorili administratora: ' . $user->name . '. Heslo mu bolo odoslane na email.');
+        flash()->info('Úspešne ste vytvorili administrátora: ' . $user->name . '. Heslo mu bolo odoslané na email.');
         if (isset($request->save))
             return redirect()->action('Admin\AdminsController@edit', $user->id);
         else {
@@ -75,31 +75,39 @@ class AdminsController extends Controller
             $this->validate($request, [
                 'email' => 'required|email|max:255|unique:users,deleted_at,NULL',
             ], [
-                'email.required'=>'Email musi byt vyplneny.',
-                'email.email'=>'Email musi byt platna emailova adresa.',
-                'email.unique'=>'Zadany email uz je registrovany.',
-                'email.max'=>'Email moze mat najviac 255 znakov.',
+                'email.required' => 'Email musí byt vyplnený.',
+                'email.email' => 'Email musí byť platná emailová adresa.',
+                'email.unique' => 'Zadaný email už je registrovaný.',
+                'email.max' => 'Email môže mať najviac 255 znakov.',
             ]);
         }
         if ($user->id == Auth::user()->id && $request->password!='') {
             $this->validate($request, [
                 'password' => 'required|confirmed|min:6',
             ], [
-                'password.min'=>'Heslo musi mat minimalne 6 znakov.',
-                'password.required'=>'Heslo musi byt vyplnene.',
-                'password.confirmed'=>'Hesla sa musia zhodovat',
+                'password.min'=>'Heslo musí mať minimálne 6 znakov.',
+                'password.required'=>'Heslo musí byť vyplnené.',
+                'password.confirmed'=>'Heslá sa musia zhodovať',
             ]);
+        }
+        elseif($request->newpass) {
+            $pass = $this->generateRandomString(6);
+            $user->password = bcrypt($pass);
+            Mail::send('admin.emails.pass_user', ['user' => $user,'pass'=>$pass], function ($m) use ($user) {
+                $m->from('blogblogin@gmail.com', 'Blogin Administrátor');
+                $m->to($user->email, $user->name)->subject('Bolo vám vygenerované nové heslo administrátorom.');
+            });
         }
         $this->validate($request, [
             'name' => 'required|max:255|string',
             'surname' => 'required|max:255|string',
         ], [
-            'name.required'=>'Meno musi byt vyplnene.',
-            'name.max'=>'Meno moze mat najviac 255 znakov.',
-            'name.string'=>'Meno musi byt postupnost znakov.',
-            'surname.string'=>'Priezvisko musi byt postupnost znakov.',
-            'surname.required'=>'Priezvisko musi byt vyplnene.',
-            'surname.max'=>'Priezvisko moze mat najviac 255 znakov.',
+            'name.required' => 'Meno musí byť vyplnené.',
+            'name.max' => 'Meno môže mať najviac 255 znakov.',
+            'name.string' => 'Meno musí byť postupnosť znakov.',
+            'surname.string' => 'Priezvisko musí byť postupnosť znakov.',
+            'surname.required' => 'Priezvisko musí byť vyplnené.',
+            'surname.max' => 'Priezvisko môže mať najviac 255 znakov.',
         ]);
 
         $user->name = $request->name;
@@ -110,7 +118,7 @@ class AdminsController extends Controller
         }
         $user->save();
 
-        flash()->info('Uspesne ste upravili administratora: ' . $user->name);
+        flash()->info('Úspešne ste upravili administrátora: ' . $user->name);
         if (isset($request->update))
             return redirect()->action('Admin\AdminsController@edit', $user->id);
         else {
@@ -121,7 +129,7 @@ class AdminsController extends Controller
     public function remove($id)
     {
         $user = User::find($id);
-        flash()->info('Uspesne ste zmazali tag: ' . $user->name);
+        flash()->info('Úspešne ste zmazali tag: ' . $user->name);
         $user->delete();
         return redirect()->action('Admin\AdminsController@index');
     }

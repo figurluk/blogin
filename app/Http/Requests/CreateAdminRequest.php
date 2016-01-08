@@ -43,16 +43,16 @@ class CreateAdminRequest extends Request
     public function messages()
     {
         return [
-            'name.required'=>'Meno musi byt vyplnene.',
-            'name.max'=>'Meno moze mat najviac 255 znakov.',
-            'name.string'=>'Meno musi byt postupnost znakov.',
-            'surname.string'=>'Priezvisko musi byt postupnost znakov.',
-            'surname.required'=>'Priezvisko musi byt vyplnene.',
-            'surname.max'=>'Priezvisko moze mat najviac 255 znakov.',
-            'email.required'=>'Email musi byt vyplneny.',
-            'email.email'=>'Email musi byt platna emailova adresa.',
-            'email.unique'=>'Zadany email uz je registrovany.',
-            'email.max'=>'Email moze mat najviac 255 znakov.',
+            'name.required'=>'Meno musí byť vyplnené.',
+            'name.max'=>'Meno môže mať najviac 255 znakov.',
+            'name.string'=>'Meno musí byť postupnosť znakov.',
+            'surname.string'=>'Priezvisko musí byť postupnosť znakov.',
+            'surname.required'=>'Priezvisko musí byť vyplnené.',
+            'surname.max'=>'Priezvisko môže mať najviac 255 znakov.',
+            'email.required'=>'Email musí byť vyplnený.',
+            'email.email'=>'Email musí byť platná emailová adresa.',
+            'email.unique'=>'Zadaný email už je registrovaný.',
+            'email.max'=>'Email môže mať najviac 255 znakov.',
         ];
     }
 }

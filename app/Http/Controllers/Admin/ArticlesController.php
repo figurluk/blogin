@@ -70,7 +70,7 @@ class ArticlesController extends Controller
         }
         $article->user()->associate(Auth::user());
         $article->save();
-        flash()->info('Uspesne ste vytvorili clanok: ' . $article->title);
+        flash()->info('Úspešne ste vytvorili článok: ' . $article->title);
         if (isset($request->save))
             return redirect()->action('Admin\ArticlesController@edit', $article->id);
         else
@@ -110,7 +110,7 @@ class ArticlesController extends Controller
         }
 
         $article->save();
-        flash()->info('Uspesne ste upravili clanok: ' . $article->title);
+        flash()->info('Úspešne ste upravili článok: ' . $article->title);
         if (isset($request->update))
             return redirect()->action('Admin\ArticlesController@edit', $article->id);
         else
@@ -120,7 +120,7 @@ class ArticlesController extends Controller
     public function remove($id)
     {
         $article = Articles::find($id);
-        flash()->info('Uspesne ste zmazali clanok: ' . $article->title);
+        flash()->info('Úspešne ste zmazali článok: ' . $article->title);
         $article->delete();
         return redirect()->action('Admin\ArticlesController@index');
     }

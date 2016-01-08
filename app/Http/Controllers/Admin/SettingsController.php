@@ -29,6 +29,7 @@ class SettingsController extends Controller
         $settings = Settings::first();
         $settings->design = $request->design;
         $settings->save();
+        flash()->info('Úspešne ste upravili nastavenia blogu.');
         return redirect()->action('Admin\SettingsController@index');
     }
 }

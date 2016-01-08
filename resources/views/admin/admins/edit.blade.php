@@ -80,6 +80,16 @@
                                    name="password_confirmation">
                         </div>
                     </div>
+
+                @else
+                    <div class="col-lg-6">
+                        <div class="checkbox">
+                            <label>
+                                {!! Form::hidden('newpass', 0) !!}
+                                {!! Form::checkbox('newpass', 1, null) !!} <b>Poslať nové heslo</b>
+                            </label>
+                        </div>
+                    </div>
                 @endif
             </div>
 

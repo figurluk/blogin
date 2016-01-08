@@ -38,19 +38,19 @@ class UserController extends Controller
             $this->validate($request, [
                 'email' => 'required|email|max:255|unique:users,deleted_at,NULL',
             ], [
-                'email.required' => 'Email musi byt vyplneny.',
-                'email.email' => 'Email musi byt platna emailova adresa.',
-                'email.unique' => 'Zadany email uz je registrovany.',
-                'email.max' => 'Email moze mat najviac 255 znakov.',
+                'email.required' => 'Email musí byť vyplnený.',
+                'email.email' => 'Email musí byť platna emailová adresa.',
+                'email.unique' => 'Zadany email už je registrované.',
+                'email.max' => 'Email môže mať najviac 255 znakov.',
             ]);
         }
         if ($request->newpassword != "") {
             $this->validate($request, [
                 'newpassword' => 'required|confirmed|min:6',
             ], [
-                'newpassword.min' => 'Heslo musi mat minimalne 6 znakov.',
-                'newpassword.required' => 'Heslo musi byt vyplnene.',
-                'newpassword.confirmed' => 'Hesla sa musia zhodovat',
+                'newpassword.min' => 'Heslo musí mať minimálne 6 znakov.',
+                'newpassword.required' => 'Heslo musí byť vyplnené.',
+                'newpassword.confirmed' => 'Heslá sa musia zhodovať',
             ]);
             $user->password = bcrypt($request->newpassword);
         }
@@ -58,12 +58,12 @@ class UserController extends Controller
             'name' => 'required|max:255|string',
             'surname' => 'required|max:255|string',
         ], [
-            'name.required' => 'Meno musi byt vyplnene.',
-            'name.max' => 'Meno moze mat najviac 255 znakov.',
-            'name.string' => 'Meno musi byt postupnost znakov.',
-            'surname.string' => 'Priezvisko musi byt postupnost znakov.',
-            'surname.required' => 'Priezvisko musi byt vyplnene.',
-            'surname.max' => 'Priezvisko moze mat najviac 255 znakov.',
+            'name.required' => 'Meno musí byt vyplnené.',
+            'name.max' => 'Meno môže mať najviac 255 znakov.',
+            'name.string' => 'Meno musí byť postupnosť znakov.',
+            'surname.string' => 'Priezvisko musí byť postupnosť znakov.',
+            'surname.required' => 'Priezvisko musí byť vyplnené.',
+            'surname.max' => 'Priezvisko môže mať najviac 255 znakov.',
         ]);
 
         $user->name = $request->name;
@@ -71,7 +71,7 @@ class UserController extends Controller
         $user->email = $request->email;
         $user->save();
 
-        flash()->info('Uspesne ste upravili Vas profil.');
+        flash()->info('Úspešne ste upravili Váš profil.');
         return redirect()->action('Blog\UserController@edit');
 
     }

@@ -3,6 +3,7 @@
 @section('content')
 
     <div class="containerUser container">
+        @include('blog.errors.show_error)
         <h3>Vase udaje</h3>
         <form method="POST" action="{{ url('home/user/update') }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">

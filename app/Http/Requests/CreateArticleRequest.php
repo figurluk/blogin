@@ -39,12 +39,12 @@ class CreateArticleRequest extends Request
     public function messages()
     {
         return [
-            'tags.required'=>'Pridelenie tagu clanku je povinne.',
-            'title.required'=>'Nazov clanku je povinny.',
-            'title.string'=>'Nazov clanku musi byt postupnost znakov.',
-            'cont.required'=>'Obsah clanku je povinny.',
-            'cont.string'=>'Obsah clanku musi byt postupnost znakov.',
-            'image.image'=>'Obrazok clanku musi byt obrazok.'
+            'tags.required'=>'Pridelenie tagu článku je povinné.',
+            'title.required'=>'Názov článku je povinný.',
+            'title.string'=>'Nazov článku musí byť postupnosť znakov.',
+            'cont.required'=>'Obsah článku je povinny.',
+            'cont.string'=>'Obsah článku musí byť postupnosť znakov.',
+            'image.image'=>'Obrázok článku musí byť obrázok.'
         ];
     }
 }

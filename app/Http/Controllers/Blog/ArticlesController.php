@@ -47,9 +47,9 @@ class ArticlesController extends Controller
             $this->validate($request, [
                 'cont' => 'required'
             ], [
-                'cont.required' => 'Obsah komentaru nemoze byt prazdny!'
+                'cont.required' => 'Obsah komentáru nemôže byť prázdny!'
             ]);
-            flash()->info('Uspesne ste komentovali clanok.');
+            flash()->info('Úspešne ste komentovali článok.');
             return view('blog.article.show', compact(['article', 'code']));
         }
     }

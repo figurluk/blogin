@@ -32,15 +32,8 @@ class UserTableSeeder extends Seeder
         DB::table('comments')->delete();
         DB::table('settings')->delete();
 
-        $user = App\User::create(array(
-            'name' => 'Milos',
-            'surname' => 'Pridavok',
-            'email' => 'pridavok@gmail.com',
-            'password' => Hash::make('qwerty')
-        ));
-
         \App\Settings::create([
-            'design'=>1
+            'design' => 1
         ]);
 
         $tag = App\Tags::create(array(
@@ -50,8 +43,8 @@ class UserTableSeeder extends Seeder
             'name' => 'Chemic',
         ));
 
-        App\User::create(array(
-            'name' => 'Lukas',
+        $user = App\User::create(array(
+            'name' => 'Lukáš',
             'surname' => 'Figura',
             'admin' => 1,
             'email' => 'figurluk@gmail.com',
@@ -61,17 +54,9 @@ class UserTableSeeder extends Seeder
         for ($i = 0; $i < 18; $i++) {
 
             $article = App\Articles::create(array(
-                'title' => 'Skusobny clanok' . $i,
+                'title' => 'Nový článok' . $i,
                 'topped' => 1,
-                'content' => 'kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
-                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
-                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
-                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
-                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
-                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
-                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
-                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd
-                kajsdh kjashd k jsahdjkhaskdh uahsd haskjhd pasd phasdh ajshdu has;dh ashd asdasd'
+                'content' => 'Lorem Ipsum je fiktívny text, používaný pri návrhu tlačovín a typografie. Lorem Ipsum je štandardným výplňovým textom už od 16. storočia, keď neznámy tlačiar zobral sadzobnicu plnú tlačových znakov a pomiešal ich, aby tak vytvoril vzorkovú knihu. Prežil nielen päť storočí, ale aj skok do elektronickej sadzby, a pritom zostal v podstate nezmenený. Spopularizovaný bol v 60-tych rokoch 20.storočia, vydaním hárkov Letraset, ktoré obsahovali pasáže Lorem Ipsum, a neskôr aj publikačným softvérom ako Aldus PageMaker, ktorý obsahoval verzie Lorem Ipsum.'
             ));
 
             if ($i % 2 == 0)
