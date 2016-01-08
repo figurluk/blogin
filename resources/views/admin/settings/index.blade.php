@@ -33,12 +33,10 @@
             <div class="radio col-lg-6">
                 <h5>Náhľad</h5>
 
-                <a href="{{asset('img/design1.png')}}" target="_blank" class="col-lg-12" id="design1" {{($settings->design!=1) ? 'style=display:none' : ''}}>
-                    <img class="col-lg-12"  src="{{asset('img/design1.png')}}" alt="Design blogu">
-                </a>
-                <a href="{{asset('img/design1.png')}}" target="_blank" class="col-lg-12" id="design2" {{($settings->design!=2) ? 'style=display:none' : ''}}>
-                    <img class="col-lg-12"  src="{{asset('img/design2.png')}}" alt="Design blogu">
-                </a>
+                <img class="col-lg-12" src="{{asset('img/design1.png')}}" alt="Design blogu"
+                     id="design1" {{($settings->design!=1) ? 'style=display:none' : ''}}>
+                <img class="col-lg-12" src="{{asset('img/design2.png')}}" alt="Design blogu"
+                     id="design2" {{($settings->design!=2) ? 'style=display:none' : ''}}>
             </div>
 
             {!! Form::close() !!}
@@ -62,11 +60,6 @@
                     $('#design1').hide();
                     $('#design2').fadeIn();
                 }
-            });
-
-            $("#pop").on("click", function() {
-                $('#imagepreview').attr('src', $('#imageresource').attr('src')); // here asign the image to the modal when the user click the enlarge link
-                $('#imagemodal').modal('show'); // imagemodal is the id attribute assigned to the bootstrap modal, then i use the show function
             });
         });
 
