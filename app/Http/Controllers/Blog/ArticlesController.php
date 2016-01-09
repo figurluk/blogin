@@ -8,9 +8,15 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Facades\View;
 
+/**
+ * Class ArticlesController
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Http\Controllers\Blog
+ */
 class ArticlesController extends Controller
 {
 
@@ -26,6 +32,21 @@ class ArticlesController extends Controller
         return view('blog.article.show', compact(['article', 'code']));
     }
 
+    public function like($code, Request $request)
+    {
+        $article = Articles::where('code', $code)->first();
+        $article->likes += 1;
+        $article->save();
+        if ($request->ajax()) {
+            $view = View::make('blog.article.show', compact(['article', 'code']));
+            $sections = $view->renderSections();
+            return response(array("content" => $sections['content']));
+        } else {
+            flash()->info('Úspešne ste likli článok.');
+            return view('blog.article.show', compact(['article', 'code']));
+        }
+    }
+
     public function comment($code, Request $request)
     {
         $comment = Comments::create([
@@ -38,6 +59,18 @@ class ArticlesController extends Controller
         if ($request->comment != 0) {
             $comm = Comments::find($request->comment);
             $comm->comments()->save($comment);
+            if ($comment->user->notification) {
+                Mail::send('blog.emails.answer_comment', ['comment' => $comment], function ($m) use ($comment) {
+                    $m->from('blogin@weebto.me', 'Blogin Administrátor');
+                    $m->to($comment->user->email, $comment->user->name . ' ' . $comment->user->surname)->subject('Reakcia na Váš komentár.');
+                });
+            }
+        }
+        if ($comment->articles->user->notification) {
+            Mail::send('blog.emails.answer_article', ['comment' => $comment], function ($m) use ($comment) {
+                $m->from('blogin@weebto.me', 'Blogin Administrátor');
+                $m->to($comment->articles->user->email, $comment->articles->user->name . ' ' . $comment->articles->user->surname)->subject('Reakcia na Váš článok.');
+            });
         }
         if ($request->ajax()) {
             $view = View::make('blog.article.show', compact(['article', 'code']));

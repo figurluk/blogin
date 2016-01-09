@@ -59,8 +59,15 @@
                     </div>
                 </div>
 
-                @if($admin->id == Auth::user()->id)
-                    <div class="col-lg-6">
+                <div class="col-lg-6">
+                    <div class="checkbox">
+                        <label>
+                            {!! Form::hidden('notification', 0) !!}
+                            {!! Form::checkbox('notification', 1, $admin->notification) !!} <b>Emailová notifikácia</b>
+                        </label>
+                        <p class="help-block">Pri komentovaní administrátorovho článku alebo komentáru mu príde email.</p>
+                    </div>
+                    @if($admin->id == Auth::user()->id)
                         <div class="form-group">
                             <label for="password">Nove heslo</label>
                             <input type="password" class="form-control" id="password" name="password" tabindex="4"
@@ -79,18 +86,16 @@
                             <input type="password" class="form-control" id="password_confirmation"
                                    name="password_confirmation">
                         </div>
-                    </div>
 
-                @else
-                    <div class="col-lg-6">
+                    @else
                         <div class="checkbox">
                             <label>
                                 {!! Form::hidden('newpass', 0) !!}
                                 {!! Form::checkbox('newpass', 1, null) !!} <b>Poslať nové heslo</b>
                             </label>
                         </div>
-                    </div>
-                @endif
+                    @endif
+                </div>
             </div>
 
 

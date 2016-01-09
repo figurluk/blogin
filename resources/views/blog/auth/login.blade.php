@@ -45,14 +45,6 @@
                                         Pole musí obsahovať minimálne 6 znakov!</span>
                                 </div>
 
-                                <div class="text-center">
-                                    <div class="checkbox">
-                                        <label class="control-label">
-                                            <input name="remember" type="checkbox" value="remember-me" class="i-checks" tabindex="3">
-                                            Pamätaj si ma
-                                        </label>
-                                    </div>
-                                </div>
                                 <button class="btn btn-info btn-block" type="submit" tabindex="4" id="loginSubmit">
                                     Prihlásiť sa
                                 </button>

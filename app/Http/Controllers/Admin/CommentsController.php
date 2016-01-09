@@ -11,6 +11,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class CommentsController
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Http\Controllers\Admin
+ */
 class CommentsController extends Controller
 {
     /**
@@ -23,8 +28,9 @@ class CommentsController extends Controller
 
 
     /**
-     * Display a listing of the resource.
+     * Display a list of comments.
      *
+     * @author Lukas Figura <figurluk@gmail.com>
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -33,11 +39,23 @@ class CommentsController extends Controller
         return view('admin.comments.index', compact(['comments']));
     }
 
+    /**
+     * Display a list of today created comments.
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function today()
     {
         return view('admin.comments.today');
     }
 
+    /**
+     * Display view for create new Comment
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         $articles = Articles::pluck('title', 'id')->all();
@@ -45,6 +63,13 @@ class CommentsController extends Controller
         return view('admin.comments.create', compact(['articles']));
     }
 
+    /**
+     * Method handle POST request to create Comment
+     *
+     * @param CreateCommentRequest $request
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function store(CreateCommentRequest $request)
     {
         if ($request->article == 0) {
@@ -66,6 +91,13 @@ class CommentsController extends Controller
 
     }
 
+    /**
+     * Display a details of Comment
+     *
+     * @param int $id id of displayed Comment
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit($id)
     {
         $articles = Articles::pluck('title', 'id')->all();
@@ -74,6 +106,14 @@ class CommentsController extends Controller
         return view('admin.comments.edit', compact(['comment','articles']));
     }
 
+    /**
+     * Method handle POST request to update Comment
+     *
+     * @param int $id id of Comment which will be updated
+     * @param Request $request
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
     public function update($id, Request $request)
     {
         if ($request->article == 0) {
@@ -96,6 +136,13 @@ class CommentsController extends Controller
         }
     }
 
+    /**
+     * Method removes Comment
+     *
+     * @param int $id id of Comment which will be removed
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function remove($id)
     {
         $comment = Comments::find($id);

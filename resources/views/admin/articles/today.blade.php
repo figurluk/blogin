@@ -17,6 +17,7 @@
                     <th>Názov</th>
                     <th>Autor</th>
                     <th>Tagy</th>
+                    <th>Počet likov</th>
                     <th>Topovaný</th>
                     <th></th>
                 </tr>
@@ -31,6 +32,7 @@
                                 <span class="label label-success">{{$tag->name}}</span>
                             @endforeach
                         </td>
+                        <td>{{$newArticle->likes}}</td>
                         <td>{{($newArticle->topped) ? 'Áno':'Nie'}}</td>
                         <td>
                             <a class="btn btn-warning" href="{{action('Admin\ArticlesController@edit',$newArticle->id)}}"><span class="glyphicon glyphicon-pencil"></span> Upraviť</a>

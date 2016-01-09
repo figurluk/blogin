@@ -39,6 +39,7 @@ class CreateCommentsTable extends Migration
         });
 
         Schema::table('articles', function (Blueprint $table) {
+            $table->unsignedBigInteger('likes')->default(0);
             $table->softDeletes();
         });
         Schema::table('users', function (Blueprint $table) {

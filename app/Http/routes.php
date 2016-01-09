@@ -39,6 +39,7 @@ Route::get('home/tags/{code}/{month}/{year}/next/{start}','Blog\TagsController@f
 
 Route::get('home/articles/{code}','Blog\ArticlesController@show');
 Route::post('home/articles/{code}/comment','Blog\ArticlesController@comment');
+Route::post('home/articles/{code}/like','Blog\ArticlesController@like');
 Route::get('home/articles/{code}/image','Blog\ArticlesController@getImage');
 
 Route::get('home/{month}/{year}','Blog\HomeController@filterIndex');

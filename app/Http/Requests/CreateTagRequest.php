@@ -2,6 +2,11 @@
 
 namespace App\Http\Requests;
 
+/**
+ * Class CreateTagRequest
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Http\Requests
+ */
 class CreateTagRequest extends Request
 {
     /**

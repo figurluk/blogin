@@ -11,6 +11,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * Class UsersController
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Http\Controllers\Admin
+ */
 class UsersController extends Controller
 {
     /**
@@ -29,11 +34,12 @@ class UsersController extends Controller
      */
     public function index()
     {
-        $users = User::where('id','!=',Auth::user()->id)->where('admin',0)->paginate(10);
-        return view('admin.users.index',compact(['users']));
+        $users = User::where('id', '!=', Auth::user()->id)->where('admin', 0)->paginate(10);
+        return view('admin.users.index', compact(['users']));
     }
 
-    public function today(){
+    public function today()
+    {
         return view('admin.users.today');
     }
 
@@ -48,11 +54,12 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->surname = $request->surname;
         $user->email = $request->email;
+        $user->notification = $request->notification;
         $pass = $this->generateRandomString(6);
         $user->password = bcrypt($pass);
         $user->save();
 
-        Mail::send('admin.emails.create_user', ['user' => $user,'pass'=>$pass], function ($m) use ($user) {
+        Mail::send('admin.emails.create_user', ['user' => $user, 'pass' => $pass], function ($m) use ($user) {
             $m->from('blogin@weebto.me', 'Blogin Administrátor');
             $m->to($user->email, $user->name)->subject('Boli ste zaregistrovaný do Blogin.');
         });
@@ -138,7 +145,7 @@ class UsersController extends Controller
         if ($request->password) {
             $pass = $this->generateRandomString(6);
             $user->password = bcrypt($pass);
-            Mail::send('admin.emails.pass_user', ['user' => $user,'pass'=>$pass], function ($m) use ($user) {
+            Mail::send('admin.emails.pass_user', ['user' => $user, 'pass' => $pass], function ($m) use ($user) {
                 $m->from('blogin@weebto.me', 'Blogin Administrátor');
                 $m->to($user->email, $user->name)->subject('Bolo vám vygenerované nové heslo administrátorom.');
             });
@@ -158,6 +165,7 @@ class UsersController extends Controller
         $user->name = $request->name;
         $user->surname = $request->surname;
         $user->email = $request->email;
+        $user->notification = $request->notification;
         $user->save();
 
         flash()->info('Úspešne ste upravili užívateľa: ' . $user->name);

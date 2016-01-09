@@ -37,6 +37,20 @@
             </div>
 
             <div class="form-group">
+                <div class="checkbox">
+                    <label>
+                        {!! Form::hidden('notification', 0) !!}
+                        {!! Form::checkbox('notification', 1, $user->notification) !!} <b>Emailová notifikácia</b>
+                    </label>
+                    @if($user->admin)
+                        <p class="help-block">Pri komentovaní Vášho článku alebo komentáru Vám príde email.</p>
+                    @else
+                        <p class="help-block">Pri komentovaní Vášho komentáru Vám príde email.</p>
+                    @endif
+                </div>
+            </div>
+
+            <div class="form-group">
                 <label class="control-label" for="email">Email</label>
                 <input name="email" type="email" class="form-control custom-form" id="email"
                        placeholder="priklad@email.sk" tabindex="3"
@@ -92,7 +106,7 @@
 @endsection
 
 @section('footer')
-    <div class="footer stickyfooter">
+    <div class="footer">
         <div class="categories">
             <div class="container-fluid">
                 <div class="col-md-12">

@@ -8,6 +8,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
+/**
+ * Class AuthController
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Http\Controllers\Blog\Auth
+ */
 class AuthController extends Controller
 {
     /*

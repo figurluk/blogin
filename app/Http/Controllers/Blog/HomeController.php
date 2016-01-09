@@ -8,6 +8,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class HomeController
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Http\Controllers\Blog
+ */
 class HomeController extends Controller
 {
     /**

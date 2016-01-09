@@ -11,10 +11,16 @@ use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 
+/**
+ * Class AdminsController
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Http\Controllers\Admin
+ */
 class AdminsController extends Controller
 {
     /**
      * AdminController constructor.
+     * @author Lukas Figura <figurluk@gmail.com>
      */
     public function __construct()
     {
@@ -23,8 +29,9 @@ class AdminsController extends Controller
 
 
     /**
-     * Display a listing of the resource.
+     * Display a list of admins.
      *
+     * @author Lukas Figura <figurluk@gmail.com>
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -33,11 +40,24 @@ class AdminsController extends Controller
         return view('admin.admins.index', compact(['admins']));
     }
 
+    /**
+     * Display view for creating new Admin
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return view('admin.admins.create');
     }
 
+    /**
+     * Metod hande POST request to create new Admin.
+     *
+     * @param CreateAdminRequest $request
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(CreateAdminRequest $request)
     {
         $user = new User();
@@ -45,6 +65,7 @@ class AdminsController extends Controller
         $user->surname = $request->surname;
         $user->admin = 1;
         $user->email = $request->email;
+        $user->notification = $request->notification;
         $pass = $this->generateRandomString(6);
         $user->password = bcrypt($pass);
         $user->save();
@@ -63,12 +84,27 @@ class AdminsController extends Controller
 
     }
 
+    /**
+     * Display Admin details
+     *
+     * @param int $id id of displayed Admin
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @author Lukas Figura <figurluk@gmail.com>
+     */
     public function edit($id)
     {
         $admin = User::find($id);
         return view('admin.admins.edit', compact(['admin']));
     }
 
+    /**
+     * Method handle POST request to update Admin
+     *
+     * @param int $id id of Admin which will be updated
+     * @param Request $request
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update($id, Request $request)
     {
         $user = User::find($id);
@@ -114,6 +150,7 @@ class AdminsController extends Controller
         $user->name = $request->name;
         $user->admin = 1;
         $user->surname = $request->surname;
+        $user->notification = $request->notification;
         $user->email = $request->email;
         if ($user->id == Auth::user()->id && $request->password!='') {
             $user->password = bcrypt($request->password);
@@ -128,6 +165,13 @@ class AdminsController extends Controller
         }
     }
 
+    /**
+     * Method removes Admin
+     *
+     * @param int $id id of Admin which will be removed
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function remove($id)
     {
         $user = User::find($id);
@@ -136,6 +180,13 @@ class AdminsController extends Controller
         return redirect()->action('Admin\AdminsController@index');
     }
 
+    /**
+     * Method generate random string
+     *
+     * @param $length length of generated string
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return string
+     */
     private function generateRandomString($length)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

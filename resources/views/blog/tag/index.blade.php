@@ -14,6 +14,7 @@
                   <i class="fa fa-calendar-plus-o"></i> {{$mainArt->updated_at}}
                                 <i class="fa fa-user comment-icon"></i> {{($mainArt->user!=null) ? $mainArt->user->name:'Neznámy'}}
                                 <i class="fa fa-commenting comment-icon"></i> {{count($mainArt->comments)}}
+                                <i class="fa fa-thumbs-up comment-icon"></i> {{$mainArt->likes}}
                 </span>
                         </p>
                     </div>
@@ -32,6 +33,7 @@
                       <i class="fa fa-calendar-plus-o"></i> {{$firstSub->updated_at}}
                                         <i class="fa fa-user comment-icon"></i> {{($mainArt->user!=null) ? $mainArt->user->name.' '.$mainArt->user->surname:'Neznámy'}}
                                         <i class="fa fa-commenting comment-icon"></i> {{count($firstSub->comments)}}
+                                        <i class="fa fa-thumbs-up comment-icon"></i> {{$firstSub->likes}}
                     </span>
                                 </p>
                             </div>
@@ -51,6 +53,7 @@
                                   <i class="fa fa-calendar-plus-o"></i> {{$secondSub->updated_at}}
                                         <i class="fa fa-user comment-icon"></i> {{($mainArt->user!=null) ? $mainArt->user->name.' '.$mainArt->user->surname:'Neznámy'}}
                                         <i class="fa fa-commenting comment-icon"></i> {{count($secondSub->comments)}}
+                                        <i class="fa fa-thumbs-up comment-icon"></i> {{$secondSub->likes}}
                                 </span>
                                 </p>
                             </div>
@@ -75,6 +78,7 @@
                                   <i class="fa fa-calendar-plus-o"></i> {{$firstSubSub->updated_at}}
                                     <i class="fa fa-user comment-icon"></i> {{($mainArt->user!=null) ? $mainArt->user->name.' '.$mainArt->user->surname:'Neznámy'}}
                                     <i class="fa fa-commenting comment-icon"></i> {{count($firstSubSub->comments)}}
+                                    <i class="fa fa-thumbs-up comment-icon"></i> {{$firstSubSub->likes}}
                                 </span>
                             </p>
                         </div>
@@ -94,6 +98,7 @@
                                   <i class="fa fa-calendar-plus-o"></i> {{$secondSubSub->updated_at}}
                                     <i class="fa fa-user comment-icon"></i> {{($mainArt->user!=null) ? $mainArt->user->name.' '.$mainArt->user->surname:'Neznámy'}}
                                     <i class="fa fa-commenting comment-icon"></i> {{count($secondSubSub->comments)}}
+                                    <i class="fa fa-thumbs-up comment-icon"></i> {{$secondSubSub->likes}}
                                 </span>
                             </p>
                         </div>
@@ -113,6 +118,7 @@
                                   <i class="fa fa-calendar-plus-o"></i> {{$thirdSubSub->updated_at}}
                                     <i class="fa fa-user comment-icon"></i> {{($mainArt->user!=null) ? $mainArt->user->name.' '.$mainArt->user->surname:'Neznámy'}}
                                     <i class="fa fa-commenting comment-icon"></i> {{count($thirdSubSub->comments)}}
+                                    <i class="fa fa-thumbs-up comment-icon"></i> {{$thirdSubSub->likes}}
                                 </span>
                             </p>
                         </div>

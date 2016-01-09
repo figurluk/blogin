@@ -22,6 +22,7 @@
                     <th>Názov</th>
                     <th>Autor</th>
                     <th>Tagy</th>
+                    <th>Počet likov</th>
                     <th>Topovaný</th>
                     <th></th>
                 </tr>
@@ -36,6 +37,7 @@
                                 <span class="label label-success">{{$tag->name}}</span>
                             @endforeach
                         </td>
+                        <td>{{$article->likes}}</td>
                         <td>{{($article->topped) ? 'Áno':'Nie'}}</td>
                         <td>
                             <a class="btn btn-warning"

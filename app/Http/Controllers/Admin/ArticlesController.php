@@ -13,6 +13,11 @@ use Illuminate\Support\Facades\Input;
 use Illuminate\Support\Facades\Storage;
 use Intervention\Image\Facades\Image;
 
+/**
+ * Class ArticlesController
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Http\Controllers\Admin
+ */
 class ArticlesController extends Controller
 {
     /**
@@ -25,8 +30,9 @@ class ArticlesController extends Controller
 
 
     /**
-     * Display a listing of the resource.
+     * Display a list of Articles.
      *
+     * @author Lukas Figura <figurluk@gmail.com>
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -35,17 +41,36 @@ class ArticlesController extends Controller
         return view('admin.articles.index', compact(['articles']));
     }
 
+    /**
+     * Display a list of Articles created today
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function today()
     {
         return view('admin.articles.today');
     }
 
+    /**
+     * Display view for creating new Article
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         $tags = Tags::pluck('name', 'id');
         return view('admin.articles.create', compact(['tags']));
     }
 
+    /**
+     * Method handle POST request for create new Article
+     *
+     * @param CreateArticleRequest $request
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(CreateArticleRequest $request)
     {
         $disk = Storage::disk('local');
@@ -78,6 +103,13 @@ class ArticlesController extends Controller
 
     }
 
+    /**
+     * Display details of Article
+     *
+     * @param int $id if of displayed Article
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit($id)
     {
         $article = Articles::find($id);
@@ -85,6 +117,14 @@ class ArticlesController extends Controller
         return view('admin.articles.edit', compact(['article', 'tags']));
     }
 
+    /**
+     * Method handle POST request to update Article
+     *
+     * @param int $id id of Article which will be updated
+     * @param CreateArticleRequest $request
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update($id, CreateArticleRequest $request)
     {
         $disk = Storage::disk('local');
@@ -117,6 +157,13 @@ class ArticlesController extends Controller
             return redirect()->action('Admin\ArticlesController@index');
     }
 
+    /**
+     * Method remove Article
+     *
+     * @param int $id id of removed Article
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function remove($id)
     {
         $article = Articles::find($id);

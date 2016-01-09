@@ -10,6 +10,11 @@ use App\Http\Controllers\Controller;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
 
+/**
+ * Class AuthController
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Http\Controllers\Admin\Auth
+ */
 class AuthController extends Controller
 {
     /*
@@ -38,11 +43,24 @@ class AuthController extends Controller
         $this->middleware('guest', ['except' => 'getLogout']);
     }
 
+    /**
+     * Method display view of Admin login page
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getLogin()
     {
         return view('admin.auth.login');
     }
 
+    /**
+     * Method handle POST request for login to Admin
+     *
+     * @param Request $request
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Http\Response
+     */
     public function postLogin(Request $request)
     {
         return $this->login($request);
@@ -52,6 +70,7 @@ class AuthController extends Controller
      * Handle a login request to the application.
      *
      * @param  \Illuminate\Http\Request $request
+     * @author Lukas Figura <figurluk@gmail.com>
      * @return \Illuminate\Http\Response
      */
     public function login(Request $request)
@@ -97,6 +116,7 @@ class AuthController extends Controller
      * Get a validator for an incoming registration request.
      *
      * @param  array $data
+     * @author Lukas Figura <figurluk@gmail.com>
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -113,6 +133,7 @@ class AuthController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array $data
+     * @author Lukas Figura <figurluk@gmail.com>
      * @return User
      */
     protected function create(array $data)

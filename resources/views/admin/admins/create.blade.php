@@ -59,9 +59,15 @@
                     </div>
                 </div>
 
-
                 <div class="col-lg-6">
-                    <h2><span class="label label-danger">Heslo bude vygenerované a príde administrátorovi emailom.</span></h2>
+                    <div class="checkbox">
+                        <label>
+                            {!! Form::hidden('notification', 0) !!}
+                            {!! Form::checkbox('notification', 1, old('notification')) !!} <b>Emailová notifikácia</b>
+                        </label>
+                        <p class="help-block">Pri komentovaní administrátorovho článku alebo komentáru mu príde email.</p>
+                    </div>
+                    <h4><span class="label label-danger">Heslo bude vygenerované a príde administrátorovi emailom.</span></h4>
                 </div>
             </div>
 

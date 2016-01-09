@@ -9,6 +9,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
 
+/**
+ * Class TagsController
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Http\Controllers\Blog
+ */
 class TagsController extends Controller
 {
 

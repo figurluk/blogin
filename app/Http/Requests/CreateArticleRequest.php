@@ -4,6 +4,11 @@ namespace App\Http\Requests;
 
 use App\Http\Requests\Request;
 
+/**
+ * Class CreateArticleRequest
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Http\Requests
+ */
 class CreateArticleRequest extends Request
 {
     /**

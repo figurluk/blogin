@@ -30,7 +30,8 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="surname">Priezvisko</label>
-                        <input type="text" class="form-control" id="surname" name="surname" value="{{$user->surname}}" tabindex="2"
+                        <input type="text" class="form-control" id="surname" name="surname" value="{{$user->surname}}"
+                               tabindex="2"
                                pattern="^[a-záäčďéíĺľňóôöőŕřšťúüűýžA-ZÁÄČĎÉÍĹĽŇÓÔÖŐŘŔŠŤÚÜŰÝŽ.]+$"
                                title="Pole môže obsahovať iba písmená" required>
                                     <span class="register-error-empty"
@@ -46,7 +47,8 @@
                 <div class="col-lg-6">
                     <div class="form-group">
                         <label for="email">Email</label>
-                        <input type="text" class="form-control" id="email" name="email" value="{{$user->email}}" tabindex="3" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
+                        <input type="text" class="form-control" id="email" name="email" value="{{$user->email}}" tabindex="3"
+                               pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                                title="Pole musí obsahovať validnú emailovú adresu"
                                required>
                                     <span class="register-error-empty"
@@ -58,6 +60,13 @@
 
 
                 <div class="col-lg-6">
+                    <div class="checkbox">
+                        <label>
+                            {!! Form::hidden('notification', 0) !!}
+                            {!! Form::checkbox('notification', 1, $user->notification) !!} <b>Emailová notifikácia</b>
+                        </label>
+                        <p class="help-block">Pri komentovaní užívateľovho komentáru mu príde email.</p>
+                    </div>
                     <div class="checkbox">
                         <label>
                             {!! Form::hidden('admin', 0) !!}

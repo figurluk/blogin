@@ -5,6 +5,11 @@ namespace App\Http\Middleware;
 use Closure;
 use Illuminate\Contracts\Auth\Guard;
 
+/**
+ * Class AuthenticateAdmin
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Http\Middleware
+ */
 class AuthenticateAdmin
 {
     /**

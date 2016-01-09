@@ -7,6 +7,11 @@ use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
 
+/**
+ * Class UserController
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Http\Controllers\Blog
+ */
 class UserController extends Controller
 {
     /**
@@ -69,6 +74,7 @@ class UserController extends Controller
         $user->name = $request->name;
         $user->surname = $request->surname;
         $user->email = $request->email;
+        $user->notification = $request->notification;
         $user->save();
 
         flash()->info('Úspešne ste upravili Váš profil.');

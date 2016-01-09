@@ -14,6 +14,8 @@
                       <i class="fa fa-calendar-plus-o"></i> {{$article->updated_at}}
                                         <i class="fa fa-user comment-icon"></i> {{($article->user!=null) ? $article->user->name.' '.$article->user->surname:'Neznámy'}}
                                         <i class="fa fa-commenting comment-icon"></i> {{count($article->comments)}}
+                                        <a class="likeArticle" href="{{action('Blog\ArticlesController@like',$article->code)}}"><i
+                                                    class="fa fa-thumbs-up comment-icon"></i> {{$article->likes}}</a>
                     </span>
                                 </p>
                             </div>
@@ -26,7 +28,7 @@
                 <div class="article-content">
                     <ul class="article-tags">
                         @foreach($article->tags as $tag)
-                            <li><a href="#">#{{$tag->name}}</a></li>
+                            <li><a href="{{action('Blog\TagsController@show',$tag->code)}}">#{{$tag->code}}</a></li>
                         @endforeach
                     </ul>
 
@@ -156,9 +158,23 @@
                 $('.reactionInput' + $(event.target).attr('data-targetID')).fadeIn();
             });
 
-            $(document).on('click', '.submitForm', function (event) {
-                console.log("llukas je pnak bo nedebuguje!");
+            $(document).on('click', '.likeArticle', function (event) {
+                event.preventDefault();
+                event.stopPropagation();
+                $.ajax({
+                    url: '{{action('Blog\ArticlesController@like',$code)}}',
+                    type: 'POST',
+                    error: function () {
+                    },
+                    success: function (data) {
+                        $('#content').replaceWith(data['content']);
+                        $('.reactionLink').show();
+                        $('.subComment').hide();
+                    }
+                });
+            });
 
+            $(document).on('click', '.submitForm', function (event) {
                 event.stopPropagation();
                 event.preventDefault();
                 var commentCont = $(event.target).closest('form').find('.contentOfComment');
