@@ -18,8 +18,14 @@
                       <i class="fa fa-calendar-plus-o"></i> {{$article->updated_at}}
                                         <i class="fa fa-user comment-icon"></i> {{($article->user!=null) ? $article->user->name.' '.$article->user->surname:'Neznámy'}}
                                         <i class="fa fa-commenting comment-icon"></i> {{count($article->comments)}}
-                                        <a class="likeArticle" href="{{action('Blog\ArticlesController@like',$article->code)}}"><i
-                                                    class="fa fa-thumbs-up comment-icon"></i> {{$article->likes}}</a>
+                                        @if(Auth::check())
+                                            <a class="likeArticle"
+                                               href="{{action('Blog\ArticlesController@like',$article->code)}}"><i
+                                                        class="fa fa-thumbs-up comment-icon jumpThumb"></i> {{$article->likes}}
+                                            </a>
+                                        @else
+                                            <i class="fa fa-thumbs-up comment-icon"></i>
+                                        @endif
                     </span>
                                 </p>
                             </div>

@@ -12,11 +12,12 @@
         <div class="row">
             @include('admin.errors.form')
 
+            <h5>* Povinné údaje</h5>
             {!! Form::open(['action'=>['Admin\TagsController@store'], 'method'=>'POST']) !!}
             <div class="row">
                 <div class="col-lg-8">
                     <div class="form-group">
-                        <label for="name">Názov tagu</label>
+                        <label for="name">*Názov tagu</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{old('name')}}" tabindex="1"
                                pattern="^[0-9a-záäčďéíĺľňóôöőŕřšťúüűýžA-ZÁÄČĎÉÍĹĽŇÓÔÖŐŘŔŠŤÚÜŰÝŽ.]+$"
                                title="Pole môže obsahovať iba písmená a cislice" required>

@@ -12,6 +12,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Mail;
 
 /**
@@ -121,14 +122,19 @@ class AdminsController extends Controller
                 'email.max' => 'Email môže mať najviac 255 znakov.',
             ]);
         }
-        if ($user->id == Auth::user()->id && $request->password != '') {
+        if ($user->id == Auth::user()->id && $request->newpassword != '') {
+            if (!Hash::check($request->newpassword, $user->password)) {
+                $request->flash();
+                return redirect()->back()->withInput()->withErrors(['password' => 'Staré heslo nie je správne.']);
+            }
             $this->validate($request, [
-                'password' => 'required|confirmed|min:6',
+                'newpassword' => 'required|confirmed|min:6',
             ], [
-                'password.min' => 'Heslo musí mať minimálne 6 znakov.',
-                'password.required' => 'Heslo musí byť vyplnené.',
-                'password.confirmed' => 'Heslá sa musia zhodovať',
+                'newpassword.min' => 'Heslo musí mať minimálne 6 znakov.',
+                'newpassword.required' => 'Heslo musí byť vyplnené.',
+                'newpassword.confirmed' => 'Heslá sa musia zhodovať',
             ]);
+            $user->password = bcrypt($request->newpassword);
         } elseif ($request->newpass) {
             $pass = $this->generateRandomString(6);
             $user->password = bcrypt($pass);

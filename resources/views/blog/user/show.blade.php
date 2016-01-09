@@ -4,12 +4,13 @@
 
     <div class="containerUser container">
         @include('blog.errors.show_error')
-        <h3>Vase udaje</h3>
+        <h3>Vaše údaje</h3>
+        <h5>* Povinné údaje</h5>
         <form method="POST" action="{{ url('home/user/update') }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             <div class="form-group">
-                <label class="control-label" for="name">Meno</label>
+                <label class="control-label" for="name">*Meno</label>
                 <input type="text" name="name" class="form-control custom-form" id="name"
                        value="{{ $user->name }}" tabindex="1"
                        pattern="^[a-záäčďéíĺľňóôöőŕřšťúüűýžA-ZÁÄČĎÉÍĹĽŇÓÔÖŐŘŔŠŤÚÜŰÝŽ.]+$"
@@ -23,7 +24,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label" for="surname">Priezvisko</label>
+                <label class="control-label" for="surname">*Priezvisko</label>
                 <input type="text" name="surname" class="form-control custom-form" id="surname"
                        value="{{ $user->surname }}" tabindex="2"
                        pattern="^[a-záäčďéíĺľňóôöőŕřšťúüűýžA-ZÁÄČĎÉÍĹĽŇÓÔÖŐŘŔŠŤÚÜŰÝŽ.]+$"
@@ -51,7 +52,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label" for="email">Email</label>
+                <label class="control-label" for="email">*Email</label>
                 <input name="email" type="email" class="form-control custom-form" id="email"
                        placeholder="priklad@email.sk" tabindex="3"
                        value="{{ $user->email }}" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
@@ -72,6 +73,7 @@
                 <input name="password" type="password" class="form-control custom-form" value=""
                        id="password"
                        tabindex="4">
+                <span class="help-block">Vyplňte v prípade zadávania nového hesla.</span>
                 <span class="glyphicon glyphicon-remove remove-glyph" style="display:none"></span>
                 <span class="glyphicon glyphicon-ok ok-glyph" style="display:none"></span>
                                     <span class="register-error-invalid" style="display:none">Toto pole nie je vyplnené správne!
@@ -79,7 +81,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label" for="newpassword">Nove Heslo</label>
+                <label class="control-label" for="newpassword">Nové heslo</label>
                 <input name="newpassword" type="password" class="form-control custom-form"
                        id="newpassword"
                        tabindex="5">
@@ -92,7 +94,7 @@
             </div>
 
             <div class="form-group">
-                <label class="control-label" for="newpassword_confirmation">Nove heslo znova</label>
+                <label class="control-label" for="newpassword_confirmation">Nové heslo znova</label>
                 <input name="newpassword_confirmation" type="password" class="form-control custom-form"
                        id="newpassword_confirmation" tabindex="6">
             </div>

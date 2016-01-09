@@ -9,6 +9,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests;
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 /**
  * Class UserController
@@ -58,6 +59,10 @@ class UserController extends Controller
             ]);
         }
         if ($request->newpassword != "") {
+            if (!Hash::check($request->newpassword, $user->password)) {
+                $request->flash();
+                return redirect()->back()->withInput()->withErrors(['password' => 'Staré heslo nie je správne.']);
+            }
             $this->validate($request, [
                 'newpassword' => 'required|confirmed|min:6',
             ], [

@@ -12,11 +12,12 @@
         <div class="row">
             @include('admin.errors.form')
 
+            <h5>* Povinné údaje</h5>
             {!! Form::open(['action'=>['Admin\CommentsController@update',$comment->id], 'method'=>'POST']) !!}
             <div class="row">
                 <div class="col-lg-8">
                     <div class="form-group">
-                        <label for="cont">Obsah komentáru</label>
+                        <label for="cont">*Obsah komentáru</label>
                         <textarea class="form-control" id="cont" name="cont" tabindex="1" required>{{$comment->content}}
                             </textarea>
                         <span class="register-error-empty"
@@ -26,7 +27,7 @@
 
                 <div class="col-lg-4">
                     <div class="form-group">
-                        {!! Form::label('article', 'Clanok:', ['class'=>'col-sm-5 control-label']) !!}
+                        {!! Form::label('article', '*Článok:', ['class'=>'col-sm-5 control-label']) !!}
                         <div class="col-sm-7">
                             {!! Form::select('article', $articles, $comment->articles->id, ['class'=>'form-control']) !!}
                         </div>

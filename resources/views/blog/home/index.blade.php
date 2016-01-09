@@ -166,8 +166,8 @@
     @if(count($articles)+6<count(\App\Articles::all()))
         <div class="row read-more">
             <div class="container-fluid">
-                <a href="{{action('Blog\HomeController@more',count($articles)+14)}}"
-                   class="btn btn-default btn-read-more">Ďalšie články</a>
+                <a href="{{action('Blog\HomeController@more',count($articles)+10)}}"
+                   class="btn btn-danger btn-read-more">Ďalšie články</a>
             </div>
         </div>
     @endif

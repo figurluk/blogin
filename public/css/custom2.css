@@ -67,7 +67,7 @@ body {
 }
 
 .desc2 p {
-    font-size: 16px;
+    font-size: 14px;
     padding-top: 60px;
 }
 
@@ -79,7 +79,7 @@ body {
 }
 
 .comment-icon {
-    margin-left: 20px;
+    margin-left: 10px;
 }
 
 .main-article-icon2 {
@@ -203,6 +203,7 @@ body {
 }
 
 .read-more {
+    text-align: center;
     margin-bottom: 50px;
     margin-top: 30px;
 }
@@ -338,6 +339,222 @@ body {
     overflow: hidden;
     margin-top: 50px;
     position: relative;
+}
+
+.jumpThumb {
+    -webkit-animation: bounce 3000ms ease-out;
+    -moz-animation: bounce 3000ms ease-out;
+    -o-animation: bounce 3000ms ease-out;
+    animation: bounce 3000ms ease-out;
+}
+
+/* Webkit, Chrome and Safari */
+
+@-webkit-keyframes bounce {
+    0% {
+        -webkit-transform:translateY(-100%);
+        opacity: 0;
+    }
+    5% {
+        -webkit-transform:translateY(-100%);
+        opacity: 0;
+    }
+    15% {
+        -webkit-transform:translateY(0);
+        padding-bottom: 5px;
+    }
+    30% {
+        -webkit-transform:translateY(-50%);
+    }
+    40% {
+        -webkit-transform:translateY(0%);
+        padding-bottom: 6px;
+    }
+    50% {
+        -webkit-transform:translateY(-30%);
+    }
+    70% {
+        -webkit-transform:translateY(0%);
+        padding-bottom: 7px;
+    }
+    80% {
+        -webkit-transform:translateY(-15%);
+    }
+    90% {
+        -webkit-transform:translateY(0%);
+        padding-bottom: 8px;
+    }
+    95% {
+        -webkit-transform:translateY(-10%);
+    }
+    97% {
+        -webkit-transform:translateY(0%);
+        padding-bottom: 9px;
+    }
+    99% {
+        -webkit-transform:translateY(-5%);
+    }
+    100% {
+        -webkit-transform:translateY(0);
+        padding-bottom: 9px;
+        opacity: 1;
+    }
+}
+
+/* Mozilla Firefox 15 below */
+@-moz-keyframes bounce {
+    0% {
+        -moz-transform:translateY(-100%);
+        opacity: 0;
+    }
+    5% {
+        -moz-transform:translateY(-100%);
+        opacity: 0;
+    }
+    15% {
+        -moz-transform:translateY(0);
+        padding-bottom: 5px;
+    }
+    30% {
+        -moz-transform:translateY(-50%);
+    }
+    40% {
+        -moz-transform:translateY(0%);
+        padding-bottom: 6px;
+    }
+    50% {
+        -moz-transform:translateY(-30%);
+    }
+    70% {
+        -moz-transform:translateY(0%);
+        padding-bottom: 7px;
+    }
+    80% {
+        -moz-transform:translateY(-15%);
+    }
+    90% {
+        -moz-transform:translateY(0%);
+        padding-bottom: 8px;
+    }
+    95% {
+        -moz-transform:translateY(-10%);
+    }
+    97% {
+        -moz-transform:translateY(0%);
+        padding-bottom: 9px;
+    }
+    99% {
+        -moz-transform:translateY(-5%);
+    }
+    100% {
+        -moz-transform:translateY(0);
+        padding-bottom: 9px;
+        opacity: 1;
+    }
+}
+
+/* Opera 12.0 */
+@-o-keyframes bounce {
+    0% {
+        -o-transform:translateY(-100%);
+        opacity: 0;
+    }
+    5% {
+        -o-transform:translateY(-100%);
+        opacity: 0;
+    }
+    15% {
+        -o-transform:translateY(0);
+        padding-bottom: 5px;
+    }
+    30% {
+        -o-transform:translateY(-50%);
+    }
+    40% {
+        -o-transform:translateY(0%);
+        padding-bottom: 6px;
+    }
+    50% {
+        -o-transform:translateY(-30%);
+    }
+    70% {
+        -o-transform:translateY(0%);
+        padding-bottom: 7px;
+    }
+    80% {
+        -o-transform:translateY(-15%);
+    }
+    90% {
+        -o-transform:translateY(0%);
+        padding-bottom: 8px;
+    }
+    95% {
+        -o-transform:translateY(-10%);
+    }
+    97% {
+        -o-transform:translateY(0%);
+        padding-bottom: 9px;
+    }
+    99% {
+        -o-transform:translateY(-5%);
+    }
+    100% {
+        -o-transform:translateY(0);
+        padding-bottom: 9px;
+        opacity: 1;
+    }
+}
+
+/* W3, Opera 12+, Firefox 16+ */
+@keyframes bounce {
+    0% {
+        transform:translateY(-100%);
+        opacity: 0;
+    }
+    5% {
+        transform:translateY(-100%);
+        opacity: 0;
+    }
+    15% {
+        transform:translateY(0);
+        padding-bottom: 5px;
+    }
+    30% {
+        transform:translateY(-50%);
+    }
+    40% {
+        transform:translateY(0%);
+        padding-bottom: 6px;
+    }
+    50% {
+        transform:translateY(-30%);
+    }
+    70% {
+        transform:translateY(0%);
+        padding-bottom: 7px;
+    }
+    80% {
+        transform:translateY(-15%);
+    }
+    90% {
+        transform:translateY(0%);
+        padding-bottom: 8px;
+    }
+    95% {
+        transform:translateY(-7%);
+    }
+    97% {
+        transform:translateY(0%);
+        padding-bottom: 9px;
+    }
+    99% {
+        transform:translateY(-3%);
+    }
+    100% {
+        transform:translateY(0);
+        padding-bottom: 9px;
+        opacity: 1;
+    }
 }
 
 .desc-article {

@@ -12,11 +12,12 @@
         <div class="row">
             @include('admin.errors.form')
 
+            <h5>* Povinné údaje</h5>
             {!! Form::open(['action'=>['Admin\AdminsController@update',$admin->id], 'method'=>'POST']) !!}
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label for="name">Meno</label>
+                        <label for="name">*Meno</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{$admin->name}}"
                                tabindex="1"
                                pattern="^[a-záäčďéíĺľňóôöőŕřšťúüűýžA-ZÁÄČĎÉÍĹĽŇÓÔÖŐŘŔŠŤÚÜŰÝŽ.]+$"
@@ -30,7 +31,7 @@
 
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label for="surname">Priezvisko</label>
+                        <label for="surname">*Priezvisko</label>
                         <input type="text" class="form-control" id="surname" name="surname" value="{{$admin->surname}}"
                                tabindex="2"
                                pattern="^[a-záäčďéíĺľňóôöőŕřšťúüűýžA-ZÁÄČĎÉÍĹĽŇÓÔÖŐŘŔŠŤÚÜŰÝŽ.]+$"
@@ -47,7 +48,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email">*Email</label>
                         <input type="text" class="form-control" id="email" name="email" value="{{$admin->email}}"
                                tabindex="3" pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                                title="Pole musí obsahovať validnú emailovú adresu"
@@ -69,8 +70,22 @@
                     </div>
                     @if($admin->id == Auth::user()->id)
                         <div class="form-group">
-                            <label for="password">Nove heslo</label>
+                            <label for="password">Heslo</label>
                             <input type="password" class="form-control" id="password" name="password" tabindex="4"
+                                   pattern=".{6,}" title="Pole musí obsahovať minimálne 6 znakov!"
+                                   required>
+                            <span class="help-block">Vyplňte v prípade zadávania nového hesla.</span>
+                            <span class="glyphicon glyphicon-remove remove-glyph" style="display:none"></span>
+                            <span class="glyphicon glyphicon-ok ok-glyph" style="display:none"></span>
+                                    <span class="register-error-empty"
+                                          style="display:none">Toto pole musí byť vyplnené!</span>
+                                    <span class="register-error-invalid" style="display:none">Toto pole nie je vyplnené správne!
+                                        Pole musí obsahovať minimálne 6 znakov!</span>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="newpassword">Nové heslo</label>
+                            <input type="password" class="form-control" id="newpassword" name="newpassword" tabindex="4"
                                    pattern=".{6,}" title="Pole musí obsahovať minimálne 6 znakov!"
                                    required>
                             <span class="glyphicon glyphicon-remove remove-glyph" style="display:none"></span>
@@ -82,9 +97,9 @@
                         </div>
 
                         <div class="form-group">
-                            <label for="password_confirmation">Nove heslo znova</label>
-                            <input type="password" class="form-control" id="password_confirmation"
-                                   name="password_confirmation">
+                            <label for="newpassword_confirmation">Nové heslo znova</label>
+                            <input type="password" class="form-control" id="newpassword_confirmation"
+                                   name="newpassword_confirmation">
                         </div>
 
                     @else
@@ -136,6 +151,14 @@
 
             $("#surname").change(function (e) {
                 validateAlphabetInput("surname");
+            });
+
+            $("#newpassword").keyup(function (e) {
+                validatePassword("newpassword");
+            });
+
+            $("#newpassword").change(function (e) {
+                validatePassword("newpassword");
             });
 
             $("#password").keyup(function (e) {
@@ -217,10 +240,14 @@
                 var validEmail = validateEmail();
                 var validName = validateAlphabetInput("name");
                 var validSurname = validateAlphabetInput("surname");
-                if ($("#password").val() != '')
-                    var validPass = validatePassword("password");
+                var validPass = true;
+                var validNewPass = true;
+                if ($('#newpassword').val() != "") {
+                    validPass = validatePassword("password");
+                    validNewPass = validatePassword("newpassword");
+                }
 
-                return (validEmail && validName && validSurname && validPass);
+                return (validEmail && validName && validSurname && validPass && validNewPass);
             }
 
             function validityShow(input, status) {

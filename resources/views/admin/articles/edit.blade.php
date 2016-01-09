@@ -12,11 +12,12 @@
         <div class="row">
             @include('admin.errors.form')
 
+            <h5>* Povinné údaje</h5>
             {!! Form::open(['action'=>['Admin\ArticlesController@update',$article->id], 'method'=>'POST', 'files'=>true]) !!}
             <div class="row">
                 <div class="col-lg-8">
                     <div class="form-group">
-                        <label for="title">Názov článku</label>
+                        <label for="title">*Názov článku</label>
                         <input type="text" class="form-control" id="title" name="title" value="{{$article->title}}"
                                tabindex="1"
                                pattern="^[0-9a-záäčďéíĺľňóôöőŕřšťúüűýžA-ZÁÄČĎÉÍĹĽŇÓÔÖŐŘŔŠŤÚÜŰÝŽ .]+$"
@@ -28,7 +29,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="cont">Obsah článku</label>
+                        <label for="cont">*Obsah článku</label>
                         {!! Form::textarea('cont',$article->content,['class'=>'form-control','tabindex'=>'2','required','id'=>'cont']) !!}
                         <span class="register-error-empty"
                               style="display:none">Toto pole musí byť vyplnené!</span>
@@ -44,7 +45,7 @@
                     </div>
 
                     <div class="form-group">
-                        {!! Form::label('tags', 'Tagy:', ['class'=>'col-sm-5 control-label']) !!}
+                        {!! Form::label('tags', '*Tagy:', ['class'=>'col-sm-5 control-label']) !!}
                         <div class="col-sm-7">
                             {!! Form::select('tags[]', $tags, $article->tags_id(), ['class'=>'form-control', 'multiple']) !!}
                         </div>

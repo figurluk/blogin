@@ -12,11 +12,12 @@
         <div class="row">
             @include('admin.errors.form')
 
+            <h5>* Povinné údaje</h5>
             {!! Form::open(['action'=>['Admin\UsersController@update',$user->id], 'method'=>'POST']) !!}
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label for="name">Meno</label>
+                        <label for="name">*Meno</label>
                         <input type="text" class="form-control" id="name" name="name" value="{{$user->name}}" tabindex="1"
                                pattern="^[a-záäčďéíĺľňóôöőŕřšťúüűýžA-ZÁÄČĎÉÍĹĽŇÓÔÖŐŘŔŠŤÚÜŰÝŽ.]+$"
                                title="Pole môže obsahovať iba písmená" required>
@@ -29,7 +30,7 @@
 
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label for="surname">Priezvisko</label>
+                        <label for="surname">*Priezvisko</label>
                         <input type="text" class="form-control" id="surname" name="surname" value="{{$user->surname}}"
                                tabindex="2"
                                pattern="^[a-záäčďéíĺľňóôöőŕřšťúüűýžA-ZÁÄČĎÉÍĹĽŇÓÔÖŐŘŔŠŤÚÜŰÝŽ.]+$"
@@ -46,7 +47,7 @@
             <div class="row">
                 <div class="col-lg-6">
                     <div class="form-group">
-                        <label for="email">Email</label>
+                        <label for="email">*Email</label>
                         <input type="text" class="form-control" id="email" name="email" value="{{$user->email}}" tabindex="3"
                                pattern="[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,3}$"
                                title="Pole musí obsahovať validnú emailovú adresu"
