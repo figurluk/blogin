@@ -17,6 +17,8 @@
     <link href="{{asset('css/custom'.\App\Settings::first()->design.'.css')}}" rel="stylesheet">
 
     <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
+    @yield('styles')
+
 
     <link href='https://fonts.googleapis.com/css?family=Ubuntu:400,500,700,300,300italic,400italic,500italic,700italic&subset=latin,greek,greek-ext,cyrillic-ext,latin-ext,cyrillic'
           rel='stylesheet' type='text/css'>

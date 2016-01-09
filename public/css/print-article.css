@@ -1,0 +1,24 @@
+.navbar {
+    display: none;
+}
+
+#flashesDiv {
+    display: none;
+}
+
+#addComment {
+    display: none;
+}
+
+.footer {
+    display: none;
+}
+
+.reactionLink {
+    display: none;
+}
+
+.subComment {
+    display: none;
+}
+

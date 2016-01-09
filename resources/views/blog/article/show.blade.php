@@ -1,5 +1,9 @@
 @extends('blog.layout.app')
 
+@section('styles')
+    <link rel=stylesheet href="{{asset('css/print-article.css')}}" media="print">
+@endsection
+
 @section('content')
     <div id="content">
         <div class="row">
@@ -91,7 +95,7 @@
                 </div>
             @endif
 
-            <div class="container">
+            <div class="container" id="addComment">
                 <h3>Pridať komentár</h3>
                 @if(Auth::check())
                     {!! Form::open(['action'=>['Blog\ArticlesController@comment',$code],'method'=>'POST']) !!}
