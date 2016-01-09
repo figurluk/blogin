@@ -20,7 +20,7 @@
                             </div>
                             <div class="col-xs-9 text-right">
                                 <div class="huge">{{$countNewUsers}}</div>
-                                <div>Užívatelia!</div>
+                                <div>Užívatelia a administrátori!</div>
                             </div>
                         </div>
                     </div>

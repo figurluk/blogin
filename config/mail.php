@@ -54,7 +54,7 @@ return [
     |
     */
 
-    'from' => ['address' => 'blogblogin@gmail.com', 'name' => 'Blogin administrator'],
+    'from' => ['address' => 'blogin@weebto.me', 'name' => 'Blogin administrator'],
 
     /*
     |--------------------------------------------------------------------------

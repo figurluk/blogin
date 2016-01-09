@@ -4,14 +4,14 @@
     <div id="page-wrapper">
         <div class="row">
             <div class="col-lg-12">
-                <h1 class="page-header">Užívatelia
+                <h1 class="page-header">Užívatelia a administrátori
                     <a class="btn btn-success pull-right"
                        href="{{action('Admin\UsersController@create')}}">Vytvoriť</a>
                 </h1>
             </div>
         </div>
 
-        <h3>Dnes registrovaný užívatelia</h3>
+        <h3>Dnes registrovaný užívatelia a administrátori</h3>
         <div class="table-responsive">
             <table class="table table-striped table-condensed">
                 <thead>
