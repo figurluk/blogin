@@ -1,0 +1,165 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
+
+namespace App\Http\Controllers\Blog\Auth;
+
+use App\User;
+use Validator;
+use App\Http\Controllers\Controller;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Foundation\Auth\AuthenticatesAndRegistersUsers;
+
+/**
+ * Class AuthController
+ * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+ * @package App\Http\Controllers\Blog\Auth
+ */
+class AuthController extends Controller
+{
+    /*
+    |--------------------------------------------------------------------------
+    | Registration &amp; Login Controller
+    |--------------------------------------------------------------------------
+    |
+    | This controller handles the registration of new users, as well as the
+    | authentication of existing users. By default, this controller uses
+    | a simple trait to add these behaviors. Why don't you explore it?
+    |
+    */
+
+    /**
+     * @var string redirect path after login
+     */
+    protected $redirectPath = '/';
+    /**
+     * @var string redirect path after logout
+     */
+    protected $redirectAfterLogout = '/';
+
+    use AuthenticatesAndRegistersUsers, ThrottlesLogins;
+
+    /**
+     * AuthController constructor.
+     */
+    public function __construct()
+    {
+        $this-&gt;middleware('guest', ['except' =&gt; 'getLogout']);
+    }
+
+    /**
+     * Display view for login to Blogin
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getLogin()
+    {
+        return view('blog.auth.login');
+    }
+
+    /**
+     * Display view for register to Blogin
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function getRegister()
+    {
+        return view('blog.auth.register');
+    }
+
+    /**
+     * Get a validator for an incoming registration request.
+     *
+     * @param  array $data
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\Validation\Validator
+     */
+    protected function validator(array $data)
+    {
+        return Validator::make($data, [
+            'name' =&gt; 'required|max:255|string',
+            'surname' =&gt; 'required|max:255|string',
+            'email' =&gt; 'required|email|max:255|unique:users,deleted_at,NULL',
+            'password' =&gt; 'required|confirmed|min:6',
+        ], [
+            'name.required' =&gt; 'Meno mus&iacute; byť vyplnen&eacute;.',
+            'name.max' =&gt; 'Meno m&ocirc;že mať najviac 255 znakov.',
+            'name.string' =&gt; 'Meno mus&iacute; byť postupnosť znakov.',
+            'surname.string' =&gt; 'Priezvisko mus&iacute; byť postupnosť znakov.',
+            'surname.required' =&gt; 'Priezvisko mus&iacute; byť vyplnen&eacute;.',
+            'surname.max' =&gt; 'Priezvisko m&ocirc;že mať najviac 255 znakov.',
+            'email.required' =&gt; 'Email mus&iacute; byť vyplnen&yacute;.',
+            'email.email' =&gt; 'Email mus&iacute; byť platn&aacute; emailov&aacute; adresa.',
+            'email.unique' =&gt; 'Zadan&yacute; email uz je registrovany.',
+            'email.max' =&gt; 'Email m&ocirc;že mať najviac 255 znakov.',
+            'password.min' =&gt; 'Heslo mus&iacute; mať minim&aacute;lne 6 znakov.',
+            'password.required' =&gt; 'Heslo mus&iacute; byť vyplnen&eacute;.',
+            'password.confirmed' =&gt; 'Hesla sa musia zhodovať',
+        ]);
+    }
+
+    /**
+     * Create a new user instance after a valid registration.
+     *
+     * @param  array $data
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return User
+     */
+    protected function create(array $data)
+    {
+        return User::create([
+            'name' =&gt; $data['name'],
+            'surname' =&gt; $data['surname'],
+            'email' =&gt; $data['email'],
+            'password' =&gt; bcrypt($data['password']),
+        ]);
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,158 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
+
+namespace App;
+
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+/**
+ * Class Comments
+ * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+ * @package App
+ */
+class Comments extends Model
+{
+    use SoftDeletes;
+    /**
+     * The database table used by the model.
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @var string
+     */
+    protected $table = 'comments';
+    /**
+     * @var array columns which can not be accessed
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     */
+    protected $guarded = [];
+    /**
+     * @var array column deleted_at fort soft deleting
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
+     * Method format value of column created_at when it is accessed
+     *
+     * @param string $value value from column created_at of specific Comment
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return string formatted $value
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        $value = date('j.n.Y H:i:s', strtotime($value));
+        return $value;
+    }
+
+    /**
+     * Method return Article which contains Comment
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function articles()
+    {
+        return $this-&gt;belongsTo('App\Articles');
+    }
+
+    /**
+     * Method return User which created Comment
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function user()
+    {
+        return $this-&gt;belongsTo('App\User');
+    }
+
+    /**
+     * Method return Array of Comments attached to Comment
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
+        return $this-&gt;hasMany('App\Comments', 'comments_id', 'id');
+    }
+
+    /**
+     * Method return Comment which contains Comment
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
+     */
+    public function belongComments()
+    {
+        return $this-&gt;belongsTo('App\Comments');
+    }
+
+    /**
+     * The &quot;booting&quot; method of the model.
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        /**
+         * Method called when deleting Comment
+         * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+         */
+        static::deleting(function ($comment) {
+            $comment-&gt;comments()-&gt;delete();
+        });
+
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

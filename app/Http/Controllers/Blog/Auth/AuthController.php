@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App\Http\Controllers\Blog\Auth;
 
@@ -26,26 +29,42 @@ class AuthController extends Controller
     |
     */
 
+    /**
+     * @var string redirect path after login
+     */
     protected $redirectPath = '/';
+    /**
+     * @var string redirect path after logout
+     */
     protected $redirectAfterLogout = '/';
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
+     * AuthController constructor.
      */
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'getLogout']);
     }
 
+    /**
+     * Display view for login to Blogin
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getLogin()
     {
         return view('blog.auth.login');
     }
 
+    /**
+     * Display view for register to Blogin
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getRegister()
     {
         return view('blog.auth.register');
@@ -55,6 +74,7 @@ class AuthController extends Controller
      * Get a validator for an incoming registration request.
      *
      * @param  array $data
+     * @author Lukas Figura <figurluk@gmail.com>
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -64,20 +84,20 @@ class AuthController extends Controller
             'surname' => 'required|max:255|string',
             'email' => 'required|email|max:255|unique:users,deleted_at,NULL',
             'password' => 'required|confirmed|min:6',
-        ],[
-            'name.required'=>'Meno musí byť vyplnené.',
-            'name.max'=>'Meno môže mať najviac 255 znakov.',
-            'name.string'=>'Meno musí byť postupnosť znakov.',
-            'surname.string'=>'Priezvisko musí byť postupnosť znakov.',
-            'surname.required'=>'Priezvisko musí byť vyplnené.',
-            'surname.max'=>'Priezvisko môže mať najviac 255 znakov.',
-            'email.required'=>'Email musí byť vyplnený.',
-            'email.email'=>'Email musí byť platná emailová adresa.',
-            'email.unique'=>'Zadaný email uz je registrovany.',
-            'email.max'=>'Email môže mať najviac 255 znakov.',
-            'password.min'=>'Heslo musí mať minimálne 6 znakov.',
-            'password.required'=>'Heslo musí byť vyplnené.',
-            'password.confirmed'=>'Hesla sa musia zhodovať',
+        ], [
+            'name.required' => 'Meno musí byť vyplnené.',
+            'name.max' => 'Meno môže mať najviac 255 znakov.',
+            'name.string' => 'Meno musí byť postupnosť znakov.',
+            'surname.string' => 'Priezvisko musí byť postupnosť znakov.',
+            'surname.required' => 'Priezvisko musí byť vyplnené.',
+            'surname.max' => 'Priezvisko môže mať najviac 255 znakov.',
+            'email.required' => 'Email musí byť vyplnený.',
+            'email.email' => 'Email musí byť platná emailová adresa.',
+            'email.unique' => 'Zadaný email uz je registrovany.',
+            'email.max' => 'Email môže mať najviac 255 znakov.',
+            'password.min' => 'Heslo musí mať minimálne 6 znakov.',
+            'password.required' => 'Heslo musí byť vyplnené.',
+            'password.confirmed' => 'Hesla sa musia zhodovať',
         ]);
     }
 
@@ -85,6 +105,7 @@ class AuthController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array $data
+     * @author Lukas Figura <figurluk@gmail.com>
      * @return User
      */
     protected function create(array $data)

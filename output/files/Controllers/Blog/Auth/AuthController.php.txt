@@ -32,20 +32,30 @@ class AuthController extends Controller
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;
 
     /**
-     * Create a new authentication controller instance.
-     *
-     * @return void
+     * AuthController constructor.
      */
     public function __construct()
     {
         $this->middleware('guest', ['except' => 'getLogout']);
     }
 
+    /**
+     * Display view for login to Blogin
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getLogin()
     {
         return view('blog.auth.login');
     }
 
+    /**
+     * Display view for register to Blogin
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function getRegister()
     {
         return view('blog.auth.register');
@@ -55,6 +65,7 @@ class AuthController extends Controller
      * Get a validator for an incoming registration request.
      *
      * @param  array $data
+     * @author Lukas Figura <figurluk@gmail.com>
      * @return \Illuminate\Contracts\Validation\Validator
      */
     protected function validator(array $data)
@@ -85,6 +96,7 @@ class AuthController extends Controller
      * Create a new user instance after a valid registration.
      *
      * @param  array $data
+     * @author Lukas Figura <figurluk@gmail.com>
      * @return User
      */
     protected function create(array $data)

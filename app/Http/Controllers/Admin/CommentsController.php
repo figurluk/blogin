@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App\Http\Controllers\Admin;
 
@@ -103,7 +106,7 @@ class CommentsController extends Controller
         $articles = Articles::pluck('title', 'id')->all();
         $articles = [0 => 'Vyberte článok'] + $articles;
         $comment = Comments::find($id);
-        return view('admin.comments.edit', compact(['comment','articles']));
+        return view('admin.comments.edit', compact(['comment', 'articles']));
     }
 
     /**

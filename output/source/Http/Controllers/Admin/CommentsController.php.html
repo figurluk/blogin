@@ -1,0 +1,201 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
+
+namespace App\Http\Controllers\Admin;
+
+use App\Articles;
+use App\Comments;
+use App\Http\Requests\CreateCommentRequest;
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
+/**
+ * Class CommentsController
+ * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+ * @package App\Http\Controllers\Admin
+ */
+class CommentsController extends Controller
+{
+    /**
+     * AdminController constructor.
+     */
+    public function __construct()
+    {
+        $this-&gt;middleware('auth.admin');
+    }
+
+
+    /**
+     * Display a list of comments.
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $comments = Comments::paginate(10);
+        return view('admin.comments.index', compact(['comments']));
+    }
+
+    /**
+     * Display a list of today created comments.
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function today()
+    {
+        return view('admin.comments.today');
+    }
+
+    /**
+     * Display view for create new Comment
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create()
+    {
+        $articles = Articles::pluck('title', 'id')-&gt;all();
+        $articles = [0 =&gt; 'Vyberte čl&aacute;nok'] + $articles;
+        return view('admin.comments.create', compact(['articles']));
+    }
+
+    /**
+     * Method handle POST request to create Comment
+     *
+     * @param CreateCommentRequest $request
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function store(CreateCommentRequest $request)
+    {
+        if ($request-&gt;article == 0) {
+            $request-&gt;flash();
+            return redirect()-&gt;back()-&gt;withInput()-&gt;withErrors(['article' =&gt; 'Musite mať vybran&yacute; čl&aacute;nok, ktor&eacute;mu chcete pridať koment&aacute;r']);
+        }
+        $comment = new Comments();
+        $comment-&gt;content = trim($request-&gt;cont, &quot; \t&quot;);
+        $comment-&gt;user()-&gt;associate(Auth::user());
+        $comment-&gt;articles()-&gt;associate(Articles::find($request-&gt;article));
+        $comment-&gt;save();
+
+        flash()-&gt;info('&Uacute;spe&scaron;ne ste vytvorili koment&aacute;r k čl&aacute;nok: ' . $comment-&gt;articles-&gt;title);
+        if (isset($request-&gt;save))
+            return redirect()-&gt;action('Admin\CommentsController@edit', $comment-&gt;id);
+        else {
+            return redirect()-&gt;action('Admin\CommentsController@index');
+        }
+
+    }
+
+    /**
+     * Display a details of Comment
+     *
+     * @param int $id id of displayed Comment
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $articles = Articles::pluck('title', 'id')-&gt;all();
+        $articles = [0 =&gt; 'Vyberte čl&aacute;nok'] + $articles;
+        $comment = Comments::find($id);
+        return view('admin.comments.edit', compact(['comment', 'articles']));
+    }
+
+    /**
+     * Method handle POST request to update Comment
+     *
+     * @param int $id id of Comment which will be updated
+     * @param Request $request
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return $this|\Illuminate\Http\RedirectResponse
+     */
+    public function update($id, Request $request)
+    {
+        if ($request-&gt;article == 0) {
+            $request-&gt;flash();
+            return redirect()-&gt;back()-&gt;withInput()-&gt;withErrors(['article' =&gt; 'Mus&iacute;te mať vybran&yacute; čl&aacute;nok, ktor&eacute;mu chcete pridať koment&aacute;r']);
+        }
+
+        $comment = Comments::find($id);
+        $comment-&gt;content = trim($request-&gt;cont, &quot; \t&quot;);
+        $comment-&gt;user()-&gt;associate(Auth::user());
+        $comment-&gt;articles()-&gt;associate(Articles::find($request-&gt;article));
+        $comment-&gt;save();
+
+
+        flash()-&gt;info('&Uacute;spe&scaron;ne ste upravili koment&aacute;r k čl&aacute;nku: ' . $comment-&gt;articles-&gt;title);
+        if (isset($request-&gt;update))
+            return redirect()-&gt;action('Admin\CommentsController@edit', $comment-&gt;id);
+        else {
+            return redirect()-&gt;action('Admin\CommentsController@index');
+        }
+    }
+
+    /**
+     * Method removes Comment
+     *
+     * @param int $id id of Comment which will be removed
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function remove($id)
+    {
+        $comment = Comments::find($id);
+        flash()-&gt;info('&Uacute;spe&scaron;ne ste zmazali koment&aacute;r k čl&aacute;nku: ' . $comment-&gt;articles-&gt;title);
+        $comment-&gt;delete();
+        return redirect()-&gt;action('Admin\CommentsController@index');
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

@@ -6,13 +6,22 @@
  * Time: 10:14
  */
 
-namespace app\Facade;
+namespace App\Facade;
 
 
 use Illuminate\Support\Facades\Facade;
 
+/**
+ * Class CleanString
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Facade
+ */
 class CleanString extends Facade
 {
+    /**
+     * Facade accessor
+     * @return string name of class
+     */
     protected static function getFacadeAccessor()
     {
         return 'cleanstring';

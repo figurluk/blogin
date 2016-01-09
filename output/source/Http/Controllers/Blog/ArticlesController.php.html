@@ -1,0 +1,170 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
+
+namespace App\Http\Controllers\Blog;
+
+use App\Articles;
+use App\Comments;
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+use Illuminate\Support\Facades\Storage;
+use Illuminate\Support\Facades\View;
+
+/**
+ * Class ArticlesController
+ * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+ * @package App\Http\Controllers\Blog
+ */
+class ArticlesController extends Controller
+{
+
+    /**
+     * Display an Article
+     *
+     * @param string $code code of Article which will be showed
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return View
+     */
+    public function show($code)
+    {
+        $article = Articles::where('code', $code)-&gt;first();
+        return view('blog.article.show', compact(['article', 'code']));
+    }
+
+    /**
+     * Method handle POST request to like Article
+     *
+     * @param string $code code of Article which will be liked
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|View|\Symfony\Component\HttpFoundation\Response
+     */
+    public function like($code, Request $request)
+    {
+        $article = Articles::where('code', $code)-&gt;first();
+        $article-&gt;likes += 1;
+        $article-&gt;save();
+        if ($request-&gt;ajax()) {
+            $view = View::make('blog.article.show', compact(['article', 'code']));
+            $sections = $view-&gt;renderSections();
+            return response(array(&quot;content&quot; =&gt; $sections['content']));
+        } else {
+            flash()-&gt;info('&Uacute;spe&scaron;ne ste likli čl&aacute;nok.');
+            return view('blog.article.show', compact(['article', 'code']));
+        }
+    }
+
+    /**
+     * Method handle POST request to comment Article
+     *
+     * @param string $code code of Article which will be commented
+     * @param Request $request
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|View|\Symfony\Component\HttpFoundation\Response
+     */
+    public function comment($code, Request $request)
+    {
+        $comment = Comments::create([
+            'content' =&gt; trim($request-&gt;cont, &quot; \t&quot;),
+        ]);
+        $article = Articles::where('code', $code)-&gt;first();
+        $article-&gt;comments()-&gt;save($comment);
+        Auth::user()-&gt;comments()-&gt;save($comment);
+
+        if ($request-&gt;comment != 0) {
+            $comm = Comments::find($request-&gt;comment);
+            $comm-&gt;comments()-&gt;save($comment);
+            if ($comment-&gt;user-&gt;notification) {
+                Mail::send('blog.emails.answer_comment', ['comment' =&gt; $comment], function ($m) use ($comment) {
+                    $m-&gt;from('blogin@weebto.me', 'Blogin Administr&aacute;tor');
+                    $m-&gt;to($comment-&gt;user-&gt;email, $comment-&gt;user-&gt;name . ' ' . $comment-&gt;user-&gt;surname)-&gt;subject('Reakcia na V&aacute;&scaron; koment&aacute;r.');
+                });
+            }
+        }
+        if ($comment-&gt;articles-&gt;user-&gt;notification) {
+            Mail::send('blog.emails.answer_article', ['comment' =&gt; $comment], function ($m) use ($comment) {
+                $m-&gt;from('blogin@weebto.me', 'Blogin Administr&aacute;tor');
+                $m-&gt;to($comment-&gt;articles-&gt;user-&gt;email, $comment-&gt;articles-&gt;user-&gt;name . ' ' . $comment-&gt;articles-&gt;user-&gt;surname)-&gt;subject('Reakcia na V&aacute;&scaron; čl&aacute;nok.');
+            });
+        }
+        if ($request-&gt;ajax()) {
+            $view = View::make('blog.article.show', compact(['article', 'code']));
+            $sections = $view-&gt;renderSections();
+            return response(array(&quot;content&quot; =&gt; $sections['content']));
+        } else {
+            $this-&gt;validate($request, [
+                'cont' =&gt; 'required'
+            ], [
+                'cont.required' =&gt; 'Obsah koment&aacute;ru nem&ocirc;že byť pr&aacute;zdny!'
+            ]);
+            flash()-&gt;info('&Uacute;spe&scaron;ne ste komentovali čl&aacute;nok.');
+            return view('blog.article.show', compact(['article', 'code']));
+        }
+    }
+
+    /**
+     * Method return image of Article
+     *
+     * @param string $code code of Article which image will be returned
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return mixed
+     */
+    public function getImage($code)
+    {
+        $disk = Storage::disk('local');
+        if ($code == &quot;default&quot;)
+            return $disk-&gt;get('/articles_img/default.png');
+        else
+            return $disk-&gt;get('/articles_img/' . Articles::where('code', $code)-&gt;first()-&gt;image);
+    }
+
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

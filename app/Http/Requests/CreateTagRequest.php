@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App\Http\Requests;
 
@@ -27,7 +30,7 @@ class CreateTagRequest extends Request
     public function rules()
     {
         return [
-            'name'=>'required|string|unique:tags,deleted_at,NULL',
+            'name' => 'required|string|unique:tags,deleted_at,NULL',
         ];
     }
 
@@ -39,9 +42,9 @@ class CreateTagRequest extends Request
     public function messages()
     {
         return [
-            'name.required'=>'Názov tagu je povinný.',
-            'name.string'=>'Názov tagu musí byť postupnosť znakov.',
-            'name.unique'=>'Názov tagu musí byť unikátne.',
+            'name.required' => 'Názov tagu je povinný.',
+            'name.string' => 'Názov tagu musí byť postupnosť znakov.',
+            'name.unique' => 'Názov tagu musí byť unikátne.',
         ];
     }
 }

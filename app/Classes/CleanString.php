@@ -8,10 +8,21 @@
 
 namespace App\Classes;
 
-
+/**
+ * Class Cleanstring
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Classes
+ */
 class Cleanstring
 {
 
+    /**
+     * Method if UTF8
+     *
+     * @param string $str string which will be redesigned
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return bool
+     */
     private function seems_utf8($str)
     {
         $length = strlen($str);
@@ -38,6 +49,7 @@ class Cleanstring
      * If there are no accent characters, then the string given is just returned.
      *
      * @param string $string Text that might have accent characters
+     * @author Lukas Figura <figurluk@gmail.com>
      * @return string Filtered string with replaced "nice" characters.
      */
     public function removeAccents($string)

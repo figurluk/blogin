@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App\Http\Controllers\Blog;
 
@@ -21,10 +24,11 @@ class ArticlesController extends Controller
 {
 
     /**
-     * Display the specified resource.
+     * Display an Article
      *
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param string $code code of Article which will be showed
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return View
      */
     public function show($code)
     {
@@ -32,6 +36,13 @@ class ArticlesController extends Controller
         return view('blog.article.show', compact(['article', 'code']));
     }
 
+    /**
+     * Method handle POST request to like Article
+     *
+     * @param string $code code of Article which will be liked
+     * @param Request $request
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|View|\Symfony\Component\HttpFoundation\Response
+     */
     public function like($code, Request $request)
     {
         $article = Articles::where('code', $code)->first();
@@ -47,6 +58,14 @@ class ArticlesController extends Controller
         }
     }
 
+    /**
+     * Method handle POST request to comment Article
+     *
+     * @param string $code code of Article which will be commented
+     * @param Request $request
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\Routing\ResponseFactory|View|\Symfony\Component\HttpFoundation\Response
+     */
     public function comment($code, Request $request)
     {
         $comment = Comments::create([
@@ -87,7 +106,13 @@ class ArticlesController extends Controller
         }
     }
 
-
+    /**
+     * Method return image of Article
+     *
+     * @param string $code code of Article which image will be returned
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return mixed
+     */
     public function getImage($code)
     {
         $disk = Storage::disk('local');

@@ -1,0 +1,138 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
+
+namespace App\Http\Controllers\Blog;
+
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+
+/**
+ * Class UserController
+ * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+ * @package App\Http\Controllers\Blog
+ */
+class UserController extends Controller
+{
+    /**
+     * UserController constructor.
+     */
+    public function __construct()
+    {
+        $this-&gt;middleware('auth');
+    }
+
+    /**
+     * Display User details which is logged to Blogin
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit()
+    {
+        $user = Auth::user();
+        return view('blog.user.show', compact(['user']));
+    }
+
+    /**
+     * Method handle POST request for update logged User to Blogin
+     *
+     * @param Request $request
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update(Request $request)
+    {
+        $user = Auth::user();
+        if ($user-&gt;email != $request-&gt;email) {
+            $this-&gt;validate($request, [
+                'email' =&gt; 'required|email|max:255|unique:users,deleted_at,NULL',
+            ], [
+                'email.required' =&gt; 'Email mus&iacute; byť vyplnen&yacute;.',
+                'email.email' =&gt; 'Email mus&iacute; byť platna emailov&aacute; adresa.',
+                'email.unique' =&gt; 'Zadany email už je registrovan&eacute;.',
+                'email.max' =&gt; 'Email m&ocirc;že mať najviac 255 znakov.',
+            ]);
+        }
+        if ($request-&gt;newpassword != &quot;&quot;) {
+            $this-&gt;validate($request, [
+                'newpassword' =&gt; 'required|confirmed|min:6',
+            ], [
+                'newpassword.min' =&gt; 'Heslo mus&iacute; mať minim&aacute;lne 6 znakov.',
+                'newpassword.required' =&gt; 'Heslo mus&iacute; byť vyplnen&eacute;.',
+                'newpassword.confirmed' =&gt; 'Hesl&aacute; sa musia zhodovať',
+            ]);
+            $user-&gt;password = bcrypt($request-&gt;newpassword);
+        }
+        $this-&gt;validate($request, [
+            'name' =&gt; 'required|max:255|string',
+            'surname' =&gt; 'required|max:255|string',
+        ], [
+            'name.required' =&gt; 'Meno mus&iacute; byt vyplnen&eacute;.',
+            'name.max' =&gt; 'Meno m&ocirc;že mať najviac 255 znakov.',
+            'name.string' =&gt; 'Meno mus&iacute; byť postupnosť znakov.',
+            'surname.string' =&gt; 'Priezvisko mus&iacute; byť postupnosť znakov.',
+            'surname.required' =&gt; 'Priezvisko mus&iacute; byť vyplnen&eacute;.',
+            'surname.max' =&gt; 'Priezvisko m&ocirc;že mať najviac 255 znakov.',
+        ]);
+
+        $user-&gt;name = $request-&gt;name;
+        $user-&gt;surname = $request-&gt;surname;
+        $user-&gt;email = $request-&gt;email;
+        $user-&gt;notification = $request-&gt;notification;
+        $user-&gt;save();
+
+        flash()-&gt;info('&Uacute;spe&scaron;ne ste upravili V&aacute;&scaron; profil.');
+        return redirect()-&gt;action('Blog\UserController@edit');
+
+    }
+
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

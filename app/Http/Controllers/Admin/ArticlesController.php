@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App\Http\Controllers\Admin;
 

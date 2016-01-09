@@ -1,0 +1,104 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
+
+namespace App\Providers;
+
+use App\Articles;
+use App\Comments;
+use App\Tags;
+use App\User;
+use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\ServiceProvider;
+
+/**
+ * Class AppServiceProvider
+ * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+ * @package App\Providers
+ */
+class AppServiceProvider extends ServiceProvider
+{
+    /**
+     * Bootstrap any application services.
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return void
+     */
+    public function boot()
+    {
+        $newArticles = Articles::where(DB::raw('DATE(created_at)'), '=', DB::raw('CURDATE()'))-&gt;paginate(10);
+        $countNewArticles = count(Articles::where(DB::raw('DATE(created_at)'), '=', DB::raw('CURDATE()'))-&gt;get());
+        $newUsers = User::where(DB::raw('DATE(created_at)'), '=', DB::raw('CURDATE()'))-&gt;paginate(10);
+        $countNewUsers = count(User::where(DB::raw('DATE(created_at)'), '=', DB::raw('CURDATE()'))-&gt;get());
+        $newComments = Comments::where(DB::raw('DATE(created_at)'), '=', DB::raw('CURDATE()'))-&gt;paginate(10);
+        $countNewComments = count(Comments::where(DB::raw('DATE(created_at)'), '=', DB::raw('CURDATE()'))-&gt;get());
+        $menuTags = DB::table('articles_tags')-&gt;select(DB::raw('tags_id as id'), DB::raw('count(*) as count'))-&gt;groupBy('tags_id')-&gt;orderBy('count', 'desc')-&gt;get();
+
+        view()-&gt;share('newArticles', $newArticles);
+        view()-&gt;share('newUsers', $newUsers);
+        view()-&gt;share('newComments', $newComments);
+        view()-&gt;share('countNewArticles', $countNewArticles);
+        view()-&gt;share('countNewUsers', $countNewUsers);
+        view()-&gt;share('countNewComments', $countNewComments);
+        view()-&gt;share('menuTags', $menuTags);
+    }
+
+    /**
+     * Register any application services.
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return void
+     */
+    public function register()
+    {
+        //
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,248 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Requests\CreateAdminRequest;
+use App\User;
+use Illuminate\Http\Request;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Mail;
+
+/**
+ * Class AdminsController
+ * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+ * @package App\Http\Controllers\Admin
+ */
+class AdminsController extends Controller
+{
+    /**
+     * AdminController constructor.
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     */
+    public function __construct()
+    {
+        $this-&gt;middleware('auth.admin');
+    }
+
+
+    /**
+     * Display a list of admins.
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $admins = User::where('admin', 1)-&gt;paginate(10);
+        return view('admin.admins.index', compact(['admins']));
+    }
+
+    /**
+     * Display view for creating new Admin
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('admin.admins.create');
+    }
+
+    /**
+     * Metod hande POST request to create new Admin.
+     *
+     * @param CreateAdminRequest $request
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(CreateAdminRequest $request)
+    {
+        $user = new User();
+        $user-&gt;name = $request-&gt;name;
+        $user-&gt;surname = $request-&gt;surname;
+        $user-&gt;admin = 1;
+        $user-&gt;email = $request-&gt;email;
+        $user-&gt;notification = $request-&gt;notification;
+        $pass = $this-&gt;generateRandomString(6);
+        $user-&gt;password = bcrypt($pass);
+        $user-&gt;save();
+
+        Mail::send('admin.emails.create_admin', ['user' =&gt; $user, 'pass' =&gt; $pass], function ($m) use ($user) {
+            $m-&gt;from('blogin@weebto.me', 'Blogin Administr&aacute;tor');
+            $m-&gt;to($user-&gt;email, $user-&gt;name)-&gt;subject('Boli ste zaregistrovan&yacute; ako administr&aacute;tor.');
+        });
+
+        flash()-&gt;info('&Uacute;spe&scaron;ne ste vytvorili administr&aacute;tora: ' . $user-&gt;name . '. Heslo mu bolo odoslan&eacute; na email.');
+        if (isset($request-&gt;save))
+            return redirect()-&gt;action('Admin\AdminsController@edit', $user-&gt;id);
+        else {
+            return redirect()-&gt;action('Admin\AdminsController@index');
+        }
+
+    }
+
+    /**
+     * Display Admin details
+     *
+     * @param int $id id of displayed Admin
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     */
+    public function edit($id)
+    {
+        $admin = User::find($id);
+        return view('admin.admins.edit', compact(['admin']));
+    }
+
+    /**
+     * Method handle POST request to update Admin
+     *
+     * @param int $id id of Admin which will be updated
+     * @param Request $request
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update($id, Request $request)
+    {
+        $user = User::find($id);
+        if ($user-&gt;email != $request-&gt;email) {
+            $this-&gt;validate($request, [
+                'email' =&gt; 'required|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
+            ], [
+                'email.required' =&gt; 'Email mus&iacute; byt vyplnen&yacute;.',
+                'email.email' =&gt; 'Email mus&iacute; byť platn&aacute; emailov&aacute; adresa.',
+                'email.unique' =&gt; 'Zadan&yacute; email už je registrovan&yacute;.',
+                'email.max' =&gt; 'Email m&ocirc;že mať najviac 255 znakov.',
+            ]);
+        }
+        if ($user-&gt;id == Auth::user()-&gt;id &amp;&amp; $request-&gt;password != '') {
+            $this-&gt;validate($request, [
+                'password' =&gt; 'required|confirmed|min:6',
+            ], [
+                'password.min' =&gt; 'Heslo mus&iacute; mať minim&aacute;lne 6 znakov.',
+                'password.required' =&gt; 'Heslo mus&iacute; byť vyplnen&eacute;.',
+                'password.confirmed' =&gt; 'Hesl&aacute; sa musia zhodovať',
+            ]);
+        } elseif ($request-&gt;newpass) {
+            $pass = $this-&gt;generateRandomString(6);
+            $user-&gt;password = bcrypt($pass);
+            Mail::send('admin.emails.pass_user', ['user' =&gt; $user, 'pass' =&gt; $pass], function ($m) use ($user) {
+                $m-&gt;from('blogin@weebto.me', 'Blogin Administr&aacute;tor');
+                $m-&gt;to($user-&gt;email, $user-&gt;name)-&gt;subject('Bolo v&aacute;m vygenerovan&eacute; nov&eacute; heslo administr&aacute;torom.');
+            });
+        }
+        $this-&gt;validate($request, [
+            'name' =&gt; 'required|max:255|string',
+            'surname' =&gt; 'required|max:255|string',
+        ], [
+            'name.required' =&gt; 'Meno mus&iacute; byť vyplnen&eacute;.',
+            'name.max' =&gt; 'Meno m&ocirc;že mať najviac 255 znakov.',
+            'name.string' =&gt; 'Meno mus&iacute; byť postupnosť znakov.',
+            'surname.string' =&gt; 'Priezvisko mus&iacute; byť postupnosť znakov.',
+            'surname.required' =&gt; 'Priezvisko mus&iacute; byť vyplnen&eacute;.',
+            'surname.max' =&gt; 'Priezvisko m&ocirc;že mať najviac 255 znakov.',
+        ]);
+
+        $user-&gt;name = $request-&gt;name;
+        $user-&gt;admin = 1;
+        $user-&gt;surname = $request-&gt;surname;
+        $user-&gt;notification = $request-&gt;notification;
+        $user-&gt;email = $request-&gt;email;
+        if ($user-&gt;id == Auth::user()-&gt;id &amp;&amp; $request-&gt;password != '') {
+            $user-&gt;password = bcrypt($request-&gt;password);
+        }
+        $user-&gt;save();
+
+        flash()-&gt;info('&Uacute;spe&scaron;ne ste upravili administr&aacute;tora: ' . $user-&gt;name);
+        if (isset($request-&gt;update))
+            return redirect()-&gt;action('Admin\AdminsController@edit', $user-&gt;id);
+        else {
+            return redirect()-&gt;action('Admin\AdminsController@index');
+        }
+    }
+
+    /**
+     * Method removes Admin
+     *
+     * @param int $id id of Admin which will be removed
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function remove($id)
+    {
+        $user = User::find($id);
+        flash()-&gt;info('&Uacute;spe&scaron;ne ste zmazali tag: ' . $user-&gt;name);
+        $user-&gt;delete();
+        return redirect()-&gt;action('Admin\AdminsController@index');
+    }
+
+    /**
+     * Method generate random string
+     *
+     * @param int $length length of generated string
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return string
+     */
+    private function generateRandomString($length)
+    {
+        $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';
+        $charactersLength = strlen($characters);
+        $randomString = '';
+        for ($i = 0; $i &lt; $length; $i++) {
+            $randomString .= $characters[rand(0, $charactersLength - 1)];
+        }
+        return $randomString;
+    }
+
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

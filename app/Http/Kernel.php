@@ -1,9 +1,17 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App\Http;
 
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
+/**
+ * Class Kernel
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App\Http
+ */
 class Kernel extends HttpKernel
 {
     /**

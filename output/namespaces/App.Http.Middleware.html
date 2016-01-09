@@ -3,397 +3,207 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0"/>
     <meta charset="utf-8"/>
-    <title>Blogin Documentation</title>
+    <title>     &raquo; \App\Http\Middleware
+</title>
     <meta name="author" content=""/>
     <meta name="description" content=""/>
 
-    <link href="../css/bootstrap-combined.no-icons.min.css" rel="stylesheet">
-    <link href="../css/font-awesome.min.css" rel="stylesheet">
-    <link href="../css/prism.css" rel="stylesheet" media="all"/>
-    <link href="../css/template.css" rel="stylesheet" media="all"/>
+            <link href="../css/template.css" rel="stylesheet" media="all"/>
     
-    <!--[if lt IE 9]>
-    <script src="../js/html5.js"></script>
-    <![endif]-->
-    <script src="../js/jquery-1.11.0.min.js"></script>
-    <script src="../js/ui/1.10.4/jquery-ui.min.js"></script>
-    <script src="../js/bootstrap.min.js"></script>
-    <script src="../js/jquery.smooth-scroll.js"></script>
-    <script src="../js/prism.min.js"></script>
-    <!-- TODO: Add http://jscrollpane.kelvinluck.com/ to style the scrollbars for browsers not using webkit-->
+            <!--[if lt IE 9]>
+        <script src="https://html5shim.googlecode.com/svn/trunk/html5.js" type="text/javascript"></script>
+        <![endif]-->
+        <script src="../js/jquery-1.7.1.min.js" type="text/javascript"></script>
+        <script src="../js/jquery-ui-1.8.2.custom.min.js" type="text/javascript"></script>
+        <script src="../js/jquery.mousewheel.min.js" type="text/javascript"></script>
+        <script src="../js/bootstrap.js" type="text/javascript"></script>
+        <script src="../js/template.js" type="text/javascript"></script>
+        <script src="../js/prettify/prettify.min.js" type="text/javascript"></script>
     
-    <link rel="shortcut icon" href="../images/favicon.ico"/>
-    <link rel="apple-touch-icon" href="../images/apple-touch-icon.png"/>
-    <link rel="apple-touch-icon" sizes="72x72" href="../images/apple-touch-icon-72x72.png"/>
-    <link rel="apple-touch-icon" sizes="114x114" href="../images/apple-touch-icon-114x114.png"/>
-</head>
+            <link rel="shortcut icon" href="../img/favicon.ico"/>
+        <link rel="apple-touch-icon" href="../img/apple-touch-icon.png"/>
+        <link rel="apple-touch-icon" sizes="72x72" href="../img/apple-touch-icon-72x72.png"/>
+        <link rel="apple-touch-icon" sizes="114x114" href="../img/apple-touch-icon-114x114.png"/>
+    </head>
 <body>
 
-<div class="navbar navbar-fixed-top">
-    <div class="navbar-inner">
-        <div class="container">
-            <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
-                <i class="icon-ellipsis-vertical"></i>
-            </a>
-            <a class="brand" href="../index.html">Blogin Documentation</a>
+        <div class="navbar navbar-fixed-top">
+        <div class="navbar-inner">
+            <div class="container">
+                <a class="btn btn-navbar" data-toggle="collapse" data-target=".nav-collapse">
+                    <span class="icon-bar"></span> <span class="icon-bar"></span>
+                    <span class="icon-bar"></span> </a>
+                <a class="brand" href="../index.html">Blogin Documentation</a>
 
-            <div class="nav-collapse">
-                <ul class="nav pull-right">
-                                        <li class="dropdown">
-                        <a href="../index.html" class="dropdown-toggle" data-toggle="dropdown">
-                            API Documentation <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                                                        <li><a href="../namespaces/App.html">\App</a></li>
-                                                    </ul>
-                    </li>
-                                        <li class="dropdown" id="charts-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Charts <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../graphs/class.html">
-                                    <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
-                    <li class="dropdown" id="reports-menu">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                            Reports <b class="caret"></b>
-                        </a>
-                        <ul class="dropdown-menu">
-                            <li>
-                                <a href="../reports/errors.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Errors <span class="label label-info pull-right">142</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/markers.html">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        <i class="icon-list-alt"></i>&#160;Markers <span class="label label-info pull-right">0</span>
-                                </a>
-                            </li>
-                            <li>
-                                <a href="../reports/deprecated.html">
-                                                                                                            <i class="icon-list-alt"></i>&#160;Deprecated <span class="label label-info pull-right">0</span>
-                                </a>
-                            </li>
-                        </ul>
-                    </li>
+                <div class="nav-collapse">
+                    <ul class="nav">
+                        <li class="dropdown">
+                            <a href="#api" class="dropdown-toggle" data-toggle="dropdown">
+                                API Documentation <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                                                    <li><a>Namespaces</a></li>
+                                                                        <li><a href="../namespaces/App.html">App</a></li>
+                                                                                                                                </ul>
+                        </li>
+                        <li class="dropdown" id="charts-menu">
+                            <a href="#charts" class="dropdown-toggle" data-toggle="dropdown">
+                                Charts <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../graph_class.html">
+                                        <i class="icon-list-alt"></i>&#160;Class hierarchy diagram
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                        <li class="dropdown" id="reports-menu">
+                            <a href="#reports" class="dropdown-toggle" data-toggle="dropdown">
+                                Reports <b class="caret"></b>
+                            </a>
+                            <ul class="dropdown-menu">
+                                <li>
+                                    <a href="../errors.html">
+                                        <i class="icon-list-alt"></i>&#160;Errors
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../markers.html">
+                                        <i class="icon-list-alt"></i>&#160;Markers
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deprecated.html">
+                                        <i class="icon-list-alt"></i>&#160;Deprecated
+                                    </a>
+                                </li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="go_to_top">
+            <a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>
+        </div>
+    </div>
+    
+    <div id="___" class="container">
+        <noscript>
+            <div class="alert alert-warning">
+                Javascript is disabled; several features are only available if Javascript is enabled.
+            </div>
+        </noscript>
+
+        
+            
+    <div class="row">
+
+        <div class="span4">
+            <div class="btn-group view pull-right" data-toggle="buttons-radio">
+                <button class="btn details" title="Show descriptions and method names">
+                    <i class="icon-list"></i></button><button class="btn simple" title="Show only method names">
+                    <i class="icon-align-justify"></i>
+                </button>
+            </div>
+            <ul class="side-nav nav nav-list">
+                <li class="nav-header">
+                    <i class="icon-map-marker"></i> Namespaces
+                </li>
+                <a href="../namespaces/App.Http.Middleware.html" title="Middleware">
+                    <i class="icon-th"></i> Middleware
+                </a>
+                <ul class="nav nav-list nav-namespaces">
+                        
+    
                 </ul>
-            </div>
+            </ul>
         </div>
-    </div>
-    <!--<div class="go_to_top">-->
-    <!--<a href="#___" style="color: inherit">Back to top&#160;&#160;<i class="icon-upload icon-white"></i></a>-->
-    <!--</div>-->
-</div>
 
-<div id="___" class="container-fluid">
-        <section class="row-fluid">
-        <div class="span2 sidebar">
-                                <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle " data-toggle="collapse" data-target="#namespace-1275505162"></a>
-                                <a href="../namespaces/default.html" style="margin-left: 30px; padding-left: 0">\</a>
-            </div>
-            <div id="namespace-1275505162" class="accordion-body collapse in">
-                <div class="accordion-inner">
+        <div class="span8 namespace-contents">
+                
+    
+        <ul class="breadcrumb">
+            <li><a href="../index.html"><i class="icon-th"></i></a></li>
+                
+                
+                
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/App.html">App</a>
+    </li>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1146380350"></a>
-                                <a href="../namespaces/App.html" style="margin-left: 30px; padding-left: 0">App</a>
-            </div>
-            <div id="namespace-1146380350" class="accordion-body collapse ">
-                <div class="accordion-inner">
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/App.Http.html">Http</a>
+    </li>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-54197926"></a>
-                                <a href="../namespaces/App.Http.html" style="margin-left: 30px; padding-left: 0">Http</a>
-            </div>
-            <div id="namespace-54197926" class="accordion-body collapse ">
-                <div class="accordion-inner">
+    
+    <li>
+        <span class="divider">\</span><a href="../namespaces/App.Http.Middleware.html">Middleware</a>
+    </li>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1847870339"></a>
-                                <a href="../namespaces/App.Http.Controllers.html" style="margin-left: 30px; padding-left: 0">Controllers</a>
-            </div>
-            <div id="namespace-1847870339" class="accordion-body collapse ">
-                <div class="accordion-inner">
+        </ul>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-348612325"></a>
-                                <a href="../namespaces/App.Http.Controllers.Admin.html" style="margin-left: 30px; padding-left: 0">Admin</a>
-            </div>
-            <div id="namespace-348612325" class="accordion-body collapse ">
-                <div class="accordion-inner">
+        
+        
+                    <div class="namespace-indent">
+                <h3><i class="icon-custom icon-class"></i> Classes, interfaces and traits</h3>
+                
+                
+                                        <div id="class_Authenticate" class="element ajax clickable class" data-toggle="collapse" data-target="#class_Authenticate .collapse">
+        <h1>Authenticate<a href="../classes/App.Http.Middleware.Authenticate.html">¶</a></h1>
+        <p class="short_description">Class Authenticate</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/App.Http.Middleware.Authenticate.html" class="more">« More »</a>    </div>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-407986696"></a>
-                                <a href="../namespaces/App.Http.Controllers.Admin.Auth.html" style="margin-left: 30px; padding-left: 0">Auth</a>
-            </div>
-            <div id="namespace-407986696" class="accordion-body collapse ">
-                <div class="accordion-inner">
+                                        <div id="class_AuthenticateAdmin" class="element ajax clickable class" data-toggle="collapse" data-target="#class_AuthenticateAdmin .collapse">
+        <h1>AuthenticateAdmin<a href="../classes/App.Http.Middleware.AuthenticateAdmin.html">¶</a></h1>
+        <p class="short_description">Class AuthenticateAdmin</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/App.Http.Middleware.AuthenticateAdmin.html" class="more">« More »</a>    </div>
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.Auth.AuthController.html">AuthController</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.Auth.PasswordController.html">PasswordController</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                                        <div id="class_EncryptCookies" class="element ajax clickable class" data-toggle="collapse" data-target="#class_EncryptCookies .collapse">
+        <h1>EncryptCookies<a href="../classes/App.Http.Middleware.EncryptCookies.html">¶</a></h1>
+        <p class="short_description">Class EncryptCookies</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/App.Http.Middleware.EncryptCookies.html" class="more">« More »</a>    </div>
 
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.AdminController.html">AdminController</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.AdminsController.html">AdminsController</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.ArticlesController.html">ArticlesController</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.CommentsController.html">CommentsController</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.SettingsController.html">SettingsController</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.TagsController.html">TagsController</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Controllers.Admin.UsersController.html">UsersController</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
+                                        <div id="class_RedirectIfAuthenticated" class="element ajax clickable class" data-toggle="collapse" data-target="#class_RedirectIfAuthenticated .collapse">
+        <h1>RedirectIfAuthenticated<a href="../classes/App.Http.Middleware.RedirectIfAuthenticated.html">¶</a></h1>
+        <p class="short_description">Class RedirectIfAuthenticated</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/App.Http.Middleware.RedirectIfAuthenticated.html" class="more">« More »</a>    </div>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1724160217"></a>
-                                <a href="../namespaces/App.Http.Controllers.Blog.html" style="margin-left: 30px; padding-left: 0">Blog</a>
-            </div>
-            <div id="namespace-1724160217" class="accordion-body collapse ">
-                <div class="accordion-inner">
+                                        <div id="class_VerifyCsrfToken" class="element ajax clickable class" data-toggle="collapse" data-target="#class_VerifyCsrfToken .collapse">
+        <h1>VerifyCsrfToken<a href="../classes/App.Http.Middleware.VerifyCsrfToken.html">¶</a></h1>
+        <p class="short_description">Class VerifyCsrfToken</p>
+        <div class="details collapse">
+                            
+                    </div>
+        <a href="../classes/App.Http.Middleware.VerifyCsrfToken.html" class="more">« More »</a>    </div>
 
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1416693623"></a>
-                                <a href="../namespaces/App.Http.Controllers.Blog.Auth.html" style="margin-left: 30px; padding-left: 0">Auth</a>
-            </div>
-            <div id="namespace-1416693623" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/App.Http.Controllers.Blog.Auth.AuthController.html">AuthController</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Controllers.Blog.Auth.PasswordController.html">PasswordController</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/App.Http.Controllers.Blog.ArticlesController.html">ArticlesController</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Controllers.Blog.HomeController.html">HomeController</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Controllers.Blog.TagsController.html">TagsController</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Controllers.Blog.UserController.html">UserController</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/App.Http.Controllers.Controller.html">Controller</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-1469486640"></a>
-                                <a href="../namespaces/App.Http.Middleware.html" style="margin-left: 30px; padding-left: 0">Middleware</a>
-            </div>
-            <div id="namespace-1469486640" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/App.Http.Middleware.Authenticate.html">Authenticate</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Middleware.AuthenticateAdmin.html">AuthenticateAdmin</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Middleware.EncryptCookies.html">EncryptCookies</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Middleware.RedirectIfAuthenticated.html">RedirectIfAuthenticated</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Middleware.VerifyCsrfToken.html">VerifyCsrfToken</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                                                    <div class="accordion" style="margin-bottom: 0">
-        <div class="accordion-group">
-            <div class="accordion-heading">
-                                    <a class="accordion-toggle collapsed" data-toggle="collapse" data-target="#namespace-71214045"></a>
-                                <a href="../namespaces/App.Http.Requests.html" style="margin-left: 30px; padding-left: 0">Requests</a>
-            </div>
-            <div id="namespace-71214045" class="accordion-body collapse ">
-                <div class="accordion-inner">
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/App.Http.Requests.CreateAdminRequest.html">CreateAdminRequest</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Requests.CreateArticleRequest.html">CreateArticleRequest</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Requests.CreateCommentRequest.html">CreateCommentRequest</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Requests.CreateTagRequest.html">CreateTagRequest</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Requests.CreateUserRequest.html">CreateUserRequest</a></li>
-                                                    <li class="class"><a href="../classes/App.Http.Requests.Request.html">Request</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                                                                    <li class="class"><a href="../classes/App.Http.Kernel.html">Kernel</a></li>
-                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-                    
-                    <ul>
-                                                                                            </ul>
-                </div>
-            </div>
-        </div>
-    </div>
-
-        </div>
-    </section>
-    <section class="row-fluid">
-        <div class="span10 offset2">
-            <div class="row-fluid">
-                <div class="span8 content namespace">
-                    <nav>
-                                                <a href="../namespaces/App.Http.html">\App\Http</a>
-                                            </nav>
-                    <h1><small>\App\Http</small>Middleware</h1>
-
-                    
-                    
-                    
-                                        <h2>Classes</h2>
-                    <table class="table table-hover">
-                                            <tr>
-                            <td><a href="../classes/App.Http.Middleware.Authenticate.html">Authenticate</a></td>
-                            <td><em></em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/App.Http.Middleware.AuthenticateAdmin.html">AuthenticateAdmin</a></td>
-                            <td><em>Class AuthenticateAdmin</em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/App.Http.Middleware.EncryptCookies.html">EncryptCookies</a></td>
-                            <td><em></em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/App.Http.Middleware.RedirectIfAuthenticated.html">RedirectIfAuthenticated</a></td>
-                            <td><em></em></td>
-                        </tr>
-                                            <tr>
-                            <td><a href="../classes/App.Http.Middleware.VerifyCsrfToken.html">VerifyCsrfToken</a></td>
-                            <td><em></em></td>
-                        </tr>
-                                        </table>
-                                    </div>
-
-                <aside class="span4 detailsbar">
-                    <dl>
-                        <dt>Namespace hierarchy</dt>
-                        <dd class="hierarchy">
-                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        
-                                    <div class="namespace-wrapper"><a href="../namespaces/default.html">\</a></div>
-                                                            
-                                    <div class="namespace-wrapper"><a href="../namespaces/App.html">\App</a></div>
-                                                            
-                                    <div class="namespace-wrapper"><a href="../namespaces/App.Http.html">\App\Http</a></div>
-                                                                                        <div class="namespace-wrapper">\App\Http\Middleware</div>
-                        </dd>
-                    </dl>
-                </aside>
-            </div>
-
+                            </div>
             
-            
+    
         </div>
-    </section>
+    </div>
+    </div>
 
-    <footer class="row-fluid">
-        <section class="span10 offset2">
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <section class="row-fluid footer-sections">
-                        <section class="span4">
-                                                        <h1><i class="icon-code"></i></h1>
-                            <div>
-                                <ul>
-                                                                            <li><a href="../namespaces/App.html">\App</a></li>
-                                                                    </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-bar-chart"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../graphs/class.html">Class Hierarchy Diagram</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                        <section class="span4">
-                                                        <h1><i class="icon-pushpin"></i></h1>
-                            <div>
-                                <ul>
-                                    <li><a href="../reports/errors.html">Errors</a></li>
-                                    <li><a href="../reports/markers.html">Markers</a></li>
-                                </ul>
-                            </div>
-                        </section>
-                    </section>
-                </section>
-            </section>
-            <section class="row-fluid">
-                <section class="span10 offset1">
-                    <hr />
-                    Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and authored
-                    on January 9th, 2016 at 14:45.
-                </section>
-            </section>
-        </section>
+        <footer class="span12">
+            Template is built using <a href="http://twitter.github.com/bootstrap/">Twitter Bootstrap 2</a> and icons provided by
+            <a href="http://glyphicons.com/">Glyphicons</a>.<br/>
+            Documentation is powered by <a href="http://www.phpdoc.org/">phpDocumentor </a> and<br/>
+            generated on Sat, 09 Jan 2016 17:23:25 +0100.<br/>
     </footer>
-</div>
-
-</body>
+    </body>
 </html>

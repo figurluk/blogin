@@ -1,0 +1,103 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
+
+namespace App\Http\Middleware;
+
+use Closure;
+use Illuminate\Contracts\Auth\Guard;
+
+/**
+ * Class AuthenticateAdmin
+ * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+ * @package App\Http\Middleware
+ */
+class AuthenticateAdmin
+{
+    /**
+     * The Guard implementation.
+     *
+     * @var Guard
+     */
+    protected $auth;
+
+    /**
+     * Create a new filter instance.
+     *
+     * @param  Guard $auth
+     * @return void
+     */
+    public function __construct(Guard $auth)
+    {
+        $this-&gt;auth = $auth;
+    }
+
+    /**
+     * Handle an incoming request.
+     *
+     * @param  \Illuminate\Http\Request $request
+     * @param  \Closure $next
+     * @return mixed
+     */
+    public function handle($request, Closure $next)
+    {
+        if ($this-&gt;auth-&gt;guest()) {
+            if ($request-&gt;ajax()) {
+                return response('Unauthorized.', 401);
+            } else {
+                return redirect()-&gt;guest('admin/auth/login');
+            }
+        } elseif (!$this-&gt;auth-&gt;guest() &amp;&amp; $this-&gt;auth-&gt;user()-&gt;admin != 1) {
+            flash()-&gt;warning('Nieste opr&aacute;vnen&yacute; pre vstup do administračnej časti.');
+            return redirect()-&gt;action('Blog\HomeController@index');
+        }
+
+        return $next($request);
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

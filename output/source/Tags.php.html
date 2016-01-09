@@ -1,0 +1,121 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
+
+namespace App;
+
+use App\Facade\CleanString;
+use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\SoftDeletes;
+
+/**
+ * Class Tags
+ * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+ * @package App
+ */
+class Tags extends Model
+{
+    use SoftDeletes;
+    /**
+     * @var array column deleted_at fort soft deleting
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
+     * The database table used by the model.
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @var string
+     */
+    protected $table = 'tags';
+
+    /**
+     * @var array columns which can not be accessed
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     */
+    protected $guarded = [];
+
+    /**
+     * Method return Array of Articles which are attached to Tag
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Database\Eloquent\Relations\BelongsToMany
+     */
+    public function articles()
+    {
+        return $this-&gt;belongsToMany('App\Articles');
+    }
+
+    /**
+     * The &quot;booting&quot; method of the model.
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return void
+     */
+    protected static function boot()
+    {
+        parent::boot();
+
+        /**
+         * Method called when saving Tag
+         * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+         */
+        static::saving(function ($tag) {
+            $text = str_replace(array('[\', \']'), '', $tag-&gt;name);
+            $text = preg_replace('/\[.*\]/U', '', $text);
+            $text = preg_replace('/&amp;(amp;)?#?[a-z0-9]+;/i', '-', $text);
+            $text = htmlentities($text, ENT_COMPAT, 'utf-8');
+            $text = preg_replace('/&amp;([a-z])(acute|uml|circ|grave|ring|cedil|slash|tilde|caron|lig|quot|rsquo);/i', '\\1', $text);
+            $text = preg_replace(array('/[^a-z0-9]/i', '/[-]+/'), '-', $text);
+            $text = trim($text, '-');
+            $tag-&gt;code = CleanString::removeAccents($text);
+        });
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

@@ -1,0 +1,384 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
+
+namespace App\Http\Controllers\Blog;
+
+use App\Articles;
+use Illuminate\Http\Request;
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
+
+/**
+ * Class HomeController
+ * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+ * @package App\Http\Controllers\Blog
+ */
+class HomeController extends Controller
+{
+    /**
+     * Display home page of Blogin with Articles ordered by date of updating.
+     * Topped articles are in top of page.
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $periods = $this-&gt;getPeriods('');
+        $articles = Articles::orderBy('updated_at', 'desc')-&gt;take(10)-&gt;get();
+        $mainArt = null;
+        $firstSub = null;
+        $secondSub = null;
+        $firstSubSub = null;
+        $secondSubSub = null;
+        $thirdSubSub = null;
+        foreach ($articles as $key =&gt; $article) {
+            if ($article-&gt;topped &amp;&amp; $mainArt == null) {
+                $mainArt = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $firstSub == null) {
+                $firstSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $secondSub == null) {
+                $secondSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $firstSubSub == null) {
+                $firstSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $secondSubSub == null) {
+                $secondSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $thirdSubSub == null) {
+                $thirdSubSub = $article;
+                $articles-&gt;forget($key);
+            }
+        }
+        foreach ($articles as $key =&gt; $article) {
+            if ($mainArt == null) {
+                $mainArt = $article;
+                $articles-&gt;forget($key);
+            } elseif ($firstSub == null) {
+                $firstSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($secondSub == null) {
+                $secondSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($firstSubSub == null) {
+                $firstSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($secondSubSub == null) {
+                $secondSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($thirdSubSub == null) {
+                $thirdSubSub = $article;
+                $articles-&gt;forget($key);
+            }
+        }
+
+        return view('blog.home.index', compact(['periods', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
+    }
+
+    /**
+     * Display Articles updated in specific month and year.
+     * Topped articles are in top of page.
+     *
+     * @param int $month month of updated Articles
+     * @param int $year year of updated Articles
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function filterIndex($month, $year)
+    {
+        $periods = $this-&gt;getPeriods('');
+        $articles = Articles::select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))
+            -&gt;where(DB::raw('month(updated_at)'), $month)-&gt;where(DB::raw('year(updated_at)'), $year)-&gt;orderBy('updated_at', 'desc')-&gt;get();
+
+        $mainArt = null;
+        $firstSub = null;
+        $secondSub = null;
+        $firstSubSub = null;
+        $secondSubSub = null;
+        $thirdSubSub = null;
+        foreach ($articles as $key =&gt; $article) {
+            if ($article-&gt;topped &amp;&amp; $mainArt == null) {
+                $mainArt = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $firstSub == null) {
+                $firstSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $secondSub == null) {
+                $secondSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $firstSubSub == null) {
+                $firstSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $secondSubSub == null) {
+                $secondSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $thirdSubSub == null) {
+                $thirdSubSub = $article;
+                $articles-&gt;forget($key);
+            }
+        }
+        foreach ($articles as $key =&gt; $article) {
+            if ($mainArt == null) {
+                $mainArt = $article;
+                $articles-&gt;forget($key);
+            } elseif ($firstSub == null) {
+                $firstSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($secondSub == null) {
+                $secondSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($firstSubSub == null) {
+                $firstSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($secondSubSub == null) {
+                $secondSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($thirdSubSub == null) {
+                $thirdSubSub = $article;
+                $articles-&gt;forget($key);
+            }
+        }
+
+        return view('blog.home.index', compact(['month', 'year', 'periods', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
+    }
+
+    /**
+     * Method display specific count of Articles
+     *
+     * @param int $count count of Articles which will be getted from database
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function more($count)
+    {
+        $periods = $this-&gt;getPeriods('');
+        $articles = Articles::orderBy('updated_at', 'desc')-&gt;take($count)-&gt;get();
+        $mainArt = null;
+        $firstSub = null;
+        $secondSub = null;
+        $firstSubSub = null;
+        $secondSubSub = null;
+        $thirdSubSub = null;
+        foreach ($articles as $key =&gt; $article) {
+            if ($article-&gt;topped &amp;&amp; $mainArt == null) {
+                $mainArt = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $firstSub == null) {
+                $firstSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $secondSub == null) {
+                $secondSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $firstSubSub == null) {
+                $firstSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $secondSubSub == null) {
+                $secondSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $thirdSubSub == null) {
+                $thirdSubSub = $article;
+                $articles-&gt;forget($key);
+            }
+        }
+        foreach ($articles as $key =&gt; $article) {
+            if ($mainArt == null) {
+                $mainArt = $article;
+                $articles-&gt;forget($key);
+            } elseif ($firstSub == null) {
+                $firstSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($secondSub == null) {
+                $secondSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($firstSubSub == null) {
+                $firstSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($secondSubSub == null) {
+                $secondSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($thirdSubSub == null) {
+                $thirdSubSub = $article;
+                $articles-&gt;forget($key);
+            }
+        }
+
+        return view('blog.home.index', compact(['periods', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
+    }
+
+    /**
+     * Display specific count of Articles filtred by month and year when was updated
+     *
+     * @param int $month month of getted Articles
+     * @param int $year year of getted Artices
+     * @param int $count count of Articles which will be getted from database
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function filterMore($month, $year, $count)
+    {
+        $periods = $this-&gt;getPeriods('');
+        $articles = Articles::select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))
+            -&gt;where(DB::raw('month(updated_at)'), $month)-&gt;where(DB::raw('year(updated_at)'), $year)-&gt;orderBy('updated_at', 'desc')-&gt;take($count)-&gt;get();
+        $mainArt = null;
+        $firstSub = null;
+        $secondSub = null;
+        $firstSubSub = null;
+        $secondSubSub = null;
+        $thirdSubSub = null;
+        foreach ($articles as $key =&gt; $article) {
+            if ($article-&gt;topped &amp;&amp; $mainArt == null) {
+                $mainArt = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $firstSub == null) {
+                $firstSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $secondSub == null) {
+                $secondSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $firstSubSub == null) {
+                $firstSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $secondSubSub == null) {
+                $secondSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($article-&gt;topped &amp;&amp; $thirdSubSub == null) {
+                $thirdSubSub = $article;
+                $articles-&gt;forget($key);
+            }
+        }
+        foreach ($articles as $key =&gt; $article) {
+            if ($mainArt == null) {
+                $mainArt = $article;
+                $articles-&gt;forget($key);
+            } elseif ($firstSub == null) {
+                $firstSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($secondSub == null) {
+                $secondSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($firstSubSub == null) {
+                $firstSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($secondSubSub == null) {
+                $secondSubSub = $article;
+                $articles-&gt;forget($key);
+            } elseif ($thirdSubSub == null) {
+                $thirdSubSub = $article;
+                $articles-&gt;forget($key);
+            }
+        }
+
+        return view('blog.home.index', compact(['month', 'year', 'periods', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
+    }
+
+    /**
+     * Display specific 4 Articles from database
+     *
+     * @param int $start count of Articles which are skipped from result of getting Articles from database
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function next($start)
+    {
+        $articles = DB::table('articles')-&gt;orderBy('updated_at', 'desc')-&gt;skip($start)-&gt;take(4)-&gt;get();
+        return view('blog.home.next', compact(['articles']));
+    }
+
+    /**
+     * Display specific 4 Articles from database filtred by month and year when was updated
+     *
+     * @param int $month month of getted Articles
+     * @param int $year year of getted Articles
+     * @param int $start count of Articles which are skipped from result of getting Articles from database
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function filterNext($month, $year, $start)
+    {
+        $articles = Articles::select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))
+            -&gt;where(DB::raw('month(updated_at)'), $month)-&gt;where(DB::raw('year(updated_at)'), $year)-&gt;orderBy('updated_at', 'desc')-&gt;skip($start)-&gt;take(4)-&gt;get();
+        return view('blog.home.next', compact(['articles']));
+    }
+
+    /**
+     * Method create array for calendar filter
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return array item contains number of month, number of year, month name
+     */
+    private function getPeriods()
+    {
+        $periods = Articles::select(DB::raw('month(updated_at) as month, year(updated_at) as year'))-&gt;groupBy('month', 'year')
+            -&gt;orderBy('year', 'desc')-&gt;orderBy('month', 'desc')-&gt;get();
+        $months = array(
+            1 =&gt; 'Janu&aacute;r',
+            2 =&gt; 'Febru&aacute;r',
+            3 =&gt; 'Marec',
+            4 =&gt; 'Apr&iacute;l',
+            5 =&gt; 'M&aacute;j',
+            6 =&gt; 'J&uacute;n',
+            7 =&gt; 'J&uacute;l',
+            8 =&gt; 'August',
+            9 =&gt; 'Septemer',
+            10 =&gt; 'Okt&oacute;ber',
+            11 =&gt; 'November',
+            12 =&gt; 'December',
+        );
+
+        foreach ($periods as $period) {
+            $period-&gt;monthName = $months[$period-&gt;month];
+        }
+
+        return $periods-&gt;toArray();
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

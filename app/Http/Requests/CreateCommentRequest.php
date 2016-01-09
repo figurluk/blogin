@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App\Http\Requests;
 
@@ -29,7 +32,7 @@ class CreateCommentRequest extends Request
     public function rules()
     {
         return [
-            'cont'=>'required|string',
+            'cont' => 'required|string',
         ];
     }
 
@@ -41,8 +44,8 @@ class CreateCommentRequest extends Request
     public function messages()
     {
         return [
-            'cont.required'=>'Obsah komentáru je povinný.',
-            'cont.string'=>'Obsah komentáru musí byť postupnosť znakov.',
+            'cont.required' => 'Obsah komentáru je povinný.',
+            'cont.string' => 'Obsah komentáru musí byť postupnosť znakov.',
         ];
     }
 }

@@ -1,0 +1,179 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
+
+namespace App\Http\Controllers\Admin;
+
+use App\Http\Requests\CreateTagRequest;
+use App\Tags;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Http\Request;
+
+/**
+ * Class TagsController
+ * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+ * @package App\Http\Controllers\Admin
+ */
+class TagsController extends Controller
+{
+    /**
+     * AdminController constructor.
+     */
+    public function __construct()
+    {
+        $this-&gt;middleware('auth.admin');
+    }
+
+
+    /**
+     * Display a list of Tags.
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $tags = Tags::paginate(10);
+        return view('admin.tags.index', compact(['tags']));
+    }
+
+    /**
+     * Display view for create Tag
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create()
+    {
+        return view('admin.tags.create');
+    }
+
+    /**
+     * Method handle POST request to create Tag
+     *
+     * @param CreateTagRequest $request
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(CreateTagRequest $request)
+    {
+        $tag = new Tags();
+        $tag-&gt;name = $request-&gt;name;
+        $tag-&gt;save();
+
+        flash()-&gt;info('&Uacute;spe&scaron;ne ste vytvorili tag: ' . $tag-&gt;name);
+        if (isset($request-&gt;save))
+            return redirect()-&gt;action('Admin\TagsController@edit', $tag-&gt;id);
+        else {
+            return redirect()-&gt;action('Admin\TagsController@index');
+        }
+
+    }
+
+    /**
+     * Display details of Tag
+     *
+     * @param int $id id of displayed Tag
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $tag = Tags::find($id);
+        return view('admin.tags.edit', compact(['tag']));
+    }
+
+    /**
+     * Method handle POST request to update Tag
+     *
+     * @param int $id id of Tag which will be updated
+     * @param Request $request
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update($id, Request $request)
+    {
+        $tag = Tags::find($id);
+        if ($tag-&gt;name != $request-&gt;name) {
+            $this-&gt;validate($request, [
+                'name' =&gt; 'required|string|unique:tags,deleted_at,NULL',
+            ], [
+                'name.required' =&gt; 'N&aacute;zov tagu je povinn&yacute;.',
+                'name.string' =&gt; 'N&aacute;zov tagu mus&iacute; byť postupnosť znakov.',
+                'name.unique' =&gt; 'N&aacute;zov tagu mus&iacute; byť unik&aacute;tne.',
+            ]);
+        }
+        $tag-&gt;name = $request-&gt;name;
+        $tag-&gt;save();
+
+        flash()-&gt;info('&Uacute;spe&scaron;ne ste upravili tag: ' . $tag-&gt;name);
+        if (isset($request-&gt;update))
+            return redirect()-&gt;action('Admin\TagsController@edit', $tag-&gt;id);
+        else {
+            return redirect()-&gt;action('Admin\TagsController@index');
+        }
+    }
+
+    /**
+     * Method removes Tag
+     *
+     * @param int $id id of Tag which will be removed
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function remove($id)
+    {
+        $tag = Tags::find($id);
+        flash()-&gt;info('&Uacute;spe&scaron;ne ste zmazali tag: ' . $tag-&gt;name);
+        $tag-&gt;delete();
+        return redirect()-&gt;action('Admin\TagsController@index');
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

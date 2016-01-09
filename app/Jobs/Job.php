@@ -1,9 +1,16 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App\Jobs;
 
 use Illuminate\Bus\Queueable;
 
+/**
+ * Class Job
+ * @package App\Jobs
+ */
 abstract class Job
 {
     /*

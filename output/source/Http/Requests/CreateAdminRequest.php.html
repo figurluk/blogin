@@ -1,0 +1,111 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
+
+namespace App\Http\Requests;
+
+use App\Http\Requests\Request;
+
+/**
+ * Class CreateAdminRequest
+ * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+ * @package App\Http\Requests
+ */
+class CreateAdminRequest extends Request
+{
+    /**
+     * Determine if the user is authorized to make this request.
+     *
+     * @return bool
+     */
+    public function authorize()
+    {
+        return true;
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function rules()
+    {
+        return [
+            'name' =&gt; 'required|max:255|string',
+            'surname' =&gt; 'required|max:255|string',
+            'email' =&gt; 'required|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
+        ];
+    }
+
+    /**
+     * Get the validation rules that apply to the request.
+     *
+     * @return array
+     */
+    public function messages()
+    {
+        return [
+            'name.required' =&gt; 'Meno mus&iacute; byť vyplnen&eacute;.',
+            'name.max' =&gt; 'Meno m&ocirc;že mať najviac 255 znakov.',
+            'name.string' =&gt; 'Meno mus&iacute; byť postupnosť znakov.',
+            'surname.string' =&gt; 'Priezvisko mus&iacute; byť postupnosť znakov.',
+            'surname.required' =&gt; 'Priezvisko mus&iacute; byť vyplnen&eacute;.',
+            'surname.max' =&gt; 'Priezvisko m&ocirc;že mať najviac 255 znakov.',
+            'email.required' =&gt; 'Email mus&iacute; byť vyplnen&yacute;.',
+            'email.email' =&gt; 'Email mus&iacute; byť platn&aacute; emailov&aacute; adresa.',
+            'email.unique' =&gt; 'Zadan&yacute; email už je registrovan&yacute;.',
+            'email.max' =&gt; 'Email m&ocirc;že mať najviac 255 znakov.',
+        ];
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

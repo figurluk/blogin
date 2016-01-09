@@ -17,6 +17,13 @@ use Illuminate\Support\Facades\DB;
 class TagsController extends Controller
 {
 
+    /**
+     * Display Articles filtred by Tag which is attached to them
+     *
+     * @param string $code code of Tag
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function show($code)
     {
         $periods = $this->getPeriods($code);
@@ -75,12 +82,21 @@ class TagsController extends Controller
         return view('blog.tag.index', compact(['periods', 'tag', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
     }
 
-    public function filterShow($code,$month,$year)
+    /**
+     * Method display Articles, filtred by month and year when was updated and Tag which is attached to them.
+     *
+     * @param string $code code of Tag
+     * @param int $month month of getted Articles
+     * @param int $year year of getted Articles
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function filterShow($code, $month, $year)
     {
         $periods = $this->getPeriods($code);
         $tag = Tags::where('code', $code)->first();
         $articles = $tag->articles()->select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))
-            ->where(DB::raw('month(updated_at)'),$month)->where(DB::raw('year(updated_at)'),$year)->orderBy('updated_at', 'desc')->get();
+            ->where(DB::raw('month(updated_at)'), $month)->where(DB::raw('year(updated_at)'), $year)->orderBy('updated_at', 'desc')->get();
 
         $mainArt = null;
         $firstSub = null;
@@ -131,10 +147,18 @@ class TagsController extends Controller
             }
         }
 
-        return view('blog.tag.index', compact(['month','year','periods', 'tag', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
+        return view('blog.tag.index', compact(['month', 'year', 'periods', 'tag', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
     }
 
 
+    /**
+     * Display specific count of Articles filtred by Tag which is attached to them.
+     *
+     * @param string $code code of Tag
+     * @param int $count count of Articles
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function more($code, $count)
     {
         $periods = $this->getPeriods($code);
@@ -192,12 +216,22 @@ class TagsController extends Controller
         return view('blog.home.index', compact(['periods', 'tag', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
     }
 
-    public function filterMore($code,$month,$year,$count)
+    /**
+     * Display specific count of Articles filtred by month and year when was updated and Tag which is attached to them.
+     *
+     * @param string $code code of Tag
+     * @param int $month month of getted Articles
+     * @param int $year year of getted Articles
+     * @param int $count count of Articles
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function filterMore($code, $month, $year, $count)
     {
         $periods = $this->getPeriods($code);
         $tag = Tags::where('code', $code)->first();
         $articles = $tag->articles()->select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))
-            ->where(DB::raw('month(updated_at)'),$month)->where(DB::raw('year(updated_at)'),$year)->orderBy('updated_at', 'desc')->take($count)->get();
+            ->where(DB::raw('month(updated_at)'), $month)->where(DB::raw('year(updated_at)'), $year)->orderBy('updated_at', 'desc')->take($count)->get();
         $mainArt = null;
         $firstSub = null;
         $secondSub = null;
@@ -247,9 +281,17 @@ class TagsController extends Controller
             }
         }
 
-        return view('blog.home.index', compact(['month','year','periods', 'tag', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
+        return view('blog.home.index', compact(['month', 'year', 'periods', 'tag', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
     }
 
+    /**
+     * Display specific 4 Articles filtred by Tag which is attached to them
+     *
+     * @param string $code code of Tag
+     * @param int $start count of Articles which are skipped from result of getting Articles from database
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function next($code, $start)
     {
         $tag = Tags::where('code', $code)->first();
@@ -257,15 +299,30 @@ class TagsController extends Controller
         return view('blog.home.next', compact(['articles']));
     }
 
-
-    public function filterNext($code,$month,$year,$start)
+    /**
+     * Display specific 4 Articles filtred by month and year when was update and Tag which is attached to them
+     *
+     * @param string $code code of Tag
+     * @param int $month month of getted Articles
+     * @param int $year year of getted Articles
+     * @param int $start count of Articles which are skipped from result of getting Articles from database
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function filterNext($code, $month, $year, $start)
     {
         $tag = Tags::where('code', $code)->first();
         $articles = $tag->articles()->select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))
-            ->where(DB::raw('month(updated_at)'),$month)->where(DB::raw('year(updated_at)'),$year)->orderBy('updated_at', 'desc')->skip($start)->take(4)->get();
+            ->where(DB::raw('month(updated_at)'), $month)->where(DB::raw('year(updated_at)'), $year)->orderBy('updated_at', 'desc')->skip($start)->take(4)->get();
         return view('blog.home.next', compact(['articles']));
     }
 
+    /**
+     * Method create array for calendar filter, filtred by code of Tag which is attach to Articles
+     * @param string $tagCode code of Tag
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return mixed item contains number of month, number of year, month name
+     */
     private function getPeriods($tagCode)
     {
         $tag = Tags::where('code', $tagCode)->first();

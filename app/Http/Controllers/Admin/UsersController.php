@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App\Http\Controllers\Admin;
 
@@ -28,8 +31,9 @@ class UsersController extends Controller
 
 
     /**
-     * Display a listing of the resource.
+     * Display a list of Users
      *
+     * @author Lukas Figura <figurluk@gmail.com>
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -38,16 +42,35 @@ class UsersController extends Controller
         return view('admin.users.index', compact(['users']));
     }
 
+    /**
+     * Display today created Users
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function today()
     {
         return view('admin.users.today');
     }
 
+    /**
+     * Display view for create User
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return view('admin.users.create');
     }
 
+    /**
+     * Method handle POST request to create User
+     *
+     * @param CreateUserRequest $request
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(CreateUserRequest $request)
     {
         $user = new User();
@@ -73,12 +96,24 @@ class UsersController extends Controller
 
     }
 
+    /**
+     * Display details of logged user.
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function profile()
     {
         $user = Auth::user();
         return view('admin.user.show', compact(['user']));
     }
 
+    /**
+     * Method handle POST request to update logged user.
+     *
+     * @param Request $request
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function updateProfile(Request $request)
     {
         $user = Auth::user();
@@ -123,12 +158,27 @@ class UsersController extends Controller
         return view('admin.user.show', compact(['user']));
     }
 
+    /**
+     * Display details of User
+     *
+     * @param int $id id of displayed User
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit($id)
     {
         $user = User::find($id);
         return view('admin.users.edit', compact(['user']));
     }
 
+    /**
+     * Method handle POST request to update User
+     *
+     * @param int $id id of User which will be update
+     * @param Request $request
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update($id, Request $request)
     {
         $user = User::find($id);
@@ -176,6 +226,13 @@ class UsersController extends Controller
         }
     }
 
+    /**
+     * Method removes User
+     *
+     * @param int $id id of User which will be removed
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function remove($id)
     {
         $user = User::find($id);
@@ -184,6 +241,13 @@ class UsersController extends Controller
         return redirect()->action('Admin\UsersController@index');
     }
 
+    /**
+     * Method generate random string
+     *
+     * @param int $length length of generated string
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return string
+     */
     private function generateRandomString($length)
     {
         $characters = '0123456789abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ';

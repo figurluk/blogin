@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App\Http\Middleware;
 
@@ -45,8 +48,7 @@ class AuthenticateAdmin
             } else {
                 return redirect()->guest('admin/auth/login');
             }
-        }
-        elseif (!$this->auth->guest() && $this->auth->user()->admin!=1){
+        } elseif (!$this->auth->guest() && $this->auth->user()->admin != 1) {
             flash()->warning('Nieste oprávnený pre vstup do administračnej časti.');
             return redirect()->action('Blog\HomeController@index');
         }

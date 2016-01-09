@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App\Http\Requests;
 
@@ -43,16 +46,16 @@ class CreateUserRequest extends Request
     public function messages()
     {
         return [
-            'name.required'=>'Meno musí byť vyplnene.',
-            'name.max'=>'Meno môže mať najviac 255 znakov.',
-            'name.string'=>'Meno musí byť postupnosť znakov.',
-            'surname.string'=>'Priezvisko musí byť postupnosť znakov.',
-            'surname.required'=>'Priezvisko musí byť vyplnene.',
-            'surname.max'=>'Priezvisko môže mať najviac 255 znakov.',
-            'email.required'=>'Email musí byť vyplnený.',
-            'email.email'=>'Email musí byť platná emailová adresa.',
-            'email.unique'=>'Zadany email už je registrovaný.',
-            'email.max'=>'Email môže mať najviac 255 znakov.',
+            'name.required' => 'Meno musí byť vyplnene.',
+            'name.max' => 'Meno môže mať najviac 255 znakov.',
+            'name.string' => 'Meno musí byť postupnosť znakov.',
+            'surname.string' => 'Priezvisko musí byť postupnosť znakov.',
+            'surname.required' => 'Priezvisko musí byť vyplnene.',
+            'surname.max' => 'Priezvisko môže mať najviac 255 znakov.',
+            'email.required' => 'Email musí byť vyplnený.',
+            'email.email' => 'Email musí byť platná emailová adresa.',
+            'email.unique' => 'Zadany email už je registrovaný.',
+            'email.max' => 'Email môže mať najviac 255 znakov.',
         ];
     }
 }

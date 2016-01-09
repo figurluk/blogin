@@ -26,8 +26,9 @@ class TagsController extends Controller
 
 
     /**
-     * Display a listing of the resource.
+     * Display a list of Tags.
      *
+     * @author Lukas Figura <figurluk@gmail.com>
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -36,11 +37,24 @@ class TagsController extends Controller
         return view('admin.tags.index', compact(['tags']));
     }
 
+    /**
+     * Display view for create Tag
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function create()
     {
         return view('admin.tags.create');
     }
 
+    /**
+     * Method handle POST request to create Tag
+     *
+     * @param CreateTagRequest $request
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function store(CreateTagRequest $request)
     {
         $tag = new Tags();
@@ -56,12 +70,27 @@ class TagsController extends Controller
 
     }
 
+    /**
+     * Display details of Tag
+     *
+     * @param int $id id of displayed Tag
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit($id)
     {
         $tag = Tags::find($id);
         return view('admin.tags.edit', compact(['tag']));
     }
 
+    /**
+     * Method handle POST request to update Tag
+     *
+     * @param int $id id of Tag which will be updated
+     * @param Request $request
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function update($id, Request $request)
     {
         $tag = Tags::find($id);
@@ -85,6 +114,13 @@ class TagsController extends Controller
         }
     }
 
+    /**
+     * Method removes Tag
+     *
+     * @param int $id id of Tag which will be removed
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Http\RedirectResponse
+     */
     public function remove($id)
     {
         $tag = Tags::find($id);

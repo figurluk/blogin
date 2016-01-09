@@ -1,0 +1,229 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * Created by PhpStorm.
+ * User: lukas
+ * Date: 03.12.15
+ * Time: 10:03
+ */
+
+namespace App\Classes;
+
+/**
+ * Class Cleanstring
+ * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+ * @package App\Classes
+ */
+class Cleanstring
+{
+
+    /**
+     * Method if UTF8
+     *
+     * @param string $str string which will be redesigned
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return bool
+     */
+    private function seems_utf8($str)
+    {
+        $length = strlen($str);
+        for ($i = 0; $i &lt; $length; $i++) {
+            $c = ord($str[$i]);
+            if ($c &lt; 0x80) $n = 0; # 0bbbbbbb
+            elseif (($c &amp; 0xE0) == 0xC0) $n = 1; # 110bbbbb
+            elseif (($c &amp; 0xF0) == 0xE0) $n = 2; # 1110bbbb
+            elseif (($c &amp; 0xF8) == 0xF0) $n = 3; # 11110bbb
+            elseif (($c &amp; 0xFC) == 0xF8) $n = 4; # 111110bb
+            elseif (($c &amp; 0xFE) == 0xFC) $n = 5; # 1111110b
+            else return false; # Does not match any model
+            for ($j = 0; $j &lt; $n; $j++) { # n bytes matching 10bbbbbb follow ?
+                if ((++$i == $length) || ((ord($str[$i]) &amp; 0xC0) != 0x80))
+                    return false;
+            }
+        }
+        return true;
+    }
+
+    /**
+     * Converts all accent characters to ASCII characters.
+     *
+     * If there are no accent characters, then the string given is just returned.
+     *
+     * @param string $string Text that might have accent characters
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return string Filtered string with replaced &quot;nice&quot; characters.
+     */
+    public function removeAccents($string)
+    {
+        $string = html_entity_decode($string);
+        if (!preg_match('/[\x80-\xff]/', $string))
+            return $string;
+
+        if ($this-&gt;seems_utf8($string)) {
+            $chars = array(
+                // Decompositions for Latin-1 Supplement
+                chr(195) . chr(128) =&gt; 'A', chr(195) . chr(129) =&gt; 'A',
+                chr(195) . chr(130) =&gt; 'A', chr(195) . chr(131) =&gt; 'A',
+                chr(195) . chr(132) =&gt; 'A', chr(195) . chr(133) =&gt; 'A',
+                chr(195) . chr(135) =&gt; 'C', chr(195) . chr(136) =&gt; 'E',
+                chr(195) . chr(137) =&gt; 'E', chr(195) . chr(138) =&gt; 'E',
+                chr(195) . chr(139) =&gt; 'E', chr(195) . chr(140) =&gt; 'I',
+                chr(195) . chr(141) =&gt; 'I', chr(195) . chr(142) =&gt; 'I',
+                chr(195) . chr(143) =&gt; 'I', chr(195) . chr(145) =&gt; 'N',
+                chr(195) . chr(146) =&gt; 'O', chr(195) . chr(147) =&gt; 'O',
+                chr(195) . chr(148) =&gt; 'O', chr(195) . chr(149) =&gt; 'O',
+                chr(195) . chr(150) =&gt; 'O', chr(195) . chr(153) =&gt; 'U',
+                chr(195) . chr(154) =&gt; 'U', chr(195) . chr(155) =&gt; 'U',
+                chr(195) . chr(156) =&gt; 'U', chr(195) . chr(157) =&gt; 'Y',
+                chr(195) . chr(159) =&gt; 's', chr(195) . chr(160) =&gt; 'a',
+                chr(195) . chr(161) =&gt; 'a', chr(195) . chr(162) =&gt; 'a',
+                chr(195) . chr(163) =&gt; 'a', chr(195) . chr(164) =&gt; 'a',
+                chr(195) . chr(165) =&gt; 'a', chr(195) . chr(167) =&gt; 'c',
+                chr(195) . chr(168) =&gt; 'e', chr(195) . chr(169) =&gt; 'e',
+                chr(195) . chr(170) =&gt; 'e', chr(195) . chr(171) =&gt; 'e',
+                chr(195) . chr(172) =&gt; 'i', chr(195) . chr(173) =&gt; 'i',
+                chr(195) . chr(174) =&gt; 'i', chr(195) . chr(175) =&gt; 'i',
+                chr(195) . chr(177) =&gt; 'n', chr(195) . chr(178) =&gt; 'o',
+                chr(195) . chr(179) =&gt; 'o', chr(195) . chr(180) =&gt; 'o',
+                chr(195) . chr(181) =&gt; 'o', chr(195) . chr(182) =&gt; 'o',
+                chr(195) . chr(182) =&gt; 'o', chr(195) . chr(185) =&gt; 'u',
+                chr(195) . chr(186) =&gt; 'u', chr(195) . chr(187) =&gt; 'u',
+                chr(195) . chr(188) =&gt; 'u', chr(195) . chr(189) =&gt; 'y',
+                chr(195) . chr(191) =&gt; 'y',
+                // Decompositions for Latin Extended-A
+                chr(196) . chr(128) =&gt; 'A', chr(196) . chr(129) =&gt; 'a',
+                chr(196) . chr(130) =&gt; 'A', chr(196) . chr(131) =&gt; 'a',
+                chr(196) . chr(132) =&gt; 'A', chr(196) . chr(133) =&gt; 'a',
+                chr(196) . chr(134) =&gt; 'C', chr(196) . chr(135) =&gt; 'c',
+                chr(196) . chr(136) =&gt; 'C', chr(196) . chr(137) =&gt; 'c',
+                chr(196) . chr(138) =&gt; 'C', chr(196) . chr(139) =&gt; 'c',
+                chr(196) . chr(140) =&gt; 'C', chr(196) . chr(141) =&gt; 'c',
+                chr(196) . chr(142) =&gt; 'D', chr(196) . chr(143) =&gt; 'd',
+                chr(196) . chr(144) =&gt; 'D', chr(196) . chr(145) =&gt; 'd',
+                chr(196) . chr(146) =&gt; 'E', chr(196) . chr(147) =&gt; 'e',
+                chr(196) . chr(148) =&gt; 'E', chr(196) . chr(149) =&gt; 'e',
+                chr(196) . chr(150) =&gt; 'E', chr(196) . chr(151) =&gt; 'e',
+                chr(196) . chr(152) =&gt; 'E', chr(196) . chr(153) =&gt; 'e',
+                chr(196) . chr(154) =&gt; 'E', chr(196) . chr(155) =&gt; 'e',
+                chr(196) . chr(156) =&gt; 'G', chr(196) . chr(157) =&gt; 'g',
+                chr(196) . chr(158) =&gt; 'G', chr(196) . chr(159) =&gt; 'g',
+                chr(196) . chr(160) =&gt; 'G', chr(196) . chr(161) =&gt; 'g',
+                chr(196) . chr(162) =&gt; 'G', chr(196) . chr(163) =&gt; 'g',
+                chr(196) . chr(164) =&gt; 'H', chr(196) . chr(165) =&gt; 'h',
+                chr(196) . chr(166) =&gt; 'H', chr(196) . chr(167) =&gt; 'h',
+                chr(196) . chr(168) =&gt; 'I', chr(196) . chr(169) =&gt; 'i',
+                chr(196) . chr(170) =&gt; 'I', chr(196) . chr(171) =&gt; 'i',
+                chr(196) . chr(172) =&gt; 'I', chr(196) . chr(173) =&gt; 'i',
+                chr(196) . chr(174) =&gt; 'I', chr(196) . chr(175) =&gt; 'i',
+                chr(196) . chr(176) =&gt; 'I', chr(196) . chr(177) =&gt; 'i',
+                chr(196) . chr(178) =&gt; 'IJ', chr(196) . chr(179) =&gt; 'ij',
+                chr(196) . chr(180) =&gt; 'J', chr(196) . chr(181) =&gt; 'j',
+                chr(196) . chr(182) =&gt; 'K', chr(196) . chr(183) =&gt; 'k',
+                chr(196) . chr(184) =&gt; 'k', chr(196) . chr(185) =&gt; 'L',
+                chr(196) . chr(186) =&gt; 'l', chr(196) . chr(187) =&gt; 'L',
+                chr(196) . chr(188) =&gt; 'l', chr(196) . chr(189) =&gt; 'L',
+                chr(196) . chr(190) =&gt; 'l', chr(196) . chr(191) =&gt; 'L',
+                chr(197) . chr(128) =&gt; 'l', chr(197) . chr(129) =&gt; 'L',
+                chr(197) . chr(130) =&gt; 'l', chr(197) . chr(131) =&gt; 'N',
+                chr(197) . chr(132) =&gt; 'n', chr(197) . chr(133) =&gt; 'N',
+                chr(197) . chr(134) =&gt; 'n', chr(197) . chr(135) =&gt; 'N',
+                chr(197) . chr(136) =&gt; 'n', chr(197) . chr(137) =&gt; 'N',
+                chr(197) . chr(138) =&gt; 'n', chr(197) . chr(139) =&gt; 'N',
+                chr(197) . chr(140) =&gt; 'O', chr(197) . chr(141) =&gt; 'o',
+                chr(197) . chr(142) =&gt; 'O', chr(197) . chr(143) =&gt; 'o',
+                chr(197) . chr(144) =&gt; 'O', chr(197) . chr(145) =&gt; 'o',
+                chr(197) . chr(146) =&gt; 'OE', chr(197) . chr(147) =&gt; 'oe',
+                chr(197) . chr(148) =&gt; 'R', chr(197) . chr(149) =&gt; 'r',
+                chr(197) . chr(150) =&gt; 'R', chr(197) . chr(151) =&gt; 'r',
+                chr(197) . chr(152) =&gt; 'R', chr(197) . chr(153) =&gt; 'r',
+                chr(197) . chr(154) =&gt; 'S', chr(197) . chr(155) =&gt; 's',
+                chr(197) . chr(156) =&gt; 'S', chr(197) . chr(157) =&gt; 's',
+                chr(197) . chr(158) =&gt; 'S', chr(197) . chr(159) =&gt; 's',
+                chr(197) . chr(160) =&gt; 'S', chr(197) . chr(161) =&gt; 's',
+                chr(197) . chr(162) =&gt; 'T', chr(197) . chr(163) =&gt; 't',
+                chr(197) . chr(164) =&gt; 'T', chr(197) . chr(165) =&gt; 't',
+                chr(197) . chr(166) =&gt; 'T', chr(197) . chr(167) =&gt; 't',
+                chr(197) . chr(168) =&gt; 'U', chr(197) . chr(169) =&gt; 'u',
+                chr(197) . chr(170) =&gt; 'U', chr(197) . chr(171) =&gt; 'u',
+                chr(197) . chr(172) =&gt; 'U', chr(197) . chr(173) =&gt; 'u',
+                chr(197) . chr(174) =&gt; 'U', chr(197) . chr(175) =&gt; 'u',
+                chr(197) . chr(176) =&gt; 'U', chr(197) . chr(177) =&gt; 'u',
+                chr(197) . chr(178) =&gt; 'U', chr(197) . chr(179) =&gt; 'u',
+                chr(197) . chr(180) =&gt; 'W', chr(197) . chr(181) =&gt; 'w',
+                chr(197) . chr(182) =&gt; 'Y', chr(197) . chr(183) =&gt; 'y',
+                chr(197) . chr(184) =&gt; 'Y', chr(197) . chr(185) =&gt; 'Z',
+                chr(197) . chr(186) =&gt; 'z', chr(197) . chr(187) =&gt; 'Z',
+                chr(197) . chr(188) =&gt; 'z', chr(197) . chr(189) =&gt; 'Z',
+                chr(197) . chr(190) =&gt; 'z', chr(197) . chr(191) =&gt; 's',
+                // Euro Sign
+                chr(226) . chr(130) . chr(172) =&gt; 'E',
+                // GBP (Pound) Sign
+                chr(194) . chr(163) =&gt; '');
+
+            $string = strtr($string, $chars);
+        } else {
+            // Assume ISO-8859-1 if not UTF-8
+            $chars['in'] = chr(128) . chr(131) . chr(138) . chr(142) . chr(154) . chr(158)
+                . chr(159) . chr(162) . chr(165) . chr(181) . chr(192) . chr(193) . chr(194)
+                . chr(195) . chr(196) . chr(197) . chr(199) . chr(200) . chr(201) . chr(202)
+                . chr(203) . chr(204) . chr(205) . chr(206) . chr(207) . chr(209) . chr(210)
+                . chr(211) . chr(212) . chr(213) . chr(214) . chr(216) . chr(217) . chr(218)
+                . chr(219) . chr(220) . chr(221) . chr(224) . chr(225) . chr(226) . chr(227)
+                . chr(228) . chr(229) . chr(231) . chr(232) . chr(233) . chr(234) . chr(235)
+                . chr(236) . chr(237) . chr(238) . chr(239) . chr(241) . chr(242) . chr(243)
+                . chr(244) . chr(245) . chr(246) . chr(248) . chr(249) . chr(250) . chr(251)
+                . chr(252) . chr(253) . chr(255);
+
+            $chars['out'] = &quot;EfSZszYcYuAAAAAACEEEEIIIINOOOOOOUUUUYaaaaaaceeeeiiiinoooooouuuuyy&quot;;
+
+            $string = strtr($string, $chars['in'], $chars['out']);
+            $double_chars['in'] = array(chr(140), chr(156), chr(198), chr(208), chr(222), chr(223), chr(230), chr(240), chr(254));
+            $double_chars['out'] = array('OE', 'oe', 'AE', 'DH', 'TH', 'ss', 'ae', 'dh', 'th');
+            $string = str_replace($double_chars['in'], $double_chars['out'], $string);
+        }
+        return $string;
+    }
+}</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

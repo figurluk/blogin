@@ -87,7 +87,7 @@ class AdminsController extends Controller
     /**
      * Display Admin details
      *
-     * @param $id id of displayed Admin
+     * @param int $id id of displayed Admin
      * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
      * @author Lukas Figura <figurluk@gmail.com>
      */
@@ -100,7 +100,7 @@ class AdminsController extends Controller
     /**
      * Method handle POST request to update Admin
      *
-     * @param $id id of Admin which will be updated
+     * @param int $id id of Admin which will be updated
      * @param Request $request
      * @author Lukas Figura <figurluk@gmail.com>
      * @return \Illuminate\Http\RedirectResponse
@@ -169,6 +169,7 @@ class AdminsController extends Controller
      * Method removes Admin
      *
      * @param int $id id of Admin which will be removed
+     * @author Lukas Figura <figurluk@gmail.com>
      * @return \Illuminate\Http\RedirectResponse
      */
     public function remove($id)
@@ -182,7 +183,7 @@ class AdminsController extends Controller
     /**
      * Method generate random string
      *
-     * @param $length length of generated string
+     * @param int $length length of generated string
      * @author Lukas Figura <figurluk@gmail.com>
      * @return string
      */

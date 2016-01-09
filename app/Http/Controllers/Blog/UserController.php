@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App\Http\Controllers\Blog;
 
@@ -22,7 +25,12 @@ class UserController extends Controller
         $this->middleware('auth');
     }
 
-
+    /**
+     * Display User details which is logged to Blogin
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function edit()
     {
         $user = Auth::user();
@@ -30,11 +38,11 @@ class UserController extends Controller
     }
 
     /**
-     * Update the specified resource in storage.
+     * Method handle POST request for update logged User to Blogin
      *
-     * @param  \Illuminate\Http\Request $request
-     * @param  int $id
-     * @return \Illuminate\Http\Response
+     * @param Request $request
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function update(Request $request)
     {

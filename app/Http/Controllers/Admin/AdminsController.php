@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App\Http\Controllers\Admin;
 
@@ -70,7 +73,7 @@ class AdminsController extends Controller
         $user->password = bcrypt($pass);
         $user->save();
 
-        Mail::send('admin.emails.create_admin', ['user' => $user,'pass'=>$pass], function ($m) use ($user) {
+        Mail::send('admin.emails.create_admin', ['user' => $user, 'pass' => $pass], function ($m) use ($user) {
             $m->from('blogin@weebto.me', 'Blogin Administrátor');
             $m->to($user->email, $user->name)->subject('Boli ste zaregistrovaný ako administrátor.');
         });
@@ -118,19 +121,18 @@ class AdminsController extends Controller
                 'email.max' => 'Email môže mať najviac 255 znakov.',
             ]);
         }
-        if ($user->id == Auth::user()->id && $request->password!='') {
+        if ($user->id == Auth::user()->id && $request->password != '') {
             $this->validate($request, [
                 'password' => 'required|confirmed|min:6',
             ], [
-                'password.min'=>'Heslo musí mať minimálne 6 znakov.',
-                'password.required'=>'Heslo musí byť vyplnené.',
-                'password.confirmed'=>'Heslá sa musia zhodovať',
+                'password.min' => 'Heslo musí mať minimálne 6 znakov.',
+                'password.required' => 'Heslo musí byť vyplnené.',
+                'password.confirmed' => 'Heslá sa musia zhodovať',
             ]);
-        }
-        elseif($request->newpass) {
+        } elseif ($request->newpass) {
             $pass = $this->generateRandomString(6);
             $user->password = bcrypt($pass);
-            Mail::send('admin.emails.pass_user', ['user' => $user,'pass'=>$pass], function ($m) use ($user) {
+            Mail::send('admin.emails.pass_user', ['user' => $user, 'pass' => $pass], function ($m) use ($user) {
                 $m->from('blogin@weebto.me', 'Blogin Administrátor');
                 $m->to($user->email, $user->name)->subject('Bolo vám vygenerované nové heslo administrátorom.');
             });
@@ -152,7 +154,7 @@ class AdminsController extends Controller
         $user->surname = $request->surname;
         $user->notification = $request->notification;
         $user->email = $request->email;
-        if ($user->id == Auth::user()->id && $request->password!='') {
+        if ($user->id == Auth::user()->id && $request->password != '') {
             $user->password = bcrypt($request->password);
         }
         $user->save();
@@ -183,7 +185,7 @@ class AdminsController extends Controller
     /**
      * Method generate random string
      *
-     * @param $length length of generated string
+     * @param int $length length of generated string
      * @author Lukas Figura <figurluk@gmail.com>
      * @return string
      */

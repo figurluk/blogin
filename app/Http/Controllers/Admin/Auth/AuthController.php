@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App\Http\Controllers\Admin\Auth;
 
@@ -28,7 +31,13 @@ class AuthController extends Controller
     |
     */
 
+    /**
+     * @var string redirect path after login
+     */
     protected $redirectPath = '/admin';
+    /**
+     * @var string redirect path after logout
+     */
     protected $redirectAfterLogout = '/admin';
 
     use AuthenticatesAndRegistersUsers, ThrottlesLogins;

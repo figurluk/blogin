@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App;
 
@@ -11,6 +14,11 @@ use Illuminate\Contracts\Auth\Authenticatable as AuthenticatableContract;
 use Illuminate\Contracts\Auth\Access\Authorizable as AuthorizableContract;
 use Illuminate\Contracts\Auth\CanResetPassword as CanResetPasswordContract;
 
+/**
+ * Class User
+ * @author Lukas Figura <figurluk@gmail.com>
+ * @package App
+ */
 class User extends Model implements AuthenticatableContract,
     AuthorizableContract,
     CanResetPasswordContract
@@ -20,14 +28,19 @@ class User extends Model implements AuthenticatableContract,
     /**
      * The database table used by the model.
      *
+     * @author Lukas Figura <figurluk@gmail.com>
      * @var string
      */
     protected $table = 'users';
-    protected $dates = ['deleted_at'];
     /**
-     * The attributes that are mass assignable.
-     *
-     * @var array
+     * @var array column deleted_at fort soft deleting
+     * @author Lukas Figura <figurluk@gmail.com>
+     */
+    protected $dates = ['deleted_at'];
+
+    /**
+     * @var array columns which can not be accessed
+     * @author Lukas Figura <figurluk@gmail.com>
      */
     protected $guarded = [];
 
@@ -38,11 +51,25 @@ class User extends Model implements AuthenticatableContract,
      */
     protected $hidden = ['password', 'remember_token'];
 
-    public function articles(){
+    /**
+     * Method return Array of Articles created by User
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function articles()
+    {
         return $this->hasMany('App\Articles');
     }
 
-    public function comments() {
+    /**
+     * Method return Array of Comments created by User
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Database\Eloquent\Relations\HasMany
+     */
+    public function comments()
+    {
         return $this->hasMany('App\Comments');
     }
 }

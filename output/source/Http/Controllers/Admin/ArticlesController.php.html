@@ -1,0 +1,222 @@
+<html>
+    <head>
+        <script
+            type="text/javascript"
+            src="../../../../js/jquery-1.4.2.min.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shCore.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushJScript.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushPhp.js">
+        </script>
+        <script
+            type="text/javascript"
+            src="../../../../syntax_highlighter/scripts/shBrushXml.js">
+        </script>
+        <link
+            href="../../../../syntax_highlighter/styles/shCore.css" rel="stylesheet"
+            type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shCoreEclipse.css"
+            rel="stylesheet" type="text/css"
+        />
+        <link
+            href="../../../../syntax_highlighter/styles/shThemeWordpress.css"
+            rel="stylesheet" type="text/css"
+        />
+    </head>
+    <body>
+        <pre class="brush: php">&lt;?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
+
+namespace App\Http\Controllers\Admin;
+
+use App\Articles;
+use App\Http\Requests\CreateArticleRequest;
+use App\Tags;
+
+use App\Http\Requests;
+use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Input;
+use Illuminate\Support\Facades\Storage;
+use Intervention\Image\Facades\Image;
+
+/**
+ * Class ArticlesController
+ * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+ * @package App\Http\Controllers\Admin
+ */
+class ArticlesController extends Controller
+{
+    /**
+     * AdminController constructor.
+     */
+    public function __construct()
+    {
+        $this-&gt;middleware('auth.admin');
+    }
+
+
+    /**
+     * Display a list of Articles.
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\Response
+     */
+    public function index()
+    {
+        $articles = Articles::paginate(10);
+        return view('admin.articles.index', compact(['articles']));
+    }
+
+    /**
+     * Display a list of Articles created today
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function today()
+    {
+        return view('admin.articles.today');
+    }
+
+    /**
+     * Display view for creating new Article
+     *
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function create()
+    {
+        $tags = Tags::pluck('name', 'id');
+        return view('admin.articles.create', compact(['tags']));
+    }
+
+    /**
+     * Method handle POST request for create new Article
+     *
+     * @param CreateArticleRequest $request
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function store(CreateArticleRequest $request)
+    {
+        $disk = Storage::disk('local');
+        $article = new Articles();
+        $article-&gt;title = $request-&gt;title;
+        $article-&gt;content = trim($request-&gt;cont, &quot; \t&quot;);;
+        $article-&gt;topped = $request-&gt;topped;
+        $article-&gt;save();
+        $article-&gt;tags()-&gt;sync((array)$request-&gt;input('tags'));
+
+        if (Input::file('image') != null) {
+            $image = Input::file('image');
+            $destinationPath = $disk-&gt;getDriver()-&gt;getAdapter()-&gt;getPathPrefix();
+            $destinationPath .= &quot;/articles_img/&quot;;
+
+            $filename = substr($image-&gt;getClientOriginalName(), strrpos($image-&gt;getClientOriginalName(), '.'));
+            $filename = $article-&gt;id . $filename;
+
+            Image::make(Input::file('image'))-&gt;save($destinationPath . $filename);
+
+            $article-&gt;image = $filename;
+        }
+        $article-&gt;user()-&gt;associate(Auth::user());
+        $article-&gt;save();
+        flash()-&gt;info('&Uacute;spe&scaron;ne ste vytvorili čl&aacute;nok: ' . $article-&gt;title);
+        if (isset($request-&gt;save))
+            return redirect()-&gt;action('Admin\ArticlesController@edit', $article-&gt;id);
+        else
+            return redirect()-&gt;action('Admin\ArticlesController@index');
+
+    }
+
+    /**
+     * Display details of Article
+     *
+     * @param int $id if of displayed Article
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function edit($id)
+    {
+        $article = Articles::find($id);
+        $tags = Tags::pluck('name', 'id');
+        return view('admin.articles.edit', compact(['article', 'tags']));
+    }
+
+    /**
+     * Method handle POST request to update Article
+     *
+     * @param int $id id of Article which will be updated
+     * @param CreateArticleRequest $request
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function update($id, CreateArticleRequest $request)
+    {
+        $disk = Storage::disk('local');
+        $article = Articles::find($id);
+        $article-&gt;title = $request-&gt;title;
+        $article-&gt;content = trim($request-&gt;cont, &quot; \t&quot;);;
+        $article-&gt;topped = $request-&gt;topped;
+        $article-&gt;tags()-&gt;sync((array)$request-&gt;input('tags'));
+
+        if (Input::file('image') != null) {
+            $image = Input::file('image');
+            $destinationPath = $disk-&gt;getDriver()-&gt;getAdapter()-&gt;getPathPrefix();
+            $destinationPath .= &quot;articles_img/&quot;;
+
+            $filename = substr($image-&gt;getClientOriginalName(), strrpos($image-&gt;getClientOriginalName(), '.'));
+            $filename = $article-&gt;id . $filename;
+
+            if ($article-&gt;image != 'default.png') {
+                $disk-&gt;delete(&quot;articles_img/&quot; . $article-&gt;image);
+            }
+            Image::make(Input::file('image'))-&gt;save($destinationPath . $filename);
+            $article-&gt;image = $filename;
+        }
+
+        $article-&gt;save();
+        flash()-&gt;info('&Uacute;spe&scaron;ne ste upravili čl&aacute;nok: ' . $article-&gt;title);
+        if (isset($request-&gt;update))
+            return redirect()-&gt;action('Admin\ArticlesController@edit', $article-&gt;id);
+        else
+            return redirect()-&gt;action('Admin\ArticlesController@index');
+    }
+
+    /**
+     * Method remove Article
+     *
+     * @param int $id id of removed Article
+     * @author Lukas Figura &lt;figurluk@gmail.com&gt;
+     * @return \Illuminate\Http\RedirectResponse
+     */
+    public function remove($id)
+    {
+        $article = Articles::find($id);
+        flash()-&gt;info('&Uacute;spe&scaron;ne ste zmazali čl&aacute;nok: ' . $article-&gt;title);
+        $article-&gt;delete();
+        return redirect()-&gt;action('Admin\ArticlesController@index');
+    }
+}
+</pre>
+        <script type="text/javascript">
+             SyntaxHighlighter.all();
+             jQuery('.gutter div').each(function(key, data){
+                jQuery(data).prepend('<a name="L'+jQuery(data).text()+'"/>');
+             });
+        </script>
+    </body>
+</html>

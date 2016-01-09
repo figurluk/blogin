@@ -1,4 +1,7 @@
 <?php
+/**
+ * Copyright (c) 2016. Lukas Figura
+ */
 
 namespace App\Http\Controllers\Blog;
 
@@ -16,8 +19,10 @@ use Illuminate\Support\Facades\DB;
 class HomeController extends Controller
 {
     /**
-     * Display a listing of the resource.
+     * Display home page of Blogin with Articles ordered by date of updating.
+     * Topped articles are in top of page.
      *
+     * @author Lukas Figura <figurluk@gmail.com>
      * @return \Illuminate\Http\Response
      */
     public function index()
@@ -76,11 +81,19 @@ class HomeController extends Controller
         return view('blog.home.index', compact(['periods', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
     }
 
-    public function filterIndex($month,$year)
+    /**
+     * Display Articles updated in specific month and year.
+     * Topped articles are in top of page.
+     *
+     * @param int $month month of updated Articles
+     * @param int $year year of updated Articles
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function filterIndex($month, $year)
     {
         $periods = $this->getPeriods('');
         $articles = Articles::select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))
-            ->where(DB::raw('month(updated_at)'),$month)->where(DB::raw('year(updated_at)'),$year)->orderBy('updated_at', 'desc')->get();
+            ->where(DB::raw('month(updated_at)'), $month)->where(DB::raw('year(updated_at)'), $year)->orderBy('updated_at', 'desc')->get();
 
         $mainArt = null;
         $firstSub = null;
@@ -131,9 +144,16 @@ class HomeController extends Controller
             }
         }
 
-        return view('blog.home.index', compact(['month','year','periods', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
+        return view('blog.home.index', compact(['month', 'year', 'periods', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
     }
 
+    /**
+     * Method display specific count of Articles
+     *
+     * @param int $count count of Articles which will be getted from database
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function more($count)
     {
         $periods = $this->getPeriods('');
@@ -190,11 +210,20 @@ class HomeController extends Controller
         return view('blog.home.index', compact(['periods', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
     }
 
-    public function filterMore($month,$year,$count)
+    /**
+     * Display specific count of Articles filtred by month and year when was updated
+     *
+     * @param int $month month of getted Articles
+     * @param int $year year of getted Artices
+     * @param int $count count of Articles which will be getted from database
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function filterMore($month, $year, $count)
     {
         $periods = $this->getPeriods('');
         $articles = Articles::select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))
-            ->where(DB::raw('month(updated_at)'),$month)->where(DB::raw('year(updated_at)'),$year)->orderBy('updated_at', 'desc')->take($count)->get();
+            ->where(DB::raw('month(updated_at)'), $month)->where(DB::raw('year(updated_at)'), $year)->orderBy('updated_at', 'desc')->take($count)->get();
         $mainArt = null;
         $firstSub = null;
         $secondSub = null;
@@ -244,22 +273,44 @@ class HomeController extends Controller
             }
         }
 
-        return view('blog.home.index', compact(['month','year','periods', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
+        return view('blog.home.index', compact(['month', 'year', 'periods', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
     }
 
+    /**
+     * Display specific 4 Articles from database
+     *
+     * @param int $start count of Articles which are skipped from result of getting Articles from database
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
     public function next($start)
     {
         $articles = DB::table('articles')->orderBy('updated_at', 'desc')->skip($start)->take(4)->get();
         return view('blog.home.next', compact(['articles']));
     }
 
-    public function filterNext($month,$year,$start)
+    /**
+     * Display specific 4 Articles from database filtred by month and year when was updated
+     *
+     * @param int $month month of getted Articles
+     * @param int $year year of getted Articles
+     * @param int $start count of Articles which are skipped from result of getting Articles from database
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function filterNext($month, $year, $start)
     {
         $articles = Articles::select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))
-            ->where(DB::raw('month(updated_at)'),$month)->where(DB::raw('year(updated_at)'),$year)->orderBy('updated_at', 'desc')->skip($start)->take(4)->get();
+            ->where(DB::raw('month(updated_at)'), $month)->where(DB::raw('year(updated_at)'), $year)->orderBy('updated_at', 'desc')->skip($start)->take(4)->get();
         return view('blog.home.next', compact(['articles']));
     }
 
+    /**
+     * Method create array for calendar filter
+     *
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return array item contains number of month, number of year, month name
+     */
     private function getPeriods()
     {
         $periods = Articles::select(DB::raw('month(updated_at) as month, year(updated_at) as year'))->groupBy('month', 'year')
