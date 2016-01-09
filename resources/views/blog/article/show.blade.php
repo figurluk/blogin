@@ -24,7 +24,7 @@
                                                         class="fa fa-thumbs-up comment-icon jumpThumb"></i> {{$article->likes}}
                                             </a>
                                         @else
-                                            <i class="fa fa-thumbs-up comment-icon"></i>
+                                            <i class="fa fa-thumbs-up comment-icon"></i> {{$article->likes}}
                                         @endif
                     </span>
                                 </p>
@@ -55,6 +55,9 @@
             @if(count($article->comments)!=0)
                 <div class="container">
                     <h2>Komentáre</h2>
+                    @if(!Auth::check())
+                        <h3>Pre reagovanie na komentáre sa prosím prihláste.</h3>
+                    @endif
                     @foreach($article->comments()->where('comments_id',null)->orderBy('created_at')->get() as $comment)
                         <div class="comment-params">
                             <div class="comment-1lvl">
@@ -68,19 +71,21 @@
                                 <div class="comment-content">
                                     <p>{{$comment->content}}</p>
                                 </div>
-                                <a href="#" class="comment-reply reactionLink" data-targetID="{{$comment->id}}"
-                                   style="display: none">Reagovať</a>
-                                <div class="form-group subComment reactionInput{{$comment->id}}">
-                                    <hr>
-                                    {!! Form::open(['action'=>['Blog\ArticlesController@comment',$code],'method'=>'POST']) !!}
-                                    <div class="contentOfComment">
-                                        <input class="commentId" type="hidden" name="comment" value="{{$comment->id}}">
+                                @if(Auth::check())
+                                    <a href="#" class="comment-reply reactionLink" data-targetID="{{$comment->id}}"
+                                       style="display: none">Reagovať</a>
+                                    <div class="form-group subComment reactionInput{{$comment->id}}">
+                                        <hr>
+                                        {!! Form::open(['action'=>['Blog\ArticlesController@comment',$code],'method'=>'POST']) !!}
+                                        <div class="contentOfComment">
+                                            <input class="commentId" type="hidden" name="comment" value="{{$comment->id}}">
                                 <textarea name="cont" class="form-control commentMessage" rows="2"
                                           placeholder="Reakcia na {{($comment->user!=null) ? $comment->user->name.' '.$comment->user->surname:'Neznámy'}}"></textarea>
-                                        <button type="submit" class="btn btn-danger submitForm">Reagovať</button>
+                                            <button type="submit" class="btn btn-danger submitForm">Reagovať</button>
+                                        </div>
+                                        {!! Form::close() !!}
                                     </div>
-                                    {!! Form::close() !!}
-                                </div>
+                                @endif
                             </div>
                             @foreach($comment->comments()->whereNotNull('comments_id')->orderBy('created_at')->get() as $comment_lvl)
                                 <div class="comment-2lvl">
