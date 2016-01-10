@@ -93,7 +93,7 @@ class HomeController extends Controller
     {
         $periods = $this->getPeriods('');
         $articles = Articles::select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))
-            ->where(DB::raw('month(updated_at)'), $month)->where(DB::raw('year(updated_at)'), $year)->orderBy('updated_at', 'desc')->get();
+            ->where(DB::raw('month(updated_at)'), $month)->where(DB::raw('year(updated_at)'), $year)->orderBy('updated_at', 'desc')->take(10)->get();
 
         $mainArt = null;
         $firstSub = null;
@@ -144,7 +144,7 @@ class HomeController extends Controller
             }
         }
 
-        return view('blog.home.index', compact(['month', 'year', 'periods', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
+        return view('blog.home.filter', compact(['month', 'year', 'periods', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
     }
 
     /**
@@ -273,7 +273,7 @@ class HomeController extends Controller
             }
         }
 
-        return view('blog.home.index', compact(['month', 'year', 'periods', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
+        return view('blog.home.filter', compact(['month', 'year', 'periods', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
     }
 
     /**

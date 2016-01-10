@@ -14,39 +14,6 @@
 |
 */
 
-//BLOG ROUTES
-
-// Authentication routes...
-Route::get('auth/login', 'Blog\Auth\AuthController@getLogin');
-Route::post('auth/login', 'Blog\Auth\AuthController@postLogin');
-Route::get('auth/logout', 'Blog\Auth\AuthController@getLogout');
-// Registration routes...
-Route::get('auth/register', 'Blog\Auth\AuthController@getRegister');
-Route::post('auth/register', 'Blog\Auth\AuthController@postRegister');
-
-Route::get('/', 'Blog\HomeController@index');
-Route::get('user/', 'Blog\UserController@edit');
-Route::post('user/update', 'Blog\UserController@update');
-
-Route::get('more/{count}', 'Blog\HomeController@more');
-Route::get('next/{start}', 'Blog\HomeController@next');
-
-Route::get('tags/{code}', 'Blog\TagsController@show');
-Route::get('tags/{code}/more/{count}', 'Blog\TagsController@more');
-Route::get('tags/{code}/next/{start}', 'Blog\TagsController@next');
-Route::get('tags/{code}/{month}/{year}', 'Blog\TagsController@filterShow');
-Route::get('tags/{code}/{month}/{year}/more/{count}', 'Blog\TagsController@filterMore');
-Route::get('tags/{code}/{month}/{year}/next/{start}', 'Blog\TagsController@filterNext');
-
-Route::get('articles/{code}', 'Blog\ArticlesController@show');
-Route::post('articles/{code}/comment', 'Blog\ArticlesController@comment');
-Route::post('articles/{code}/like', 'Blog\ArticlesController@like');
-Route::get('articles/{code}/image', 'Blog\ArticlesController@getImage');
-
-Route::get('{month}/{year}', 'Blog\HomeController@filterIndex');
-Route::get('{month}/{year}/more/{count}', 'Blog\HomeController@filterMore');
-Route::get('{month}/{year}/next/{start}', 'Blog\HomeController@filterNext');
-
 
 //ADMIN ROUTES
 Route::get('admin/user/profile', 'Admin\UsersController@profile');
@@ -97,3 +64,37 @@ Route::post('admin/settings/update', 'Admin\SettingsController@update');
 Route::get('admin/auth/login', 'Admin\Auth\AuthController@getLogin');
 Route::post('admin/auth/login', 'Admin\Auth\AuthController@postLogin');
 Route::get('admin/auth/logout', 'Admin\Auth\AuthController@getLogout');
+
+//BLOG ROUTES
+
+// Authentication routes...
+Route::get('auth/login', 'Blog\Auth\AuthController@getLogin');
+Route::post('auth/login', 'Blog\Auth\AuthController@postLogin');
+Route::get('auth/logout', 'Blog\Auth\AuthController@getLogout');
+// Registration routes...
+Route::get('auth/register', 'Blog\Auth\AuthController@getRegister');
+Route::post('auth/register', 'Blog\Auth\AuthController@postRegister');
+
+Route::get('/', 'Blog\HomeController@index');
+Route::get('user/', 'Blog\UserController@edit');
+Route::post('user/update', 'Blog\UserController@update');
+
+Route::get('more/{count}', 'Blog\HomeController@more');
+Route::get('next/{start}', 'Blog\HomeController@next');
+
+Route::get('tags/{code}', 'Blog\TagsController@show');
+Route::get('tags/{code}/more/{count}', 'Blog\TagsController@more');
+Route::get('tags/{code}/next/{start}', 'Blog\TagsController@next');
+Route::get('tags/{code}/{month}/{year}', 'Blog\TagsController@filterShow');
+Route::get('tags/{code}/{month}/{year}/more/{count}', 'Blog\TagsController@filterMore');
+Route::get('tags/{code}/{month}/{year}/next/{start}', 'Blog\TagsController@filterNext');
+
+Route::get('articles/{code}', 'Blog\ArticlesController@show');
+Route::post('articles/{code}/comment', 'Blog\ArticlesController@comment');
+Route::post('articles/{code}/like', 'Blog\ArticlesController@like');
+Route::get('articles/{code}/image', 'Blog\ArticlesController@getImage');
+
+Route::get('{month}/{year}', 'Blog\HomeController@filterIndex');
+Route::get('{month}/{year}/more/{count}', 'Blog\HomeController@filterMore');
+Route::get('{month}/{year}/next/{start}', 'Blog\HomeController@filterNext');
+

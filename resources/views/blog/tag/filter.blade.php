@@ -165,7 +165,7 @@
     @if(count($articles)+6<count(\App\Articles::all()))
         <div class="row read-more">
             <div class="container-fluid">
-                <a href="{{action('Blog\TagsController@filterMore',[$month,$year,$tag->code,count($articles)+10])}}"
+                <a href="{{action('Blog\TagsController@filterMore',[$tag->code,$month,$year,count($articles)+10])}}"
                    class="btn btn-danger btn-read-more">Ďalšie články</a>
             </div>
         </div>
@@ -218,7 +218,7 @@
                                 if (countArticles < allArticles && !requestPenging) {
                                     requestPenging = true;
                                     $.ajax({
-                                        url: '{{url('home/tags/')}}' + '/{{$tag->code}}/{{$month}}/{{$year}}/next/' + countArticles,
+                                        url: '{{action('Blog\TagsController@filterShow',[$tag->code,$month,$year])}}' + '/next/' + countArticles,
                                         type: 'get',
                                         error: function () {
                                         },

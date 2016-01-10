@@ -220,7 +220,7 @@
                                 if (countArticles < allArticles && !requestPenging) {
                                     requestPenging = true;
                                     $.ajax({
-                                        url: '{{url('home/')}}' +'{{$month}}/{{$year}}' +'/next/' + countArticles,
+                                        url: '{{action('Blog\HomeController@filterIndex',[$month,$year])}}' + '/next/' + countArticles,
                                         type: 'get',
                                         error: function () {
                                         },

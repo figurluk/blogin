@@ -218,7 +218,7 @@
                                 if (countArticles < allArticles && !requestPenging) {
                                     requestPenging = true;
                                     $.ajax({
-                                        url: '{{url('home/tags/')}}' + '/{{$tag->code}}/next/' + countArticles,
+                                        url: '{{url('tags/')}}' + '/{{$tag->code}}/next/' + countArticles,
                                         type: 'get',
                                         error: function () {
                                         },

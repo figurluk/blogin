@@ -220,7 +220,7 @@
                     if (countArticles < allArticles && !requestPenging) {
                         requestPenging = true;
                         $.ajax({
-                            url: '{{url('home/next/')}}' + '/' + countArticles,
+                            url: '{{url('next/')}}' + '/' + countArticles,
                             type: 'get',
                             error: function () {
                             },

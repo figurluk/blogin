@@ -99,7 +99,7 @@ class TagsController extends Controller
         $periods = $this->getPeriods($code);
         $tag = Tags::where('code', $code)->first();
         $articles = $tag->articles()->select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))
-            ->where(DB::raw('month(updated_at)'), $month)->where(DB::raw('year(updated_at)'), $year)->orderBy('updated_at', 'desc')->get();
+            ->where(DB::raw('month(updated_at)'), $month)->where(DB::raw('year(updated_at)'), $year)->orderBy('updated_at', 'desc')->take(10)->get();
 
         $mainArt = null;
         $firstSub = null;
@@ -150,7 +150,7 @@ class TagsController extends Controller
             }
         }
 
-        return view('blog.tag.index', compact(['month', 'year', 'periods', 'tag', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
+        return view('blog.tag.filter', compact(['month', 'year', 'periods', 'tag', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
     }
 
 
@@ -216,7 +216,7 @@ class TagsController extends Controller
             }
         }
 
-        return view('blog.home.index', compact(['periods', 'tag', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
+        return view('blog.tag.index', compact(['periods', 'tag', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
     }
 
     /**
@@ -284,7 +284,7 @@ class TagsController extends Controller
             }
         }
 
-        return view('blog.home.index', compact(['month', 'year', 'periods', 'tag', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
+        return view('blog.tag.filter', compact(['month', 'year', 'periods', 'tag', 'articles', 'mainArt', 'firstSub', 'secondSub', 'firstSubSub', 'secondSubSub', 'thirdSubSub']));
     }
 
     /**
@@ -299,7 +299,7 @@ class TagsController extends Controller
     {
         $tag = Tags::where('code', $code)->first();
         $articles = $tag->articles()->orderBy('updated_at', 'desc')->skip($start)->take(4)->get();
-        return view('blog.home.next', compact(['articles']));
+        return view('blog.tag.next', compact(['articles']));
     }
 
     /**
@@ -317,7 +317,7 @@ class TagsController extends Controller
         $tag = Tags::where('code', $code)->first();
         $articles = $tag->articles()->select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))
             ->where(DB::raw('month(updated_at)'), $month)->where(DB::raw('year(updated_at)'), $year)->orderBy('updated_at', 'desc')->skip($start)->take(4)->get();
-        return view('blog.home.next', compact(['articles']));
+        return view('blog.tag.next', compact(['articles']));
     }
 
     /**
