@@ -8,15 +8,15 @@
     <meta name="description" content="Blogin project">
     <meta name="author" content="Lukas Figura">
     <meta name="csrf-token" content="<?= csrf_token() ?>">
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/favicon.png')}}"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('public/img/favicon.png')}}"/>
 
     <title>Blogin</title>
 
     <!-- Bootstrap core CSS -->
-    <link href="{{asset('css/bootstrap.css')}}" rel="stylesheet">
-    <link href="{{asset('css/custom'.\App\Settings::first()->design.'.css')}}" rel="stylesheet">
+    <link href="{{asset('public/css/bootstrap.css')}}" rel="stylesheet">
+    <link href="{{asset('public/css/custom'.\App\Settings::first()->design.'.css')}}" rel="stylesheet">
 
-    <link href="{{asset('css/font-awesome.min.css')}}" rel="stylesheet">
+    <link href="{{asset('public/css/font-awesome.min.css')}}" rel="stylesheet">
     @yield('styles')
 
 
@@ -95,9 +95,9 @@
         <!-- Bootstrap core JavaScript
             ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="{{asset('js/jquery.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/bootstrap.min.js')}}" type="text/javascript"></script>
-<script src="{{asset('js/jquery-ui.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('public/js/jquery.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('public/js/bootstrap.min.js')}}" type="text/javascript"></script>
+<script src="{{asset('public/js/jquery-ui.min.js')}}" type="text/javascript"></script>
 <script type="text/javascript">
     $.ajaxSetup({
         headers: {

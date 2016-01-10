@@ -36,7 +36,7 @@
                     </div>
                 </div>
 
-                <div class="col-lg-2">
+                <div class="col-lg-4">
                     <div class="checkbox">
                         <label>
                             {!! Form::hidden('topped', 0) !!}
