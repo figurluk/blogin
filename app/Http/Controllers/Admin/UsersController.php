@@ -189,6 +189,7 @@ class UsersController extends Controller
     public function update($id, Request $request)
     {
         $user = User::find($id);
+        $pass = "";
         if ($user->email != $request->email) {
             $this->validate($request, [
                 'email' => 'required|email|max:255|unique:users,email,NULL,id,deleted_at,NULL',
@@ -213,10 +214,6 @@ class UsersController extends Controller
         if ($request->password) {
             $pass = $this->generateRandomString(6);
             $user->password = bcrypt($pass);
-            Mail::send('admin.emails.pass_user', ['user' => $user, 'pass' => $pass], function ($m) use ($user) {
-                $m->from('blogin@weebto.me', 'Blogin Administrátor');
-                $m->to($user->email, $user->name)->subject('Bolo vám vygenerované nové heslo administrátorom.');
-            });
         }
 
         $user->name = $request->name;
@@ -224,6 +221,12 @@ class UsersController extends Controller
         $user->email = $request->email;
         $user->notification = $request->notification;
         $user->save();
+        if ($request->password) {
+            Mail::send('admin.emails.pass_user', ['user' => $user, 'pass' => $pass], function ($m) use ($user) {
+                $m->from('blogin@weebto.me', 'Blogin Administrátor');
+                $m->to($user->email, $user->name)->subject('Bolo vám vygenerované nové heslo administrátorom.');
+            });
+        }
 
         flash()->info('Úspešne ste upravili užívateľa: ' . $user->name);
         if (isset($request->update))
