@@ -140,7 +140,6 @@ class UsersController extends Controller
                 'newpassword.required' => 'Heslo musí byť vyplnené.',
                 'newpassword.confirmed' => 'Heslá sa musia zhodovať',
             ]);
-            $user->password = bcrypt($request->newpassword);
         }
         $this->validate($request, [
             'name' => 'required|max:255|string',
@@ -153,6 +152,9 @@ class UsersController extends Controller
             'surname.required' => 'Priezvisko musí byť vyplnené.',
             'surname.max' => 'Priezvisko môže mať najviac 255 znakov.',
         ]);
+        if ($request->newpassword != "") {
+            $user->password = bcrypt($request->newpassword);
+        }
 
         $user->name = $request->name;
         $user->surname = $request->surname;
@@ -197,14 +199,6 @@ class UsersController extends Controller
                 'email.max' => 'Email môže mať najviac 255 znakov.',
             ]);
         }
-        if ($request->password) {
-            $pass = $this->generateRandomString(6);
-            $user->password = bcrypt($pass);
-            Mail::send('admin.emails.pass_user', ['user' => $user, 'pass' => $pass], function ($m) use ($user) {
-                $m->from('blogin@weebto.me', 'Blogin Administrátor');
-                $m->to($user->email, $user->name)->subject('Bolo vám vygenerované nové heslo administrátorom.');
-            });
-        }
         $this->validate($request, [
             'name' => 'required|max:255|string',
             'surname' => 'required|max:255|string',
@@ -216,6 +210,14 @@ class UsersController extends Controller
             'surname.required' => 'Priezvisko musí byť vyplnené.',
             'surname.max' => 'Priezvisko môže mať najviac 255 znakov.',
         ]);
+        if ($request->password) {
+            $pass = $this->generateRandomString(6);
+            $user->password = bcrypt($pass);
+            Mail::send('admin.emails.pass_user', ['user' => $user, 'pass' => $pass], function ($m) use ($user) {
+                $m->from('blogin@weebto.me', 'Blogin Administrátor');
+                $m->to($user->email, $user->name)->subject('Bolo vám vygenerované nové heslo administrátorom.');
+            });
+        }
 
         $user->name = $request->name;
         $user->surname = $request->surname;

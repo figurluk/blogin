@@ -134,14 +134,6 @@ class AdminsController extends Controller
                 'newpassword.required' => 'Heslo musí byť vyplnené.',
                 'newpassword.confirmed' => 'Heslá sa musia zhodovať',
             ]);
-            $user->password = bcrypt($request->newpassword);
-        } elseif ($request->newpass) {
-            $pass = $this->generateRandomString(6);
-            $user->password = bcrypt($pass);
-            Mail::send('admin.emails.pass_user', ['user' => $user, 'pass' => $pass], function ($m) use ($user) {
-                $m->from('blogin@weebto.me', 'Blogin Administrátor');
-                $m->to($user->email, $user->name)->subject('Bolo vám vygenerované nové heslo administrátorom.');
-            });
         }
         $this->validate($request, [
             'name' => 'required|max:255|string',
@@ -154,6 +146,18 @@ class AdminsController extends Controller
             'surname.required' => 'Priezvisko musí byť vyplnené.',
             'surname.max' => 'Priezvisko môže mať najviac 255 znakov.',
         ]);
+
+
+        if ($user->id == Auth::user()->id && $request->newpassword != '') {
+            $user->password = bcrypt($request->newpassword);
+        } elseif ($request->newpass) {
+            $pass = $this->generateRandomString(6);
+            $user->password = bcrypt($pass);
+            Mail::send('admin.emails.pass_user', ['user' => $user, 'pass' => $pass], function ($m) use ($user) {
+                $m->from('blogin@weebto.me', 'Blogin Administrátor');
+                $m->to($user->email, $user->name)->subject('Bolo vám vygenerované nové heslo administrátorom.');
+            });
+        }
 
         $user->name = $request->name;
         $user->admin = 1;
