@@ -25,29 +25,27 @@ Route::get('auth/register', 'Blog\Auth\AuthController@getRegister');
 Route::post('auth/register', 'Blog\Auth\AuthController@postRegister');
 
 Route::get('/', 'Blog\HomeController@index');
-Route::get('home', 'Blog\HomeController@index');
+Route::get('user/', 'Blog\UserController@edit');
+Route::post('user/update', 'Blog\UserController@update');
 
-Route::get('home/user/', 'Blog\UserController@edit');
-Route::post('home/user/update', 'Blog\UserController@update');
+Route::get('more/{count}', 'Blog\HomeController@more');
+Route::get('next/{start}', 'Blog\HomeController@next');
 
-Route::get('home/more/{count}', 'Blog\HomeController@more');
-Route::get('home/next/{start}', 'Blog\HomeController@next');
+Route::get('tags/{code}', 'Blog\TagsController@show');
+Route::get('tags/{code}/more/{count}', 'Blog\TagsController@more');
+Route::get('tags/{code}/next/{start}', 'Blog\TagsController@next');
+Route::get('tags/{code}/{month}/{year}', 'Blog\TagsController@filterShow');
+Route::get('tags/{code}/{month}/{year}/more/{count}', 'Blog\TagsController@filterMore');
+Route::get('tags/{code}/{month}/{year}/next/{start}', 'Blog\TagsController@filterNext');
 
-Route::get('home/tags/{code}', 'Blog\TagsController@show');
-Route::get('home/tags/{code}/more/{count}', 'Blog\TagsController@more');
-Route::get('home/tags/{code}/next/{start}', 'Blog\TagsController@next');
-Route::get('home/tags/{code}/{month}/{year}', 'Blog\TagsController@filterShow');
-Route::get('home/tags/{code}/{month}/{year}/more/{count}', 'Blog\TagsController@filterMore');
-Route::get('home/tags/{code}/{month}/{year}/next/{start}', 'Blog\TagsController@filterNext');
+Route::get('articles/{code}', 'Blog\ArticlesController@show');
+Route::post('articles/{code}/comment', 'Blog\ArticlesController@comment');
+Route::post('articles/{code}/like', 'Blog\ArticlesController@like');
+Route::get('articles/{code}/image', 'Blog\ArticlesController@getImage');
 
-Route::get('home/articles/{code}', 'Blog\ArticlesController@show');
-Route::post('home/articles/{code}/comment', 'Blog\ArticlesController@comment');
-Route::post('home/articles/{code}/like', 'Blog\ArticlesController@like');
-Route::get('home/articles/{code}/image', 'Blog\ArticlesController@getImage');
-
-Route::get('home/{month}/{year}', 'Blog\HomeController@filterIndex');
-Route::get('home/{month}/{year}/more/{count}', 'Blog\HomeController@filterMore');
-Route::get('home/{month}/{year}/next/{start}', 'Blog\HomeController@filterNext');
+Route::get('{month}/{year}', 'Blog\HomeController@filterIndex');
+Route::get('{month}/{year}/more/{count}', 'Blog\HomeController@filterMore');
+Route::get('{month}/{year}/next/{start}', 'Blog\HomeController@filterNext');
 
 
 //ADMIN ROUTES
