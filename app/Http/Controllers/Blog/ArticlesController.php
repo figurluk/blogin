@@ -79,7 +79,7 @@ class ArticlesController extends Controller
             $comm = Comments::find($request->comment);
             $comm->comments()->save($comment);
             if ($comment->user->notification) {
-                Mail::send('blog.emails.answer_comment', ['comment' => $comment], function ($m) use ($comment) {
+                Mail::send('blog.emails.answer_comment', ['comment' => $comment,'commented_comment' => $comm], function ($m) use ($comment) {
                     $m->from('blogin@weebto.me', 'Blogin Administrátor');
                     $m->to($comment->user->email, $comment->user->name . ' ' . $comment->user->surname)->subject('Reakcia na Váš komentár.');
                 });
