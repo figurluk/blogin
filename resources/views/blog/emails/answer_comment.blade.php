@@ -311,9 +311,6 @@
                                                     používateľom {{$comment->user->name}} {{$comment->user->surname}}.
                                                 </p>
                                                 <p style="text-align: left;">
-                                                    Vaše heslo je: {{$pass}}
-                                                </p>
-                                                <p style="text-align: left;">
                                                     Prečítať si ho môžte <a
                                                             href="{{action('Blog\ArticlesController@show',$comment->articles->code)}}">tu.</a>
                                                 </p>
