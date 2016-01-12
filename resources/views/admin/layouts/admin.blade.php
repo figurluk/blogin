@@ -16,10 +16,9 @@
     <link href="{{asset('public/css/bootstrap.min.css')}}" rel="stylesheet">
 
     <!-- MetisMenu CSS -->
-    <link href="{{asset('public/css/metisMenu.min.css')}}" rel="stylesheet">
+    <link href="{{asset('public/css/metisMenu.css')}}" rel="stylesheet">
     <!-- SweetAlert CSS -->
     <link href="{{asset('public/css/sweetalert.css')}}" rel="stylesheet">
-
 
     <!-- Custom CSS -->
     <link href="{{asset('public/css/sb-admin-2.css')}}" rel="stylesheet">

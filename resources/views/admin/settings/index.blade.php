@@ -33,9 +33,9 @@
             <div class="radio col-lg-6">
                 <h5>Náhľad</h5>
 
-                <img class="col-lg-12" src="{{asset('img/design1.png')}}" alt="Design blogu"
+                <img class="col-lg-12" src="{{asset('public/img/design1.png')}}" alt="Design blogu"
                      id="design1" {{($settings->design!=1) ? 'style=display:none' : ''}}>
-                <img class="col-lg-12" src="{{asset('img/design2.png')}}" alt="Design blogu"
+                <img class="col-lg-12" src="{{asset('public/img/design2.png')}}" alt="Design blogu"
                      id="design2" {{($settings->design!=2) ? 'style=display:none' : ''}}>
             </div>
             {!! Form::close() !!}
