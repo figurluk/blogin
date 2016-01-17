@@ -72,8 +72,7 @@
                         <div class="form-group">
                             <label for="password">Heslo</label>
                             <input type="password" class="form-control" id="password" name="password" tabindex="4"
-                                   pattern=".{6,}" title="Pole musí obsahovať minimálne 6 znakov!"
-                                   required>
+                                   pattern=".{6,}" title="Pole musí obsahovať minimálne 6 znakov!">
                             <span class="help-block">Vyplňte v prípade zadávania nového hesla.</span>
                             <span class="glyphicon glyphicon-remove remove-glyph" style="display:none"></span>
                             <span class="glyphicon glyphicon-ok ok-glyph" style="display:none"></span>
@@ -86,8 +85,7 @@
                         <div class="form-group">
                             <label for="newpassword">Nové heslo</label>
                             <input type="password" class="form-control" id="newpassword" name="newpassword" tabindex="4"
-                                   pattern=".{6,}" title="Pole musí obsahovať minimálne 6 znakov!"
-                                   required>
+                                   pattern=".{6,}" title="Pole musí obsahovať minimálne 6 znakov!">
                             <span class="glyphicon glyphicon-remove remove-glyph" style="display:none"></span>
                             <span class="glyphicon glyphicon-ok ok-glyph" style="display:none"></span>
                                     <span class="register-error-empty"

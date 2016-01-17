@@ -6,7 +6,7 @@
         @include('blog.errors.show_error')
         <h3>Vaše údaje</h3>
         <h5>* Povinné údaje</h5>
-        <form method="POST" action="{{ url('home/user/update') }}">
+        <form method="POST" action="{{ action('Blog\UserController@update') }}">
             <input type="hidden" name="_token" value="{{ csrf_token() }}">
 
             <div class="form-group">
