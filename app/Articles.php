@@ -51,6 +51,19 @@ class Articles extends Model
     }
 
     /**
+     * Method format value of column created_at when it is accessed
+     *
+     * @param string $value value from column created_at of specific Article
+     * @author Lukas Figura <figurluk@gmail.com>
+     * @return string formatted $value
+     */
+    public function getCreatedAtAttribute($value)
+    {
+        $value = date('j.n.Y', strtotime($value));
+        return $value;
+    }
+
+    /**
      * Method return user which created Article
      *
      * @author Lukas Figura <figurluk@gmail.com>
