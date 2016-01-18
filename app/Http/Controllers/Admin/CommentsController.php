@@ -38,7 +38,7 @@ class CommentsController extends Controller
      */
     public function index()
     {
-        $comments = Comments::paginate(10);
+        $comments = Comments::orderBy('created_at','desc')->paginate(10);
         return view('admin.comments.index', compact(['comments']));
     }
 

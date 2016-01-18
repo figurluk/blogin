@@ -31,7 +31,7 @@ class TagsController extends Controller
     {
         $periods = $this->getPeriods($code);
         $tag = Tags::where('code', $code)->first();
-        $articles = $tag->articles()->orderBy('updated_at', 'desc')->take(10)->get();
+        $articles = $tag->articles()->orderBy('created_at', 'desc')->take(10)->get();
 
         $mainArt = null;
         $firstSub = null;
@@ -98,8 +98,8 @@ class TagsController extends Controller
     {
         $periods = $this->getPeriods($code);
         $tag = Tags::where('code', $code)->first();
-        $articles = $tag->articles()->select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))
-            ->where(DB::raw('month(updated_at)'), $month)->where(DB::raw('year(updated_at)'), $year)->orderBy('updated_at', 'desc')->take(10)->get();
+        $articles = $tag->articles()->select(DB::raw('*, month(created_at) as month, year(created_at) as year'))
+            ->where(DB::raw('month(created_at)'), $month)->where(DB::raw('year(created_at)'), $year)->orderBy('created_at', 'desc')->take(10)->get();
 
         $mainArt = null;
         $firstSub = null;
@@ -166,7 +166,7 @@ class TagsController extends Controller
     {
         $periods = $this->getPeriods($code);
         $tag = Tags::where('code', $code)->first();
-        $articles = $tag->articles()->orderBy('updated_at', 'desc')->take($count)->get();
+        $articles = $tag->articles()->orderBy('created_at', 'desc')->take($count)->get();
         $mainArt = null;
         $firstSub = null;
         $secondSub = null;
@@ -233,8 +233,8 @@ class TagsController extends Controller
     {
         $periods = $this->getPeriods($code);
         $tag = Tags::where('code', $code)->first();
-        $articles = $tag->articles()->select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))
-            ->where(DB::raw('month(updated_at)'), $month)->where(DB::raw('year(updated_at)'), $year)->orderBy('updated_at', 'desc')->take($count)->get();
+        $articles = $tag->articles()->select(DB::raw('*, month(created_at) as month, year(created_at) as year'))
+            ->where(DB::raw('month(created_at)'), $month)->where(DB::raw('year(created_at)'), $year)->orderBy('created_at', 'desc')->take($count)->get();
         $mainArt = null;
         $firstSub = null;
         $secondSub = null;
@@ -298,7 +298,7 @@ class TagsController extends Controller
     public function next($code, $start)
     {
         $tag = Tags::where('code', $code)->first();
-        $articles = $tag->articles()->orderBy('updated_at', 'desc')->skip($start)->take(4)->get();
+        $articles = $tag->articles()->orderBy('created_at', 'desc')->skip($start)->take(4)->get();
         return view('blog.tag.next', compact(['articles']));
     }
 
@@ -315,8 +315,8 @@ class TagsController extends Controller
     public function filterNext($code, $month, $year, $start)
     {
         $tag = Tags::where('code', $code)->first();
-        $articles = $tag->articles()->select(DB::raw('*, month(updated_at) as month, year(updated_at) as year'))
-            ->where(DB::raw('month(updated_at)'), $month)->where(DB::raw('year(updated_at)'), $year)->orderBy('updated_at', 'desc')->skip($start)->take(4)->get();
+        $articles = $tag->articles()->select(DB::raw('*, month(created_at) as month, year(created_at) as year'))
+            ->where(DB::raw('month(created_at)'), $month)->where(DB::raw('year(created_at)'), $year)->orderBy('created_at', 'desc')->skip($start)->take(4)->get();
         return view('blog.tag.next', compact(['articles']));
     }
 
@@ -329,7 +329,7 @@ class TagsController extends Controller
     private function getPeriods($tagCode)
     {
         $tag = Tags::where('code', $tagCode)->first();
-        $periods = $tag->articles()->select(DB::raw('month(updated_at) as month, year(updated_at) as year'))->groupBy('month', 'year')
+        $periods = $tag->articles()->select(DB::raw('month(created_at) as month, year(created_at) as year'))->groupBy('month', 'year')
             ->orderBy('year', 'desc')->orderBy('month', 'desc')->get();
         $months = array(
             1 => 'Január',

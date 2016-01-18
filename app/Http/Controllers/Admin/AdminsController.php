@@ -40,7 +40,7 @@ class AdminsController extends Controller
      */
     public function index()
     {
-        $admins = User::where('admin', 1)->paginate(10);
+        $admins = User::where('admin', 1)->orderBy('created_at','desc')->paginate(10);
         return view('admin.admins.index', compact(['admins']));
     }
 

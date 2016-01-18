@@ -33,7 +33,9 @@
                         <td>{{count($newUser->comments)}}</td>
                         <td>{{($newUser->admin==1) ? 'Áno' : 'Nie'}}</td>
                         <td>
-                            <a class="btn btn-warning" href="{{action('Admin\UsersController@edit',$newUser->id)}}"><span class="glyphicon glyphicon-pencil"></span> Upraviť</a>
+                            <a class="btn btn-warning"
+                               href="{{($newUser->admin==0) ? action('Admin\UsersController@edit',$newUser->id) : action('Admin\AdminsController@edit',$newUser->id)}}"><span
+                                        class="glyphicon glyphicon-pencil"></span> Upraviť</a>
                             @if($newUser->id != Auth::user()->id)
                                 <a class="btn btn-danger deleteUser" data-user="{{$newUser->name}} {{$newUser->surname}}"
                                    href="{{action('Admin\UsersController@remove',$newUser->id)}}"><span
@@ -71,7 +73,7 @@
 
             swal({
                         title: "Určite vymazať?",
-                        text: "Skutočne chcete vymazať užívateľa: " + $(target).attr('user') + " ? Ak má užívateľ zverejnené komentáre. Autor týchto komentárov bude neznámy.",
+                        text: "Skutočne chcete vymazať: " + $(target).attr('user') + " ? Ak má zverejnené komentáre/články. Autor týchto komentárov bude neznámy.",
                         type: "warning",
                         showCancelButton: true,
                         cancelButtonText: "Zrušiť",

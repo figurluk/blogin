@@ -11,7 +11,7 @@
                     <div class="desc1 desc" id="{{$mainArt->code}}">
                         <p><a href="{{action('Blog\ArticlesController@show',$mainArt->code)}}">{{$mainArt->title}}</a>
                             <span class="main-article-icon pull-right articleInfo">
-                  <i class="fa fa-calendar-plus-o"></i> {{$mainArt->updated_at}}
+                  <i class="fa fa-calendar-plus-o"></i> {{$mainArt->created_at}}
                                 <i class="fa fa-user comment-icon"></i> {{($mainArt->user!=null) ? $mainArt->user->name.' '.$mainArt->user->surname:'Neznámy'}}
                                 <i class="fa fa-commenting comment-icon"></i> {{count($mainArt->comments)}}
                                 <i class="fa fa-thumbs-up comment-icon"></i> {{$mainArt->likes}}
@@ -30,7 +30,7 @@
                                 <p>
                                     <a href="{{action('Blog\ArticlesController@show',$firstSub->code)}}">{{$firstSub->title}}</a>
                                     <span class="main-article-icon2 pull-right articleInfo">
-                      <i class="fa fa-calendar-plus-o"></i> {{$firstSub->updated_at}}
+                      <i class="fa fa-calendar-plus-o"></i> {{$firstSub->created_at}}
                                         <i class="fa fa-user comment-icon"></i> {{($firstSub->user!=null) ? $firstSub->user->name.' '.$firstSub->user->surname:'Neznámy'}}
                                         <i class="fa fa-commenting comment-icon"></i> {{count($firstSub->comments)}}
                                         <i class="fa fa-thumbs-up comment-icon"></i> {{$firstSub->likes}}
@@ -50,7 +50,7 @@
                                 <p>
                                     <a href="{{action('Blog\ArticlesController@show',$secondSub->code)}}">{{$secondSub->title}}</a>
                                     <span class="main-article-icon2 pull-right articleInfo">
-                                  <i class="fa fa-calendar-plus-o"></i> {{$secondSub->updated_at}}
+                                  <i class="fa fa-calendar-plus-o"></i> {{$secondSub->created_at}}
                                         <i class="fa fa-user comment-icon"></i> {{($secondSub->user!=null) ? $secondSub->user->name.' '.$secondSub->user->surname:'Neznámy'}}
                                         <i class="fa fa-commenting comment-icon"></i> {{count($secondSub->comments)}}
                                         <i class="fa fa-thumbs-up comment-icon"></i> {{$secondSub->likes}}
@@ -75,7 +75,7 @@
                             <p>
                                 <a href="{{action('Blog\ArticlesController@show',$firstSubSub->code)}}">{{$firstSubSub->title}}</a>
                                 <span class="main-article-icon2 pull-right articleInfo">
-                                  <i class="fa fa-calendar-plus-o"></i> {{$firstSubSub->updated_at}}
+                                  <i class="fa fa-calendar-plus-o"></i> {{$firstSubSub->created_at}}
                                     <i class="fa fa-user comment-icon"></i> {{($firstSubSub->user!=null) ? $firstSubSub->user->name.' '.$firstSubSub->user->surname:'Neznámy'}}
                                     <i class="fa fa-commenting comment-icon"></i> {{count($firstSubSub->comments)}}
                                     <i class="fa fa-thumbs-up comment-icon"></i> {{$firstSubSub->likes}}
@@ -95,7 +95,7 @@
                             <p>
                                 <a href="{{action('Blog\ArticlesController@show',$secondSubSub->code)}}">{{$secondSubSub->title}}</a>
                                 <span class="main-article-icon2 pull-right articleInfo">
-                                  <i class="fa fa-calendar-plus-o"></i> {{$secondSubSub->updated_at}}
+                                  <i class="fa fa-calendar-plus-o"></i> {{$secondSubSub->created_at}}
                                     <i class="fa fa-user comment-icon"></i> {{($secondSubSub->user!=null) ? $secondSubSub->user->name.' '.$secondSubSub->user->surname:'Neznámy'}}
                                     <i class="fa fa-commenting comment-icon"></i> {{count($secondSubSub->comments)}}
                                     <i class="fa fa-thumbs-up comment-icon"></i> {{$secondSubSub->likes}}
@@ -115,7 +115,7 @@
                             <p>
                                 <a href="{{action('Blog\ArticlesController@show',$thirdSubSub->code)}}">{{$thirdSubSub->title}}</a>
                                 <span class="main-article-icon2 pull-right articleInfo">
-                                  <i class="fa fa-calendar-plus-o"></i> {{$thirdSubSub->updated_at}}
+                                  <i class="fa fa-calendar-plus-o"></i> {{$thirdSubSub->created_at}}
                                     <i class="fa fa-user comment-icon"></i> {{($thirdSubSub->user!=null) ? $thirdSubSub->user->name.' '.$thirdSubSub->user->surname:'Neznámy'}}
                                     <i class="fa fa-commenting comment-icon"></i> {{count($thirdSubSub->comments)}}
                                     <i class="fa fa-thumbs-up comment-icon"></i> {{$thirdSubSub->likes}}
