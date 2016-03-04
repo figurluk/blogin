@@ -18,6 +18,8 @@ use Illuminate\Support\Facades\DB;
  */
 class HomeController extends Controller
 {
+
+
     /**
      * Display home page of Blogin with Articles ordered by date of updating.
      * Topped articles are in top of page.
