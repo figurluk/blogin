@@ -7,14 +7,14 @@
     <meta name="description" content="Blogin project">
     <meta name="author" content="Lukas Figura">
 
-    <link rel="shortcut icon" type="image/x-icon" href="{{asset('public/img/favicon.png')}}"/>
+    <link rel="shortcut icon" type="image/x-icon" href="{{asset('img/favicon.png')}}"/>
 
     <title>Blogin</title>
 
-    <link href="{{asset("public/css/bootstrap.css")}}" rel="stylesheet">
-    <link href="{{asset("public/css/bootstrap-theme.css")}}" rel="stylesheet">
-    <link href="{{asset("public/css/auth.css")}}" rel="stylesheet">
-    <link href="{{asset("public/css/admin_sign.css")}}" rel="stylesheet">
+    <link href="{{asset("css/bootstrap.css")}}" rel="stylesheet">
+    <link href="{{asset("css/bootstrap-theme.css")}}" rel="stylesheet">
+    <link href="{{asset("css/auth.css")}}" rel="stylesheet">
+    <link href="{{asset("css/admin_sign.css")}}" rel="stylesheet">
 
     <link href="http://maxcdn.bootstrapcdn.com/font-awesome/4.1.0/css/font-awesome.min.css" rel="stylesheet"
           type="text/css">
@@ -29,7 +29,7 @@
     <![endif]-->
 </head>
 
-<body style="background-image: url({{ URL::asset('public/img/loginbg.jpg') }})">
+<body style="background-image: url({{ URL::asset('img/loginbg.jpg') }})">
 
 @section('navbar')
 
@@ -45,8 +45,8 @@
         <!-- Bootstrap core JavaScript
 ================================================== -->
 <!-- Placed at the end of the document so the pages load faster -->
-<script src="{{asset('public/js/jquery.js')}}"></script>
-<script src="{{asset('public/js/bootstrap.js')}}"></script>
+<script src="{{asset('js/jquery.js')}}"></script>
+<script src="{{asset('js/bootstrap.js')}}"></script>
 @section('scripts')
 @show
 </body>
